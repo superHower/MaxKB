@@ -97,6 +97,7 @@ function toUrl(url: string) {
 </script>
 <style scoped lang="scss">
 .top-about {
+  display: none;
   .el-button.is-text {
     max-height: 32px;
     padding: 6px !important;

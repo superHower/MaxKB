@@ -21,7 +21,6 @@
         />
       </div>
       <TopMenu></TopMenu>
-      <TopAbout class="mr-12"></TopAbout>
     </div>
     <Avatar></Avatar>
   </div>
@@ -31,7 +30,6 @@ import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import TopMenu from './top-menu/index.vue'
 import Avatar from './avatar/index.vue'
-import TopAbout from './top-about/index.vue'
 import { EditionConst } from '@/utils/permission/data'
 import { hasPermission } from '@/utils/permission/index'
 import type { WorkspaceItem } from '@/api/type/workspace'
