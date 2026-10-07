@@ -1,0 +1,28 @@
+import ux from './evaluation-ux.json'
+export default {
+  ux,
+  title: 'Application Evaluation',
+  subtitle: 'Regression-test the current published version with a QA dataset',
+  importDataset: 'Import dataset',
+  start: 'Start evaluation',
+  dataset: 'Dataset',
+  version: 'Version',
+  cases: 'Cases',
+  createdAt: 'Created at',
+  history: 'Evaluation history',
+  status: 'Status',
+  progress: 'Progress',
+  score: 'Total score',
+  actions: 'Actions',
+  view: 'Details',
+  datasetName: 'Dataset name',
+  file: 'JSON/CSV file',
+  chooseFile: 'Choose file',
+  judgeModel: 'Judge model (optional)',
+  embeddingModel: 'Embedding model',
+  embeddingRequired: 'Choose an embedding model when Judge is enabled',
+  judgeHint:
+    'Judge and embedding models add Faithfulness, Answer Relevancy and Completeness scores.',
+  detail: 'Evaluation details',
+  required: 'Enter a name and choose a file',
+}

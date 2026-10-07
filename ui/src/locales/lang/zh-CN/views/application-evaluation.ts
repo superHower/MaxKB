@@ -1,0 +1,28 @@
+import ux from './evaluation-ux.json'
+export default {
+  ux,
+  title: '应用评测',
+  subtitle: '使用测试集回归检查当前发布版本的问答效果',
+  importDataset: '导入测试集',
+  start: '开始评测',
+  dataset: '测试集',
+  version: '版本',
+  cases: '用例数',
+  createdAt: '创建时间',
+  history: '评测历史',
+  status: '状态',
+  progress: '进度',
+  score: '总分',
+  actions: '操作',
+  view: '详情',
+  datasetName: '测试集名称',
+  file: 'JSON/CSV 文件',
+  chooseFile: '选择文件',
+  judgeModel: 'Judge 模型（可选）',
+  embeddingModel: 'Embedding 模型',
+  embeddingRequired: '选择 Judge 后必须选择 Embedding 模型',
+  judgeHint:
+    '选择 Judge 和 Embedding 模型后，将额外计算 Faithfulness、Answer Relevancy、Completeness。',
+  detail: '评测详情',
+  required: '请填写名称并选择文件',
+}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'models_provider',
     'django_celery_beat',
     'application',
+    'evaluation.apps.EvaluationConfig',
     'chat',
     'oss',
     'trigger',

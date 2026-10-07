@@ -1,8 +1,8 @@
 ·
 <template>
   <div class="app-top-bar-container border-b flex-center">
-    <div class="logo mt-4">
-      <LogoFull />
+    <div class="logo mt-4" style="width:100px;">
+      智能体平台
     </div>
 
     <div class="flex-between w-full align-center">

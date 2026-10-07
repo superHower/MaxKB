@@ -5,8 +5,8 @@
     :class="!isDefaultTheme ? 'dialog-custom-header' : ''"
   >
     <template #header="{ titleId, titleClass }">
-      <div class="logo flex-center" :id="titleId" :class="titleClass">
-        <LogoFull height="59px"/>
+      <div class="logo flex-center" :id="titleId" :class="titleClass" style="width:100px;">
+        智能体平台
       </div>
     </template>
     <div class="about-ui" v-loading="loading">

@@ -164,8 +164,8 @@
                     >
                       <div class="flex-center h-full">
                         <div class="app-title-container cursor">
-                          <div class="logo flex-center">
-                            <LogoFull height="25px" />
+                          <div class="logo flex-center" style="width:100px;">
+                            智能体平台
                           </div>
                         </div>
                       </div>

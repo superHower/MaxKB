@@ -1,0 +1,43 @@
+{
+  "maxkb": {
+    "base_url": "http://127.0.0.1:8080/chat/api",
+    "api_key_env": "MAXKB_API_KEY",
+    "timeout": 120,
+    "retries": 2
+  },
+  "concurrency": 2,
+  "judge_concurrency": 1,
+  "retrieval_source": "log",
+  "context_wait_seconds": 5,
+  "regression_threshold": 0.05,
+  "snapshot": {
+    "embedding_model": "replace-with-MaxKB-embedding-model",
+    "llm_model": "replace-with-MaxKB-LLM",
+    "top_k": 5,
+    "similarity_threshold": 0.6,
+    "rerank": true,
+    "knowledge_version": "kb-v1",
+    "model_version": "model-v1",
+    "rag_config_version": "rag-v1"
+  },
+  "judge": {
+    "base_url": "https://api.deepseek.com/v1",
+    "model": "deepseek-chat",
+    "api_key_env": "JUDGE_API_KEY",
+    "embedding": {
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "model": "text-embedding-v3",
+      "api_key_env": "EMBEDDING_API_KEY"
+    },
+    "dimensions": {
+      "terminology_accuracy": "Score accuracy of domain terms from 0 to 1. Penalize invented or confused terms."
+    }
+  },
+  "weights": {
+    "context_precision": 1,
+    "context_recall": 1,
+    "faithfulness": 2,
+    "answer_relevancy": 1,
+    "keypoint_coverage": 2
+  }
+}

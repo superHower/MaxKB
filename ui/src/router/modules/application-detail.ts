@@ -194,6 +194,24 @@ const ApplicationDetailRouter = {
       component: () => import('@/views/chat-user/index.vue'),
     },
     {
+      path: 'evaluation',
+      name: 'ApplicationEvaluation',
+      meta: {
+        icon: 'app-data-source',
+        iconActive: 'app-data-source-active',
+        title: 'views.applicationEvaluation.title',
+        active: 'evaluation',
+        parentPath: '/application/:from/:id/:type',
+        parentName: 'ApplicationDetail',
+        permission: [
+          () => RoleConst.ADMIN,
+          () => RoleConst.WORKSPACE_MANAGE.getWorkspaceRole(),
+          () => PermissionConst.APPLICATION_EDIT.getWorkspacePermissionWorkspaceManageRole(),
+        ],
+      },
+      component: () => import('@/views/application-evaluation/index.vue'),
+    },
+    {
       path: 'chat-log',
       name: 'ChatLog',
       meta: {

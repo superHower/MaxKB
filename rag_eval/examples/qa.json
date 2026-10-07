@@ -1,0 +1,7 @@
+[
+  {"id":"frequent-1","question":"MaxKB 支持哪些测试集导入格式？","ground_truth":"支持 JSON 和 CSV。","category":"frequent","relevant_doc_ids":["evaluation-guide"],"knowledge_ids":["evaluation-kb"],"document_tags":["guide"]},
+  {"id":"boundary-1","question":"相关文档标注为空时，是否将召回率算作零？","ground_truth":"不算作零，应记为不可计算。","category":"boundary","relevant_doc_ids":["evaluation-guide"]},
+  {"id":"multi-hop-1","question":"如何把一次评测关联到测试集版本并比较模型改动前后的效果？","ground_truth":"记录测试集内容版本和模型配置快照，选择基线并对相同样本逐项比较。","category":"multi_hop","relevant_doc_ids":["dataset-guide","regression-guide"]},
+  {"id":"negative-1","question":"哪些情况下不能认为 Faithfulness 为满分？","ground_truth":"缺少生成上下文时不可计算；回答包含不受上下文支持的陈述时不能判为满分。","category":"negative","relevant_doc_ids":["evaluation-guide"]},
+  {"id":"terminology-1","question":"MRR 的中文含义和计算方式是什么？","ground_truth":"平均倒数排名：取每个问题首次相关文档排名的倒数，再求均值；无命中计零。","category":"terminology","relevant_doc_ids":["metrics-guide"]}
+]

@@ -2,9 +2,7 @@
   <div class="login-form-container p-24">
     <div class="login-title">
       <div class="logo text-center">
-        <slot name="logo">
-          <LogoFull height="45px" />
-        </slot>
+        欢迎登录
       </div>
       <div class="sub-title text-center" v-if="subTitle">
         <el-text type="info">{{ subTitle }}</el-text>
