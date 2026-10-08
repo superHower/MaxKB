@@ -1,34 +1,34 @@
-import { type App } from 'vue'
+import { defineAsyncComponent, type App } from 'vue'
 import LogoFull from './logo/LogoFull.vue'
 import LogoIcon from './logo/LogoIcon.vue'
 import SendIcon from './logo/SendIcon.vue'
 import dynamicsForm from './dynamics-form'
 import AppIcon from './app-icon/AppIcon.vue'
-import LayoutContainer from './layout-container/index.vue'
-import ContentContainer from './layout-container/ContentContainer.vue'
-import CardBox from './card-box/index.vue'
-import FolderVirtualizedTree from './folder-virtualized-tree/index.vue'
-import FolderTree from './folder-tree/index.vue'
-import CommonList from './common-list/index.vue'
-import BackButton from './back-button/index.vue'
-import AppTable from './app-table/index.vue'
-import CodemirrorEditor from './codemirror-editor/index.vue'
-import InfiniteScroll from './infinite-scroll/index.vue'
-import ModelSelect from './model-select/index.vue'
-import ReadWrite from './read-write/index.vue'
-import AutoTooltip from './auto-tooltip/index.vue'
-import MdEditor from './markdown/MdEditor.vue'
-import MdPreview from './markdown/MdPreview.vue'
-import MdEditorMagnify from './markdown/MdEditorMagnify.vue'
-import TagEllipsis from './tag-ellipsis/index.vue'
-import CardCheckbox from './card-checkbox/index.vue'
-import AiChat from './ai-chat/index.vue'
-import KnowledgeIcon from './app-icon/KnowledgeIcon.vue'
-import ToolIcon from './app-icon/ToolIcon.vue'
-import TriggerIcon from './app-icon/TriggerIcon.vue'
-import TagGroup from './tag-group/index.vue'
-import WorkspaceDropdown from './workspace-dropdown/index.vue'
-import FolderBreadcrumb from './folder-breadcrumb/index.vue'
+const LayoutContainer = defineAsyncComponent(() => import('./layout-container/index.vue'))
+const ContentContainer = defineAsyncComponent(() => import('./layout-container/ContentContainer.vue'))
+const CardBox = defineAsyncComponent(() => import('./card-box/index.vue'))
+const FolderVirtualizedTree = defineAsyncComponent(() => import('./folder-virtualized-tree/index.vue'))
+const FolderTree = defineAsyncComponent(() => import('./folder-tree/index.vue'))
+const CommonList = defineAsyncComponent(() => import('./common-list/index.vue'))
+const BackButton = defineAsyncComponent(() => import('./back-button/index.vue'))
+const AppTable = defineAsyncComponent(() => import('./app-table/index.vue'))
+const CodemirrorEditor = defineAsyncComponent(() => import('./codemirror-editor/index.vue'))
+const InfiniteScroll = defineAsyncComponent(() => import('./infinite-scroll/index.vue'))
+const ModelSelect = defineAsyncComponent(() => import('./model-select/index.vue'))
+const ReadWrite = defineAsyncComponent(() => import('./read-write/index.vue'))
+const AutoTooltip = defineAsyncComponent(() => import('./auto-tooltip/index.vue'))
+const MdEditor = defineAsyncComponent(() => import('./markdown/MdEditor.vue'))
+const MdPreview = defineAsyncComponent(() => import('./markdown/MdPreview.vue'))
+const MdEditorMagnify = defineAsyncComponent(() => import('./markdown/MdEditorMagnify.vue'))
+const TagEllipsis = defineAsyncComponent(() => import('./tag-ellipsis/index.vue'))
+const CardCheckbox = defineAsyncComponent(() => import('./card-checkbox/index.vue'))
+const AiChat = defineAsyncComponent(() => import('./ai-chat/index.vue'))
+const KnowledgeIcon = defineAsyncComponent(() => import('./app-icon/KnowledgeIcon.vue'))
+const ToolIcon = defineAsyncComponent(() => import('./app-icon/ToolIcon.vue'))
+const TriggerIcon = defineAsyncComponent(() => import('./app-icon/TriggerIcon.vue'))
+const TagGroup = defineAsyncComponent(() => import('./tag-group/index.vue'))
+const WorkspaceDropdown = defineAsyncComponent(() => import('./workspace-dropdown/index.vue'))
+const FolderBreadcrumb = defineAsyncComponent(() => import('./folder-breadcrumb/index.vue'))
 export default {
   install(app: App) {
     app.component('LogoFull', LogoFull)

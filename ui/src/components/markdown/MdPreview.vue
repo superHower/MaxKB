@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import './config'
 import { computed } from 'vue'
 import { MdPreview, config } from 'md-editor-v3'
 import { getBrowserLang } from '@/locales/index'

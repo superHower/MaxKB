@@ -1,5 +1,5 @@
 <template>
-  <login-layout v-if="!loading" v-loading="loading">
+  <login-layout>
     <LoginContainer :subTitle="newDefaultSlogan">
       <h2 class="mb-24" v-if="!showQrCodeTab">{{ loginMode || $t('views.login.title') }}</h2>
       <div v-if="!showQrCodeTab">
@@ -62,10 +62,11 @@
           size="large"
           type="primary"
           class="w-full"
-          @click="loginHandle"
-          :loading="loading"
+          @click="initializationFailed ? initializeLogin() : loginHandle()"
+          :loading="loading || initializing"
+          :disabled="!initialized && !initializationFailed"
         >
-          {{ $t('views.login.buttons.login') }}
+          {{ initializationFailed ? $t('common.refresh') : $t('views.login.buttons.login') }}
         </el-button>
         <div class="operate-container flex-between mt-12">
           <el-button
@@ -126,7 +127,7 @@
   </login-layout>
 </template>
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 import type { LoginRequest } from '@/api/type/login'
@@ -137,16 +138,18 @@ import authApi from '@/api/system-settings/auth-setting'
 import { getBrowserLang, t } from '@/locales'
 import useStore from '@/stores'
 import { useI18n } from 'vue-i18n'
-import QrCodeTab from '@/views/login/scanCompinents/QrCodeTab.vue'
 import { MsgConfirm, MsgError } from '@/utils/message.ts'
-import * as dd from 'dingtalk-jsapi'
 import { loadScript } from '@/utils/common'
 import JSEncrypt from 'jsencrypt'
 
+const QrCodeTab = defineAsyncComponent(() => import('@/views/login/scanCompinents/QrCodeTab.vue'))
 const router = useRouter()
 const { login, user, theme } = useStore()
 const { locale } = useI18n({ useScope: 'global' })
 const loading = ref<boolean>(false)
+const initialized = ref(false)
+const initializing = ref(false)
+const initializationFailed = ref(false)
 const route = useRoute()
 const identifyCode = ref<string>('')
 const loginFormRef = ref<FormInstance>()
@@ -183,7 +186,7 @@ const rules = ref<FormRules<LoginRequest>>({
 })
 
 const loginHandle = () => {
-  if (!loginFormRef.value) {
+  if (!initialized.value || !loginFormRef.value || loading.value) {
     return
   }
   loginFormRef.value.validate((valid) => {
@@ -241,12 +244,13 @@ function handleUsernameBlur(username: string) {
   makeCode(username)
 }
 
-onBeforeMount(() => {
-  loading.value = true
-  user.asyncGetProfile().then((res) => {
+function initializeLogin() {
+  initializing.value = true
+  initializationFailed.value = false
+  user.asyncGetProfile().then(async () => {
     // 企业版和专业版：第三方登录
     if (user.isPE() || user.isEE()) {
-      authApi.getLoginAuthSetting().then((res) => {
+      await authApi.getLoginAuthSetting().then((res) => {
         if (Object.keys(res.data).length > 0) {
           authSetting.value = res.data
         } else {
@@ -320,9 +324,16 @@ onBeforeMount(() => {
         default_value: 'LOCAL',
       }
     }
-    loading.value = false
+    initialized.value = true
+  }).catch((error) => {
+    console.error('Failed to initialize login:', error)
+    initializationFailed.value = true
+  }).finally(() => {
+    initializing.value = false
   })
-})
+}
+
+onBeforeMount(initializeLogin)
 
 const modeList = ref<string[]>([''])
 const QrList = ref<any[]>([''])
@@ -416,10 +427,12 @@ function changeMode(val: string, needMessage: boolean = true) {
     return
   }
   showQrCodeTab.value = false
-  loginForm.value = {
-    username: '',
-    password: '',
-    captcha: '',
+  if (needMessage) {
+    loginForm.value = {
+      username: '',
+      password: '',
+      captcha: '',
+    }
   }
   redirectAuth(val, needMessage)
   loginFormRef.value?.clearValidate()
@@ -434,9 +447,10 @@ onMounted(() => {
   const params = new URLSearchParams(currentUrl.value.split('?')[1])
   const client = params.get('client')
 
-  const handleDingTalk = () => {
+  const handleDingTalk = async () => {
     const code = params.get('corpId')
     if (code) {
+      const dd = await import('dingtalk-jsapi')
       dd.runtime.permission.requestAuthCode({ corpId: code }).then((res) => {
         console.log('DingTalk client request success:', res)
         login.dingOauth2Callback(res.code).then(() => {
