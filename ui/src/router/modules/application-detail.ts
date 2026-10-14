@@ -196,6 +196,7 @@ const ApplicationDetailRouter = {
     {
       path: 'evaluation',
       name: 'ApplicationEvaluation',
+      hidden: true,
       meta: {
         icon: 'app-data-source',
         iconActive: 'app-data-source-active',

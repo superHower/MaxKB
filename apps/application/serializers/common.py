@@ -384,7 +384,7 @@ class ChatInfo:
             else:
                 QuerySet(Chat).filter(id=self.chat_id).update(update_time=timezone.now())
             # 插入会话记录
-            QuerySet(ChatRecord).update_or_create(
+            saved_record, _ = QuerySet(ChatRecord).update_or_create(
                 id=chat_record.id,
                 create_defaults={
                     "id": chat_record.id,
@@ -419,6 +419,9 @@ class ChatInfo:
                     "ip_address": chat_record.ip_address or "",
                 },
             )
+            from evaluation.events import capture_chat_record
+            application = self.application or QuerySet(Application).get(id=self.application_id)
+            capture_chat_record(saved_record, application)
             ChatCountSerializer(data={"chat_id": self.chat_id}).update_chat()
 
     def to_dict(self):

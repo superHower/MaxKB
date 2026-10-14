@@ -2,6 +2,7 @@
 """Persistent application evaluation datasets and asynchronous runs."""
 import uuid
 from django.db import models
+from common.encoder.encoder import SystemEncoder
 
 
 class Dataset(models.Model):
@@ -34,3 +35,43 @@ class Run(models.Model):
     error = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
     finished_at = models.DateTimeField(null=True)
+
+
+class EvaluationEvent(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    workspace_id = models.CharField(max_length=64, db_index=True)
+    application_id = models.UUIDField(db_index=True)
+    chat_id = models.UUIDField(db_index=True)
+    chat_record_id = models.UUIDField(unique=True)
+    data = models.JSONField(default=dict, encoder=SystemEncoder)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        db_table = "evaluation_event"
+
+
+class EvaluationSample(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    workspace_id = models.CharField(max_length=64, db_index=True)
+    application_id = models.UUIDField(db_index=True)
+    source_event = models.ForeignKey(EvaluationEvent, on_delete=models.CASCADE, related_name="samples")
+    sampling_reason = models.CharField(max_length=32, default="manual")
+    status = models.CharField(max_length=20, default="pending_review")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "evaluation_sample"
+        constraints = [models.UniqueConstraint(fields=["source_event"], name="evaluation_sample_source_unique")]
+
+
+class EvaluationAnnotation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sample = models.ForeignKey(EvaluationSample, on_delete=models.CASCADE, related_name="annotations")
+    revision = models.PositiveIntegerField()
+    reviewer_id = models.UUIDField()
+    data = models.JSONField(default=dict)
+    reviewed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "evaluation_annotation"
+        constraints = [models.UniqueConstraint(fields=["sample", "revision"], name="evaluation_annotation_revision")]

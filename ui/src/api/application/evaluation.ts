@@ -36,3 +36,12 @@ export const downloadEvaluationReport = (id: string, runId: string, format: 'jso
   fetch(`${window.MaxKB?.prefix || '/admin'}/api${prefix(id)}/runs/${runId}?format=${format}`, {
     headers: { Authorization: `Bearer ${useStore().login.getToken()}` },
   })
+
+export const getEvaluationEvents = (id: string, params?: any, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/events`, params, loading)
+export const getEvaluationSamples = (id: string, params?: any, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/samples`, params, loading)
+export const sampleEvaluationEvents = (id: string, data: any, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/samples`, data, undefined, loading)
+export const annotateEvaluationSample = (id: string, sampleId: string, data: any, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/samples/${sampleId}/annotation`, data, undefined, loading)
