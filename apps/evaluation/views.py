@@ -42,7 +42,9 @@ def run_data(item, detail=False):
             "total": len(item.dataset.cases), "dataset_name": item.dataset.name,
             "dataset_version": item.dataset.version, "created_at": item.created_at.isoformat(),
             "error": item.error, "summary": item.report.get("summary", {}),
-            "baseline_id": str(item.baseline_id) if item.baseline_id else None}
+            "baseline_id": str(item.baseline_id) if item.baseline_id else None,
+            "regression": bool(item.config.get("regression")),
+            "regression_passed": item.report.get("regression_passed")}
     if detail:
         data.update(config=item.config, results=item.results, report=item.report)
     return data
@@ -117,6 +119,15 @@ class Runs(APIView):
         if request.data.get("baseline_id"):
             baseline = get_object_or_404(Run, id=request.data["baseline_id"], workspace_id=workspace_id,
                                          application_id=application_id, status__in=["completed", "partial"])
+        regression = bool(request.data.get("regression", False))
+        try:
+            regression_threshold = float(request.data.get("regression_threshold", 0.05))
+        except (TypeError, ValueError) as error:
+            raise ValidationError("回归阈值必须为数字") from error
+        if not 0 < regression_threshold <= 1:
+            raise ValidationError("回归阈值必须在 0～1 之间")
+        if regression and baseline is None:
+            raise ValidationError("回归评测必须指定基线运行")
         with transaction.atomic():
             application = Application.objects.select_for_update().get(id=application_id, workspace_id=workspace_id)
             if Run.objects.filter(application_id=application_id, status__in=["queued", "running"]).exists():
@@ -129,6 +140,7 @@ class Runs(APIView):
                                               status="completed").order_by("-created_at").first()
             from .tasks import snapshot
             config = snapshot(published, judge_id, embedding_id, rubrics)
+            config.update({"regression": regression, "regression_threshold": regression_threshold})
             item = Run.objects.create(application_id=application.id, workspace_id=workspace_id,
                                       user_id=request.user.id, dataset=dataset, baseline=baseline, config=config)
         from .tasks import evaluate

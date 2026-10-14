@@ -124,16 +124,19 @@ def evaluate(run_id):
                     row["judge"] = {"reason": judge_reason, "model": run.config["judge_model"]}
                 except Exception as error:  # noqa: BLE001 - retain per-case judge failure
                     row["metric_errors"]["judge"] = str(error)
-            row["total_score"] = total_score(scores, run.config.get("weights", {}))
+            row["total_score"] = total_score(row["scores"], run.config.get("weights", {}))
             results.append(row)
             run.completed, run.results = len(results), results
             run.save(update_fields=["completed", "results"])
         baseline = run.baseline.report if run.baseline_id else None
+        comparison = compare(results, baseline, run.config, run.config.get("regression_threshold", 0.05))
+        regression_passed = not run.config.get("regression") or bool(comparison and not comparison["regressions"])
         report = {"id": str(run.id), "dataset": run.dataset.name, "dataset_version": run.dataset.version,
                   "status": "completed", "failed_cases": sum(r["total_score"] is None for r in results),
                   "config": run.config, "results": results, "summary": aggregate(results),
-                  "groups": groups(results), "comparison": compare(results, baseline, run.config, 0.05)}
-        run.status, run.report, run.finished_at = "completed", report, timezone.now()
+                  "groups": groups(results), "comparison": comparison,
+                  "regression_passed": regression_passed}
+        run.status, run.report, run.finished_at = ("completed" if regression_passed else "partial"), report, timezone.now()
         run.save(update_fields=["status", "report", "finished_at"])
     except Exception as error:  # noqa: BLE001
         run.status, run.error, run.finished_at = "failed", str(error), timezone.now()
