@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.urls import path
 from .views import Datasets, Runs, RunDetail
-from .quality_views import Events, Samples, SampleDetail, Annotation, SampleExport
+from .quality_views import Events, Samples, SampleDetail, Annotation, SampleExport, RuleEvaluate
 
 prefix = "workspace/<str:workspace_id>/application/<str:application_id>/evaluation/"
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path(prefix + "samples/export", SampleExport.as_view()),
     path(prefix + "samples/<uuid:sample_id>", SampleDetail.as_view()),
     path(prefix + "samples/<uuid:sample_id>/annotation", Annotation.as_view()),
+    path(prefix + "samples/<uuid:sample_id>/evaluate", RuleEvaluate.as_view()),
 ]

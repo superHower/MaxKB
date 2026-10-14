@@ -75,3 +75,16 @@ class EvaluationAnnotation(models.Model):
     class Meta:
         db_table = "evaluation_annotation"
         constraints = [models.UniqueConstraint(fields=["sample", "revision"], name="evaluation_annotation_revision")]
+
+
+class EvaluationResult(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sample = models.ForeignKey(EvaluationSample, on_delete=models.CASCADE, related_name="results")
+    evaluator_type = models.CharField(max_length=32, default="rule")
+    evaluator_version = models.CharField(max_length=32, default="1")
+    scores = models.JSONField(default=dict)
+    reasons = models.JSONField(default=dict)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "evaluation_result"

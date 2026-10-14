@@ -45,3 +45,5 @@ export const sampleEvaluationEvents = (id: string, data: any, loading?: Ref<bool
   post(`${prefix(id)}/samples`, data, undefined, loading)
 export const annotateEvaluationSample = (id: string, sampleId: string, data: any, loading?: Ref<boolean>) =>
   post(`${prefix(id)}/samples/${sampleId}/annotation`, data, undefined, loading)
+export const evaluateEvaluationSample = (id: string, sampleId: string, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/samples/${sampleId}/evaluate`, {}, undefined, loading)

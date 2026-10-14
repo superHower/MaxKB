@@ -11,7 +11,8 @@ from rest_framework.views import APIView
 
 from common.auth import TokenAuth
 from common.result import result
-from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample
+from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample, EvaluationResult
+from .rules import evaluate_event
 from .views import access, scope
 
 
@@ -57,9 +58,13 @@ def event_data(item):
 
 def sample_data(item):
     annotation = item.annotations.order_by("-revision").first()
+    rule_result = item.results.filter(evaluator_type="rule").order_by("-created_at").first()
     return {"id": str(item.id), "source_event_id": str(item.source_event_id),
             "sampling_reason": item.sampling_reason, "status": item.status,
             "created_at": item.created_at.isoformat(), "event": event_data(item.source_event),
+            "result": {"evaluator_type": rule_result.evaluator_type, "evaluator_version": rule_result.evaluator_version,
+                       "scores": rule_result.scores, "reasons": rule_result.reasons,
+                       "created_at": rule_result.created_at.isoformat()} if rule_result else None,
             "annotation": {"revision": annotation.revision, "reviewer_id": str(annotation.reviewer_id),
                            "reviewed_at": annotation.reviewed_at.isoformat(), **annotation.data} if annotation else None}
 
@@ -123,6 +128,27 @@ class SampleDetail(APIView):
         sample = get_object_or_404(EvaluationSample, id=sample_id, workspace_id=workspace_id,
                                    application_id=application_id)
         return result.success(sample_data(sample))
+
+
+class RuleEvaluate(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def post(self, request, workspace_id, application_id, sample_id):
+        sample = get_object_or_404(EvaluationSample, id=sample_id, workspace_id=workspace_id,
+                                   application_id=application_id)
+        event_data = dict(sample.source_event.data)
+        annotation = sample.annotations.order_by("-revision").first()
+        if annotation:
+            event_data.update(annotation.data)
+            event_data["expected_no_answer"] = annotation.data.get("should_answer") == "no"
+        evaluated = evaluate_event(event_data)
+        item = EvaluationResult.objects.create(sample=sample, evaluator_type="rule",
+                                               evaluator_version=evaluated["evaluator_version"],
+                                               scores=evaluated["scores"], reasons=evaluated["reasons"])
+        sample.status = "evaluated"
+        sample.save(update_fields=["status"])
+        return result.success({"id": str(item.id), **evaluated})
 
     @access
     def delete(self, request, workspace_id, application_id, sample_id):
