@@ -39,6 +39,8 @@ export const downloadEvaluationReport = (id: string, runId: string, format: 'jso
 
 export const getEvaluationEvents = (id: string, params?: any, loading?: Ref<boolean>) =>
   get(`${prefix(id)}/events`, params, loading)
+export const getEvaluationMetrics = (id: string, params?: any, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/metrics`, params, loading)
 export const getEvaluationSamples = (id: string, params?: any, loading?: Ref<boolean>) =>
   get(`${prefix(id)}/samples`, params, loading)
 export const sampleEvaluationEvents = (id: string, data: any, loading?: Ref<boolean>) =>

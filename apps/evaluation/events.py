@@ -30,6 +30,7 @@ def capture_chat_record(record, application):
             contexts.append(paragraph)
     version = ApplicationVersion.objects.filter(application_id=application.id).order_by("-create_time").first()
     data = {
+        "chat_id": str(record.chat_id),
         "question": record.problem_text, "answer": record.answer_text,
         "retrieval_candidates": candidates, "final_contexts": contexts,
         "citation_ids": [], "citation_ids_available": False,

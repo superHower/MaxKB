@@ -13,6 +13,7 @@ from common.auth import TokenAuth
 from common.result import result
 from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample, EvaluationResult
 from .rules import evaluate_event
+from .online_metrics import summarize
 from .views import access, scope
 
 
@@ -78,6 +79,36 @@ class Events(APIView):
         limit = bounded_int(request.query_params.get("limit", 50), 50, 200)
         query = events_query(request, workspace_id, application_id)
         return result.success([event_data(item) for item in query.order_by("-created_at")[:limit]])
+
+
+class OnlineMetrics(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        query = events_query(request, workspace_id, application_id).order_by("created_at")[:10000]
+        rows = list(query)
+        group = request.query_params.get("group_by")
+        if group not in (None, "model", "application_version", "knowledge"):
+            raise ValidationError("group_by 仅支持 model、application_version、knowledge")
+        if not group:
+            return result.success({"filters": {"start": request.query_params.get("start"),
+                                                "end": request.query_params.get("end")},
+                                   "metrics": summarize(rows)})
+        groups = {}
+        for item in rows:
+            data = item.data
+            if group == "model":
+                keys = data.get("model_ids") or ["unknown"]
+            elif group == "knowledge":
+                keys = data.get("knowledge_ids") or ["unknown"]
+            else:
+                keys = [data.get("application_version") or "unknown"]
+            for key in keys:
+                groups.setdefault(str(key), []).append(item)
+        return result.success({"group_by": group, "metrics": {key: summarize(value)
+                                                                  for key, value in groups.items()}})
 
 
 class Samples(APIView):
