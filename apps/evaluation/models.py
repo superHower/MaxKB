@@ -107,3 +107,19 @@ class Experiment(models.Model):
     class Meta:
         db_table = "evaluation_experiment"
         constraints = [models.UniqueConstraint(fields=["application_id", "name"], name="evaluation_experiment_name")]
+
+
+class Badcase(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sample = models.OneToOneField(EvaluationSample, on_delete=models.CASCADE, related_name="badcase")
+    category = models.CharField(max_length=32, default="other")
+    status = models.CharField(max_length=20, default="open")
+    reason = models.TextField(default="")
+    suggested_fix = models.TextField(default="")
+    resolution = models.TextField(default="")
+    created_by = models.UUIDField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    resolved_at = models.DateTimeField(null=True)
+
+    class Meta:
+        db_table = "evaluation_badcase"

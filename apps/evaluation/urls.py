@@ -2,7 +2,7 @@
 from django.urls import path
 from .views import Datasets, Runs, RunDetail
 from .quality_views import (Events, OnlineMetrics, Experiments, ExperimentAction, ExperimentAssignment,
-                            Samples, SampleDetail, Annotation, SampleExport, RuleEvaluate)
+                            Samples, SampleDetail, Annotation, SampleExport, RuleEvaluate, Badcases, BadcaseDetail)
 
 prefix = "workspace/<str:workspace_id>/application/<str:application_id>/evaluation/"
 urlpatterns = [
@@ -19,4 +19,6 @@ urlpatterns = [
     path(prefix + "samples/<uuid:sample_id>", SampleDetail.as_view()),
     path(prefix + "samples/<uuid:sample_id>/annotation", Annotation.as_view()),
     path(prefix + "samples/<uuid:sample_id>/evaluate", RuleEvaluate.as_view()),
+    path(prefix + "badcases", Badcases.as_view()),
+    path(prefix + "badcases/<uuid:badcase_id>", BadcaseDetail.as_view()),
 ]

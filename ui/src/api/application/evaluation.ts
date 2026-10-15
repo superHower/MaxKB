@@ -1,4 +1,4 @@
-import { get, post, postUpload } from '@/request/index'
+import { get, post, postUpload, put } from '@/request/index'
 import type { Ref } from 'vue'
 import type { Result } from '@/request/Result'
 import useStore from '@/stores'
@@ -57,3 +57,9 @@ export const annotateEvaluationSample = (id: string, sampleId: string, data: any
   post(`${prefix(id)}/samples/${sampleId}/annotation`, data, undefined, loading)
 export const evaluateEvaluationSample = (id: string, sampleId: string, loading?: Ref<boolean>) =>
   post(`${prefix(id)}/samples/${sampleId}/evaluate`, {}, undefined, loading)
+export const getEvaluationBadcases = (id: string, params?: any, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/badcases`, params, loading)
+export const generateEvaluationBadcases = (id: string, limit = 100, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/badcases`, { limit }, undefined, loading)
+export const updateEvaluationBadcase = (id: string, badcaseId: string, data: any, loading?: Ref<boolean>) =>
+  put(`${prefix(id)}/badcases/${badcaseId}`, data, undefined, loading)

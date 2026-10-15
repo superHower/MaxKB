@@ -11,13 +11,14 @@ from rest_framework.views import APIView
 
 from common.auth import TokenAuth
 from common.result import result
-from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample, EvaluationResult
+from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample, EvaluationResult, Badcase
 from .rules import evaluate_event
 from .online_metrics import summarize
 from .models import Experiment
 from .experiments import assign_variant
 from django.utils import timezone
 from .views import access, scope
+from .badcases import suggest
 
 
 def bounded_int(value, default, maximum):
@@ -63,12 +64,19 @@ def event_data(item):
 def sample_data(item):
     annotation = item.annotations.order_by("-revision").first()
     rule_result = item.results.filter(evaluator_type="rule").order_by("-created_at").first()
+    try:
+        badcase = item.badcase
+    except Badcase.DoesNotExist:
+        badcase = None
     return {"id": str(item.id), "source_event_id": str(item.source_event_id),
             "sampling_reason": item.sampling_reason, "status": item.status,
             "created_at": item.created_at.isoformat(), "event": event_data(item.source_event),
             "result": {"evaluator_type": rule_result.evaluator_type, "evaluator_version": rule_result.evaluator_version,
                        "scores": rule_result.scores, "reasons": rule_result.reasons,
                        "created_at": rule_result.created_at.isoformat()} if rule_result else None,
+            "badcase": {"id": str(badcase.id), "category": badcase.category, "status": badcase.status,
+                        "reason": badcase.reason, "suggested_fix": badcase.suggested_fix,
+                        "resolution": badcase.resolution} if badcase else None,
             "annotation": {"revision": annotation.revision, "reviewer_id": str(annotation.reviewer_id),
                            "reviewed_at": annotation.reviewed_at.isoformat(), **annotation.data} if annotation else None}
 
@@ -266,6 +274,69 @@ class RuleEvaluate(APIView):
         sample.status = "evaluated"
         sample.save(update_fields=["status"])
         return result.success({"id": str(item.id), **evaluated})
+
+
+class Badcases(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        query = Badcase.objects.filter(sample__workspace_id=workspace_id, sample__application_id=application_id)
+        if request.query_params.get("status"):
+            query = query.filter(status=request.query_params["status"])
+        if request.query_params.get("category"):
+            query = query.filter(category=request.query_params["category"])
+        return result.success([sample_data(item.sample) for item in query.select_related("sample__source_event")[:200]])
+
+    @access
+    def post(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        limit = bounded_int(request.data.get("limit", 100), 100, 500)
+        candidates = []
+        samples = EvaluationSample.objects.filter(workspace_id=workspace_id, application_id=application_id,
+                                                  status__in=["pending_review", "reviewed", "evaluated"])
+        for sample in samples.select_related("source_event").prefetch_related("annotations", "results")[:10000]:
+            annotation = sample.annotations.order_by("-revision").first()
+            result_item = sample.results.filter(evaluator_type="rule").order_by("-created_at").first()
+            item = suggest(sample.source_event.data, annotation, result_item)
+            if not item:
+                continue
+            category, reason, fix = item
+            badcase, created = Badcase.objects.get_or_create(sample=sample, defaults={
+                "category": category, "reason": reason, "suggested_fix": fix})
+            if created:
+                candidates.append(sample_data(sample))
+            if len(candidates) >= limit:
+                break
+        return result.success(candidates)
+
+
+class BadcaseDetail(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def put(self, request, workspace_id, application_id, badcase_id):
+        badcase = get_object_or_404(Badcase, id=badcase_id, sample__workspace_id=workspace_id,
+                                    sample__application_id=application_id)
+        if request.data.get("category"):
+            if request.data["category"] not in ("data", "retrieval", "generation", "prompt", "model", "permission", "user", "other"):
+                raise ValidationError("无效的 Badcase 分类")
+            badcase.category = request.data["category"]
+        for field in ("reason", "suggested_fix", "resolution"):
+            if field in request.data:
+                if not isinstance(request.data[field], str) or len(request.data[field]) > 40960:
+                    raise ValidationError(f"{field} 无效")
+                setattr(badcase, field, request.data[field])
+        if request.data.get("status"):
+            if request.data["status"] not in ("open", "in_progress", "resolved", "ignored"):
+                raise ValidationError("无效的 Badcase 状态")
+            badcase.status = request.data["status"]
+            if badcase.status == "resolved":
+                badcase.resolved_at = timezone.now()
+        badcase.created_by = request.user.id
+        badcase.save()
+        return result.success(sample_data(badcase.sample))
 
     @access
     def delete(self, request, workspace_id, application_id, sample_id):
