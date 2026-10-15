@@ -88,3 +88,22 @@ class EvaluationResult(models.Model):
 
     class Meta:
         db_table = "evaluation_result"
+
+
+class Experiment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    workspace_id = models.CharField(max_length=64, db_index=True)
+    application_id = models.UUIDField(db_index=True)
+    name = models.CharField(max_length=128)
+    status = models.CharField(max_length=20, default="draft")
+    subject_type = models.CharField(max_length=20, default="session")
+    variants = models.JSONField(default=list)
+    config_snapshot = models.JSONField(default=dict)
+    created_by = models.UUIDField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True)
+    ended_at = models.DateTimeField(null=True)
+
+    class Meta:
+        db_table = "evaluation_experiment"
+        constraints = [models.UniqueConstraint(fields=["application_id", "name"], name="evaluation_experiment_name")]

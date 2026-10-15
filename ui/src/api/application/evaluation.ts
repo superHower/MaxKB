@@ -41,6 +41,14 @@ export const getEvaluationEvents = (id: string, params?: any, loading?: Ref<bool
   get(`${prefix(id)}/events`, params, loading)
 export const getEvaluationMetrics = (id: string, params?: any, loading?: Ref<boolean>) =>
   get(`${prefix(id)}/metrics`, params, loading)
+export const getEvaluationExperiments = (id: string, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/experiments`, {}, loading)
+export const createEvaluationExperiment = (id: string, data: any, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/experiments`, data, undefined, loading)
+export const actionEvaluationExperiment = (id: string, experimentId: string, action: 'start' | 'stop', loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/experiments/${experimentId}/action`, { action }, undefined, loading)
+export const getEvaluationAssignment = (id: string, experimentId: string, subjectId: string, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/experiments/${experimentId}/assignment`, { subject_id: subjectId }, loading)
 export const getEvaluationSamples = (id: string, params?: any, loading?: Ref<boolean>) =>
   get(`${prefix(id)}/samples`, params, loading)
 export const sampleEvaluationEvents = (id: string, data: any, loading?: Ref<boolean>) =>

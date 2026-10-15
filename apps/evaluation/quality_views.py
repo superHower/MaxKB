@@ -14,6 +14,9 @@ from common.result import result
 from .models import EvaluationAnnotation, EvaluationEvent, EvaluationSample, EvaluationResult
 from .rules import evaluate_event
 from .online_metrics import summarize
+from .models import Experiment
+from .experiments import assign_variant
+from django.utils import timezone
 from .views import access, scope
 
 
@@ -109,6 +112,89 @@ class OnlineMetrics(APIView):
                 groups.setdefault(str(key), []).append(item)
         return result.success({"group_by": group, "metrics": {key: summarize(value)
                                                                   for key, value in groups.items()}})
+
+
+def experiment_data(item):
+    return {"id": str(item.id), "name": item.name, "status": item.status, "subject_type": item.subject_type,
+            "variants": item.variants, "config_snapshot": item.config_snapshot,
+            "created_at": item.created_at.isoformat(), "started_at": item.started_at.isoformat() if item.started_at else None,
+            "ended_at": item.ended_at.isoformat() if item.ended_at else None}
+
+
+class Experiments(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        return result.success([experiment_data(item) for item in Experiment.objects.filter(
+            workspace_id=workspace_id, application_id=application_id).order_by("-created_at")[:100]])
+
+    @access
+    def post(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        name = str(request.data.get("name", "")).strip()
+        subject_type = request.data.get("subject_type", "session")
+        variants = request.data.get("variants")
+        if not name or len(name) > 128:
+            raise ValidationError("实验名称不能为空且不超过 128 字符")
+        if subject_type not in ("session", "user") or not isinstance(variants, list) or not 2 <= len(variants) <= 10:
+            raise ValidationError("实验必须包含 2～10 个分组，分流主体仅支持 session 或 user")
+        total = 0
+        keys = set()
+        for variant in variants:
+            if not isinstance(variant, dict) or not isinstance(variant.get("key"), str) or variant["key"] in keys:
+                raise ValidationError("实验分组 key 必须唯一")
+            try:
+                weight = int(variant.get("weight", 0))
+            except (TypeError, ValueError) as error:
+                raise ValidationError("实验分组权重必须为整数") from error
+            if weight <= 0:
+                raise ValidationError("实验分组权重必须大于 0")
+            keys.add(variant["key"])
+            total += weight
+        if total != 10000:
+            raise ValidationError("实验分组权重总和必须为 10000")
+        item = Experiment.objects.create(workspace_id=workspace_id, application_id=application_id, name=name,
+                                         subject_type=subject_type, variants=variants,
+                                         config_snapshot=request.data.get("config_snapshot", {}),
+                                         created_by=request.user.id)
+        return result.success(experiment_data(item))
+
+
+class ExperimentAction(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def post(self, request, workspace_id, application_id, experiment_id):
+        item = get_object_or_404(Experiment, id=experiment_id, workspace_id=workspace_id,
+                                 application_id=application_id)
+        action = request.data.get("action")
+        if action not in ("start", "stop"):
+            raise ValidationError("action 仅支持 start 或 stop")
+        item.status = "running" if action == "start" else "completed"
+        if action == "start" and item.started_at is None:
+            item.started_at = timezone.now()
+        if action == "stop":
+            item.ended_at = timezone.now()
+        item.save(update_fields=["status", "started_at", "ended_at"])
+        return result.success(experiment_data(item))
+
+
+class ExperimentAssignment(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id, experiment_id):
+        item = get_object_or_404(Experiment, id=experiment_id, workspace_id=workspace_id,
+                                 application_id=application_id)
+        if item.status != "running":
+            raise ValidationError("实验未运行")
+        subject_id = request.query_params.get("subject_id")
+        if not subject_id:
+            raise ValidationError("subject_id 不能为空")
+        return result.success({"experiment_id": str(item.id), "variant": assign_variant(item, subject_id),
+                               "subject_type": item.subject_type, "config_snapshot": item.config_snapshot})
 
 
 class Samples(APIView):

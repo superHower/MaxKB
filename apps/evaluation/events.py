@@ -46,6 +46,8 @@ def capture_chat_record(record, application):
         "estimated_cost": record.const,
         "feedback": {"vote": record.vote_status, "reason": record.vote_reason},
         "human_handoff": None,
+        "experiment_id": (record.source or {}).get("experiment_id") if isinstance(record.source, dict) else None,
+        "experiment_variant": (record.source or {}).get("experiment_variant") if isinstance(record.source, dict) else None,
         "evaluable": bool(contexts),
     }
     EvaluationEvent.objects.update_or_create(
