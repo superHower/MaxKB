@@ -1,0 +1,282 @@
+[
+  {
+    "id": "presales-001",
+    "question": "三种灯光的色温分别是多少？",
+    "ground_truth": "灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  5. 色温、功率与照明面积\n- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈 是很省电的哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4294-7503-8fc8-1d6d826b9fd1"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-002",
+    "question": "15平方米的房间和30平方米的房间分别参考多少瓦的灯？",
+    "ground_truth": "灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  5. 色温、功率与照明面积\n- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈 是很省电的哦",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4294-7503-8fc8-1d6d826b9fd1"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-003",
+    "question": "白光灯和三色灯都送遥控器吗？哪种款式自带遥控器？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  27. 带遥控器吗\n- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429a-7ca0-82c1-187e61d0572d"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-004",
+    "question": "三色跟无极的区别是什么？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  3. 无极跟三色的区别\n- 回复：无极带遥控 1.不仅可以用遥控器控制 也可以用墙壁开关控制 2.无极还可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗",
+    "category": "terminology",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4297-7361-8051-666b07562b96"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-005",
+    "question": "不接WiFi、不下载APP可以用离线语音灯吗？怎么唤醒？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  21. 离线语音版本\n- 回复：离线语音不需要连接任何app，不需要连接wifi，不需要u盘，打孔安装，接上电就可以使用（离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。）",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4299-72a2-a7bc-cc34b7cd8e8c"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-006",
+    "question": "小爱同学版本是不是不用自己准备音箱？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  20. 小爱版本智能语音\n- 回复：小爱版本：在无极调光的基础上增加了支持小爱音箱语音控制，调节亮度和颜色 注意: 开关 及 音响 需自备",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4299-72a2-a7bc-cc2dca09597e"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-007",
+    "question": "同一个空间有好几盏智能语音灯，怎样分别控制？",
+    "ground_truth": "灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  5. 关于\"智能语音\"\n- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙\n  3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4296-7e31-b7b6-25a265e04f2d"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-008",
+    "question": "新灯的安装孔距保证跟我家旧灯一模一样吗？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  26. 孔距数据多少\n- 回复：孔距无法保证完全一致的哦 这个没有具体的尺寸哦 这个都是人工手工打孔的 都会有一点误差，您安装的话建议您收到之后根据我们打好的安装螺丝孔打孔固定哦",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429a-7ca0-82c1-186d7accafd9"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-009",
+    "question": "我家石膏板吊顶能安装灯具吗？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  18. 石膏板可以装吗\n- 回复：石膏板吊顶安装，把螺丝固定在龙骨上或者你们吊顶的木板上石膏板才能安装，打的时候一定要将螺丝打深一点，石膏本身不承重的",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4299-72a2-a7bc-cc053f389cd0"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-010",
+    "question": "灯具整灯厚度大约多少？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  14. 灯具厚度\n- 回复：这款灯具整灯厚度大概是5CM左右哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4299-72a2-a7bc-cbc96a7e89da"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-011",
+    "question": "灯具会赠送墙壁开关吗？原来的开关可以继续用吗？",
+    "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  25. 赠送开关吗\n- 回复：抱歉呢 没有赠送这个活动呢 您可以使用家里原有的开关哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429a-7ca0-82c1-1855368cde81"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-012",
+    "question": "灯具需要开发票，我要提供什么资料，什么时候联系？",
+    "ground_truth": "灯具客服快捷短语手册  八、其他快捷指令与特定场景  1. 发票相关\n- 亲爱哒~提供一下发票抬头，税号，邮箱哦\n- 亲爱的 我们这边是可以开普通电子发票的呢 您这边收货后联系我们开哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429b-7042-809f-bde04a2b72eb"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-013",
+    "question": "先提交订单还是先付款才能让客服修改优惠价格？",
+    "ground_truth": "灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  6. 改价流程\n- 亲爱的 您这边提交订单 不要付款 我来改价算优惠哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429a-7ca0-82c1-18e1ccb3a0a7"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "presales-014",
+    "question": "9.9元活动灯我想买三个，可以吗？",
+    "ground_truth": "灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  5. 9.9元特价\n- 这款9.9元是为了回馈新老顾客 所做的活动哦 只能限购一个呢 先拍先得哈",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429a-7ca0-82c1-18d05499c664"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "presales"
+    ],
+    "expected_no_answer": false
+  }
+]

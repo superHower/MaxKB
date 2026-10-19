@@ -67,7 +67,7 @@ account/pwd：admin admin@123
 cd ui
 npm run build
 
-cd root
+cd ..
 docker cp ./ui/dist/admin/. maxkb:/opt/maxkb-app/ui/dist/admin/
 
 docker exec maxkb python /opt/maxkb-app/main.py collect_static

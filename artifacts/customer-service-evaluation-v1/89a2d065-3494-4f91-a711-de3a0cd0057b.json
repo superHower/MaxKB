@@ -1,0 +1,2273 @@
+{
+  "id": "89a2d065-3494-4f91-a711-de3a0cd0057b",
+  "config": {
+    "top_k": null,
+    "rerank": false,
+    "weights": {
+      "mrr": 1,
+      "hit_rate": 1,
+      "context_recall": 1,
+      "context_precision": 1
+    },
+    "llm_model": null,
+    "dimensions": {},
+    "regression": false,
+    "judge_model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6",
+    "seed_marker": "客服知识库完整实测-v1",
+    "model_version": null,
+    "embedding_model": "42f63a3d-427e-11ef-b3ec-a8a1595801ab",
+    "evaluator_version": "rule-v1",
+    "knowledge_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "rag_config_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "application_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "regression_threshold": 0.05,
+    "similarity_threshold": null
+  },
+  "groups": {
+    "category:boundary": {
+      "answer_correctness": {
+        "mean": 0.95,
+        "count": 4,
+        "total": 4
+      },
+      "citation_relevance": {
+        "mean": 0.975,
+        "count": 4,
+        "total": 4
+      },
+      "context_precision": {
+        "mean": 0.875,
+        "count": 4,
+        "total": 4
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 4,
+        "total": 4
+      },
+      "faithfulness": {
+        "mean": 0.9,
+        "count": 4,
+        "total": 4
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 4,
+        "total": 4
+      },
+      "judge_score": {
+        "mean": 0.70625,
+        "count": 4,
+        "total": 4
+      },
+      "mrr": {
+        "mean": 0.875,
+        "count": 4,
+        "total": 4
+      },
+      "no_answer_correctness": {
+        "mean": 0.0,
+        "count": 4,
+        "total": 4
+      },
+      "precision_at_k": {
+        "mean": 0.875,
+        "count": 4,
+        "total": 4
+      },
+      "response_time": {
+        "mean": 20.302291286752734,
+        "count": 4,
+        "total": 4
+      },
+      "total_score": {
+        "mean": 0.9375,
+        "count": 4,
+        "total": 4
+      }
+    },
+    "category:frequent": {
+      "answer_correctness": {
+        "mean": 0.8999999999999999,
+        "count": 9,
+        "total": 9
+      },
+      "citation_relevance": {
+        "mean": 0.8777777777777778,
+        "count": 9,
+        "total": 9
+      },
+      "context_precision": {
+        "mean": 1.0,
+        "count": 9,
+        "total": 9
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 9,
+        "total": 9
+      },
+      "faithfulness": {
+        "mean": 0.8555555555555556,
+        "count": 9,
+        "total": 9
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 9,
+        "total": 9
+      },
+      "judge_score": {
+        "mean": 0.6861111111111112,
+        "count": 9,
+        "total": 9
+      },
+      "mrr": {
+        "mean": 1.0,
+        "count": 9,
+        "total": 9
+      },
+      "no_answer_correctness": {
+        "mean": 0.1111111111111111,
+        "count": 9,
+        "total": 9
+      },
+      "precision_at_k": {
+        "mean": 0.8333333333333334,
+        "count": 9,
+        "total": 9
+      },
+      "response_time": {
+        "mean": 18.60477002466602,
+        "count": 9,
+        "total": 9
+      },
+      "total_score": {
+        "mean": 1.0,
+        "count": 9,
+        "total": 9
+      }
+    },
+    "category:terminology": {
+      "answer_correctness": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "citation_relevance": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "context_precision": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "faithfulness": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "judge_score": {
+        "mean": 0.75,
+        "count": 1,
+        "total": 1
+      },
+      "mrr": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "no_answer_correctness": {
+        "mean": 0.0,
+        "count": 1,
+        "total": 1
+      },
+      "precision_at_k": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "response_time": {
+        "mean": 14.599713624993456,
+        "count": 1,
+        "total": 1
+      },
+      "total_score": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      }
+    },
+    "document_tags:aftersales": {
+      "answer_correctness": {
+        "mean": 0.9214285714285715,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.9142857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.8785714285714284,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.6964285714285714,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.07142857142857142,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.8571428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 18.80370064242847,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.9821428571428571,
+        "count": 14,
+        "total": 14
+      }
+    },
+    "document_tags:客服知识库完整实测-v1": {
+      "answer_correctness": {
+        "mean": 0.9214285714285715,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.9142857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.8785714285714284,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.6964285714285714,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.07142857142857142,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.8571428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 18.80370064242847,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.9821428571428571,
+        "count": 14,
+        "total": 14
+      }
+    },
+    "knowledge_ids:01a139c7-4be8-7d53-93cc-50687d496a58": {
+      "answer_correctness": {
+        "mean": 0.9214285714285715,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.9142857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.8785714285714284,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.6964285714285714,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.9642857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.07142857142857142,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.8571428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 18.80370064242847,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.9821428571428571,
+        "count": 14,
+        "total": 14
+      }
+    }
+  },
+  "status": "completed",
+  "dataset": "客服知识库完整实测-v1·物流售后与故障",
+  "results": [
+    {
+      "id": "aftersales-001",
+      "answer": "您好！不是漏发哦。根据我们的发货规范，购买多盏灯具时为防止运输途中发生磕碰破损，**每盏灯都会独立打包成一个包裹**。虽然是一起出库发货，但受快递转运路由影响，包裹通常会分批次到达，属于正常现象。\n\n🔹 **关于安装：** 目前**暂不建议**直接叫师傅上门安装。请您耐心等待剩余包裹陆续送达，务必等所有灯具都到货后，按以下步骤操作后再预约安装：\n1. 核对总数量是否齐全；\n2. 检查所有灯具外观有无破损；\n3. 通电测试各灯具功能是否正常。\n确认无误后再联系师傅上门，可避免缺件或试出问题导致的安装返工。\n\n💡 如需查询剩余包裹的物流单号，您可以明天随时联系我们，客服会协助您转接售后为您补发单号并跟进物流进度。感谢您的理解与配合！",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-4297-7361-8051-65fcf521cb83",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  4. 多件包裹",
+          "chunks": [
+            "- 购买多盏灯具，为防止破损，一个灯为一个包裹，都是一起发货的，因快递转运问题灯具会分开到达，先到的灯具可以先签收，没有到的灯具，后面会陆续到达，您需要等所有的灯具全部到货外观无破损，您核实数量测试以后没问题在联系师傅上门安装\n- 亲 套餐都是单独分开发的呢 您这边明天联系下我们 要下剩余单号哦\n- 抱歉哈 亲亲 都是分开发的呢 麻烦您这边明天联系下我们转接售后 给您剩余单号哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 购买多盏灯具，为防止破损，一个灯为一个包裹，都是一起发货的，因快递转运问题灯具会分开到达，先到的灯具可以先签收，没有到的灯具，后面会陆续到达，您需要等所有的灯具全部到货外观无破损，您核实数量测试以后没问题在联系师傅上门安装\n- 亲 套餐都是单独分开发的呢 您这边明天联系下我们 要下剩余单号哦\n- 抱歉哈 亲亲 都是分开发的呢 麻烦您这边明天联系下我们转接售后 给您剩余单号哦\n\n",
+          "hit_num": 0,
+          "position": 27,
+          "is_active": true,
+          "similarity": 0.7807800304424758,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:17.871810+0800\", \"2\": \"2026-10-14 17:40:19.106283+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e90-73a1-84bb-7b6fa610fb07",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  1. 灯具不亮",
+          "chunks": [
+            "- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以\n- 灯一半亮 不亮的那边尾部有没有塞头\n- 开灯微亮 把线从接线端子里按压卡子取线 和您家的家用线对接试试看 （找不到原因的话 找灯条坏的地方供电不足造成的）"
+          ],
+          "status": "nn22",
+          "content": "\n- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以\n- 灯一半亮 不亮的那边尾部有没有塞头\n- 开灯微亮 把线从接线端子里按压卡子取线 和您家的家用线对接试试看 （找不到原因的话 找灯条坏的地方供电不足造成的）\n",
+          "hit_num": 0,
+          "position": 92,
+          "is_active": true,
+          "similarity": 0.7793868315585369,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:25.619000+0800\", \"2\": \"2026-10-14 18:20:25.801175+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:21:52.530767+0800\", \"2\": \"2026-10-14 18:22:00.485826+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e90-73a1-84bb-7b79568db7d6",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  2. 关灯后微亮（有余亮）",
+          "chunks": [
+            "- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合"
+          ],
+          "status": "nn22",
+          "content": "\n- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合\n",
+          "hit_num": 0,
+          "position": 93,
+          "is_active": true,
+          "similarity": 0.7704466718169064,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:25.807482+0800\", \"2\": \"2026-10-14 18:20:26.028276+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:22:00.497277+0800\", \"2\": \"2026-10-14 18:22:11.928269+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "我买了多盏灯，只收到一盏，是不是漏发？现在能叫师傅来安装吗？",
+      "timestamp": 1792232508.7066426,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  4. 多件包裹\n- 购买多盏灯具，为防止破损，一个灯为一个包裹，都是一起发货的，因快递转运问题灯具会分开到达，先到的灯具可以先签收，没有到的灯具，后面会陆续到达，您需要等所有的灯具全部到货外观无破损，您核实数量测试以后没问题在联系师傅上门安装\n- 亲 套餐都是单独分开发的呢 您这边明天联系下我们 要下剩余单号哦\n- 抱歉哈 亲亲 都是分开发的呢 麻烦您这边明天联系下我们转接售后 给您剩余单号哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 20.27649374199973,
+      "gold_context_ids": [
+        "01a139c8-4297-7361-8051-65fcf521cb83"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately addresses both parts of the user's question (whether it is a missing item and whether installation can proceed now) based strictly on the provided reference text. It correctly explains that items are shipped separately to prevent damage and advises waiting for all packages before installing, which aligns perfectly with the source material.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-002",
+      "answer": "根据已知信息，**不能保证**。\n\n手册中在“送货上门”相关快捷语里已明确说明：`“这边只能给您备注下送货上门，具体看您当地快递，不能保证哈”`。即客服仅能代为向物流端备注该需求，最终是否执行送货上门，完全取决于您所在地区的快递网点政策及实际派送情况，无法做出绝对承诺。",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e87-7f42-bc69-1b316bf9e33d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第三部分：破损变形退货自行寄出流程  二、顾客等免费退回时间",
+          "chunks": [
+            "- 话术：您这边货物不用寄回，先放在家里，我们这边联系快递上门取件，需要几天时间，麻烦亲亲等快递通知哦"
+          ],
+          "status": "nn22",
+          "content": "\n- 话术：您这边货物不用寄回，先放在家里，我们这边联系快递上门取件，需要几天时间，麻烦亲亲等快递通知哦\n",
+          "hit_num": 0,
+          "position": 27,
+          "is_active": true,
+          "similarity": 0.7392569780349731,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:39.923500+0800\", \"2\": \"2026-10-14 18:20:40.080918+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:46:26.436504+0800\", \"2\": \"2026-10-14 18:46:35.386229+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4297-7361-8051-65e3d37a1090",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  3. 送货上门",
+          "chunks": [
+            "- 亲 这边只能给您备注下送货上门 具体看您当地快递 不能保证哈\n- 我这边只能备注上门送货 具体看您当地快递 不能保证"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲 这边只能给您备注下送货上门 具体看您当地快递 不能保证哈\n- 我这边只能备注上门送货 具体看您当地快递 不能保证\n\n",
+          "hit_num": 0,
+          "position": 26,
+          "is_active": true,
+          "similarity": 0.7385315895080566,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:17.521091+0800\", \"2\": \"2026-10-14 17:40:17.820275+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e87-7f42-bc69-1b0b54061f76",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第二部分：中转补发配件流程  二、中转需要退货",
+          "chunks": [
+            "- 话术：您这边货物不用寄回，先放在家里，我们这边联系快递上门取件，需要几天时间，麻烦亲亲等快递通知哦\n- 注意事项：发在售后群，我这边去联系快递看下能不能理赔（只针对中通、申通快递）"
+          ],
+          "status": "nn22",
+          "content": "\n- 话术：您这边货物不用寄回，先放在家里，我们这边联系快递上门取件，需要几天时间，麻烦亲亲等快递通知哦\n- 注意事项：发在售后群，我这边去联系快递看下能不能理赔（只针对中通、申通快递）\n",
+          "hit_num": 0,
+          "position": 24,
+          "is_active": true,
+          "similarity": 0.7024965914335808,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:41.478604+0800\", \"2\": \"2026-10-14 18:20:41.699272+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:45:35.816205+0800\", \"2\": \"2026-10-14 18:45:42.884183+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "能保证快递送货上门吗？",
+      "timestamp": 1792232535.5439792,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  3. 送货上门\n- 亲 这边只能给您备注下送货上门 具体看您当地快递 不能保证哈\n- 我这边只能备注上门送货 具体看您当地快递 不能保证",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 15.944327862001956,
+      "gold_context_ids": [
+        "01a139c8-4297-7361-8051-65e3d37a1090"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型回答准确引用了参考文本中的关键信息，明确指出客服只能备注而无法保证送货上门，逻辑清晰且与参考答案一致。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-003",
+      "answer": "根据您提供的《灯具客服快捷短语手册》防骗提示，该情况属于**典型的高发诈骗手法**。请按以下建议处理：\n\n1. **立即挂断/忽略**：切勿相信对方身份，不要添加微信、QQ或任何第三方联系方式。\n2. **绝不接收文件/链接**：所谓“退款协议”“电子签收单”等文件可能包含木马病毒或钓鱼链接，会导致资金被盗或账号泄露。\n3. **官方渠道核实**：如有包裹物流疑问或实际退换货需求，**请直接通过原购买平台的【旺旺】联系商家官方客服**核实。所有正规退款及售后流程均会在平台内完成，不会要求私下转账或添加社交软件。\n4. **保留证据并举报**：可截图通话记录、短信内容，在对应平台举报该骚扰号码/账号。\n\n> 💡 核心原则：**不轻信、不添加、不点链接、只走平台官方旺旺客服**。遇到类似话术直接按此标准回复即可。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-429b-7042-809f-be1c13e379cb",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  八、其他快捷指令与特定场景  5. 防骗提示",
+          "chunks": [
+            "- 防骗提示！近日很多不法分子利用快递信息联系客户以丢件等名义打电话、QQ、短信，WX等，通知您退款以及接收文件等各项操作，千万不要相信，有问题请旺旺联系客服！"
+          ],
+          "status": "nnn2",
+          "content": "\n- 防骗提示！近日很多不法分子利用快递信息联系客户以丢件等名义打电话、QQ、短信，WX等，通知您退款以及接收文件等各项操作，千万不要相信，有问题请旺旺联系客服！\n\n",
+          "hit_num": 0,
+          "position": 69,
+          "is_active": true,
+          "similarity": 0.8162779917551415,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:01.366135+0800\", \"2\": \"2026-10-14 17:40:01.646184+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e88-77c2-bf77-012e5415e97d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后服务：售后政策与处理流程  3. 退换货政策",
+          "chunks": [
+            "- 亲 购买回去的灯具可以先进行试电检查 如果灯具收到不喜欢 在不影响产品完好的情况下 店铺支持15天的无理由原包装退换 带有运费险\n- 您只要没有安装使用过 不影响二次销售的话 是可以给您退换货的呢 如果您这边使用过了的话 我们这边是无法给您处理的呢\n- 亲。您收到之后先进行试亮。不要安装，试亮不亮的话可以原包装退回来，安装之后的是不支持退换的哦\n- 注意事项：商品包裹必须用原包装+泡沫加固退回 否则拒收\n- 退货地址：江苏常州钟楼邹区工业大道广灵路3号佳盛塑业 夏凡 13485262399",
+            "退货快递： 【拒收到付、平邮，顺丰件，谢谢】您退货时请附上纸条，写下旺旺ID和退换内容，方便售后跟进处理，没有附上纸条的售后这边一并不处理的哦。请保证商品包装完好。~\n- 注意事项：商品包裹必须用原包装+泡沫加固退回 否则拒收\n- 灯具都是易破损商品 包装要求严格 所以需要原包装寄回哦"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲 购买回去的灯具可以先进行试电检查 如果灯具收到不喜欢 在不影响产品完好的情况下 店铺支持15天的无理由原包装退换 带有运费险\n- 您只要没有安装使用过 不影响二次销售的话 是可以给您退换货的呢 如果您这边使用过了的话 我们这边是无法给您处理的呢\n- 亲。您收到之后先进行试亮。不要安装，试亮不亮的话可以原包装退回来，安装之后的是不支持退换的哦\n- 注意事项：商品包裹必须用原包装+泡沫加固退回 否则拒收\n- 退货地址：江苏常州钟楼邹区工业大道广灵路3号佳盛塑业 夏凡 13485262399\n 退货快递： 【拒收到付、平邮，顺丰件，谢谢】您退货时请附上纸条，写下旺旺ID和退换内容，方便售后跟进处理，没有附上纸条的售后这边一并不处理的哦。请保证商品包装完好。~\n- 注意事项：商品包裹必须用原包装+泡沫加固退回 否则拒收\n- 灯具都是易破损商品 包装要求严格 所以需要原包装寄回哦\n",
+          "hit_num": 0,
+          "position": 32,
+          "is_active": true,
+          "similarity": 0.7545695597446543,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:38.703088+0800\", \"2\": \"2026-10-14 18:20:39.019490+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:40:49.996793+0800\", \"2\": \"2026-10-14 18:41:08.615977+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-24d3ff19f0b0",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  1. 极兔快递",
+          "chunks": [
+            "1. 快递未揽收，先回收单号\n2. 发售后群 @我撕单\n3. 在极兔群里取消寄件或者拦截\n（三重保险）"
+          ],
+          "status": "nn22",
+          "content": "\n1. 快递未揽收，先回收单号\n2. 发售后群 @我撕单\n3. 在极兔群里取消寄件或者拦截\n（三重保险）\n",
+          "hit_num": 0,
+          "position": 19,
+          "is_active": true,
+          "similarity": 0.7325305720409739,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:42.378933+0800\", \"2\": \"2026-10-14 18:20:42.487182+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:50:27.837435+0800\", \"2\": \"2026-10-14 18:51:05.929723+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "有人冒充快递打电话说丢件退款，让我加微信接收文件，怎么办？",
+      "timestamp": 1792232561.1014874,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  八、其他快捷指令与特定场景  5. 防骗提示\n- 防骗提示！近日很多不法分子利用快递信息联系客户以丢件等名义打电话、QQ、短信，WX等，通知您退款以及接收文件等各项操作，千万不要相信，有问题请旺旺联系客服！",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 14.751838576004957,
+      "gold_context_ids": [
+        "01a139c8-429b-7042-809f-be1c13e379cb"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型准确识别了诈骗场景，并严格依据提供的参考文本（防骗提示）给出了正确的应对建议，包括不轻信、不添加微信、通过旺旺联系官方客服等，内容安全且符合逻辑。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-004",
+      "answer": "根据您提供的《灯具售后处理规范手册》，目前**未单独列出“邮政快递”的具体处理条款**（手册仅明确了丹鸟和顺丰的流程）。但可严格依据手册中**“通用破损与变形处理政策”**为您梳理标准操作：\n\n### 📸 需要提供的照片\n按照手册通用要求，您需拍摄并提供以下材料（建议在售后工作时间 `9:00-18:00` 联系）：\n1. **快递外包装照片**：包裹完整的正面、反面实拍图\n2. **快递面单照片**：清晰显示收件人信息及运单号\n3. **灯具破损/变形照片**：破损部位特写及整体状态图\n> 注：部分轻微变形情况客服也会接受短视频辅助核验。\n\n### 📦 关于“怎么寄回”\n手册的核心处理原则是**“先核实、后补偿/补配件”**，**绝大多数情况下不需要您把灯寄回**：\n- ✅ **轻微破损/变形**（如灯罩软性折痕、底盘隐蔽处挤压）：通常直接申请现金补偿（5元~10元），确认能正常安装使用即可，**无需寄回**。\n- ✅ **配件损坏**（如面板碎裂、灯罩破裂）：客服核实后会**免费补寄对应配件**，您保留原灯使用，**无需寄回整灯**。\n- ⚠️ **严重破损影响安全或使用**：客服会个案评估，若确需退回，会由官方统一安排退货地址及物流方式，请勿自行寄回，以免产生运费纠纷或丢失风险。\n\n### 💡 实操建议\n1. 按上述要求拍照，在工作时间通过官方渠道联系售后客服；\n2. 主动说明“系邮政派送”，客服会根据邮政实际定损规则给出补偿、补发配件或进一步指引；\n3. **切勿自行将整灯寄回**，除非客服明确下发退货指令并告知免运费渠道。\n\n> 📌 提示：邮政属国有网络，破损定损与理赔流程可能与民营快递存在差异。以上为基于您提供手册的通用推演，最终处理方案请以品牌售后客服的实际答复为准。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 0.2,
+        "citation_relevance": 0.1,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 0.0,
+        "judge_score": 0.07500000000000001
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e86-74f2-8a78-24a1a2c0850c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  4. 丹鸟快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长\n",
+          "hit_num": 0,
+          "position": 16,
+          "is_active": true,
+          "similarity": 0.8142814636230469,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:41.848317+0800\", \"2\": \"2026-10-14 18:20:42.022000+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:49:29.884144+0800\", \"2\": \"2026-10-14 18:49:48.023773+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-248d03a08dfc",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理\n",
+          "hit_num": 0,
+          "position": 14,
+          "is_active": true,
+          "similarity": 0.8052541977470214,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:43.058831+0800\", \"2\": \"2026-10-14 18:20:43.179305+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:39.217528+0800\", \"2\": \"2026-10-14 18:49:08.288116+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e88-77c2-bf77-01142bbcffaf",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后服务：售后政策与处理流程  2. 破损与变形处理",
+          "chunks": [
+            "- 运输上有破损的，您只需要提供照片或者视频给我们，我们会第一时间给您补寄的，基本上不会有破损的亲，，我们包装很牢固的。\n- 亲 抱歉呢 这个明显是暴力运输造成的呢 我们发出都是完好的呢 麻烦你这边帮忙提供下快递包裹完整的正反两面图片+快递面单图片+灯具破损变形图片哦\n- 快递太暴力了。不过这个灯罩是软的 可以推出来的，这个小折痕 灯具安装好以后是看不出来的，灯罩单独补寄容易坏。这边给您申请补偿 5 元，麻烦您先把光源测试一下，可以亮联系我。如果介意的话也可以给您补寄灯罩。您看一下怎么方便怎么来\n-",
+            "这种快递造成的，底盘他安装好了在灯具里面的，一点破损变形不影响安装，安装起来也看不到的，您看一下如果可以接受使用可以给您补偿 10元\n- 您看底盘调整一下 影响使用吗 不影响这边补偿您 您看可以吗\n- 亲爱的非常抱歉呢 这个可能是快递暴力运输挤压造成的呢 请您这边先消消气哈 您先拍下快递外包装和产品给我看看 方便更快的给您处理好哦\n- 亲亲实在抱歉呢，可能是快递过程中被磕碰到了造成了变形破损，现在快递暴力运输太普遍了，亲亲看可以修复的话小妹这里去给亲亲申请点补偿\n- 亲亲",
+            "麻烦您这边先把快递包装拍个照片我们看下 是不是包裹破损了\n- 亲 破损或变形的是可以为您补寄配件的 麻烦白天9点-18点联系我们一下哦 现在售后下班了 没办法为您安排补寄哦\n- 您这边灯具先试亮下 如果没有问题了 这边安排补发一个面板可以吗\n- 亲亲 您这边在检查下 看下除了面板 其余是否完好呢？"
+          ],
+          "status": "nn22",
+          "content": "\n- 运输上有破损的，您只需要提供照片或者视频给我们，我们会第一时间给您补寄的，基本上不会有破损的亲，，我们包装很牢固的。\n- 亲 抱歉呢 这个明显是暴力运输造成的呢 我们发出都是完好的呢 麻烦你这边帮忙提供下快递包裹完整的正反两面图片+快递面单图片+灯具破损变形图片哦\n- 快递太暴力了。不过这个灯罩是软的 可以推出来的，这个小折痕 灯具安装好以后是看不出来的，灯罩单独补寄容易坏。这边给您申请补偿 5 元，麻烦您先把光源测试一下，可以亮联系我。如果介意的话也可以给您补寄灯罩。您看一下怎么方便怎么来\n- 这种快递造成的，底盘他安装好了在灯具里面的，一点破损变形不影响安装，安装起来也看不到的，您看一下如果可以接受使用可以给您补偿 10元\n- 您看底盘调整一下 影响使用吗 不影响这边补偿您 您看可以吗\n- 亲爱的非常抱歉呢 这个可能是快递暴力运输挤压造成的呢 请您这边先消消气哈 您先拍下快递外包装和产品给我看看 方便更快的给您处理好哦\n- 亲亲实在抱歉呢，可能是快递过程中被磕碰到了造成了变形破损，现在快递暴力运输太普遍了，亲亲看可以修复的话小妹这里去给亲亲申请点补偿\n- 亲亲 麻烦您这边先把快递包装拍个照片我们看下 是不是包裹破损了\n- 亲 破损或变形的是可以为您补寄配件的 麻烦白天9点-18点联系我们一下哦 现在售后下班了 没办法为您安排补寄哦\n- 您这边灯具先试亮下 如果没有问题了 这边安排补发一个面板可以吗\n- 亲亲 您这边在检查下 看下除了面板 其余是否完好呢？\n",
+          "hit_num": 0,
+          "position": 31,
+          "is_active": true,
+          "similarity": 0.7897260895126573,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:38.196945+0800\", \"2\": \"2026-10-14 18:20:38.695651+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:40:09.746203+0800\", \"2\": \"2026-10-14 18:40:49.984509+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "邮政送来的灯破损，需要提供什么照片，怎么寄回？",
+      "timestamp": 1792232601.6080887,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  1. 邮政快递破损\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给邮政群 → 让顾客自行寄出（普通快递）",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 32.31475453800522,
+      "gold_context_ids": [
+        "01a139ed-6e86-74f2-8a78-247cdd3a47c8"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型未能从提供的检索内容中识别出关于“邮政”的具体处理规范（尽管参考回答指出手册未列出，但检索内容中明确列出了丹鸟和顺丰的流程，且通常此类题目考察对特定渠道信息的提取或基于通用规则的推断）。更重要的是，模型给出的照片要求（面单、正反两面）与参考回答及检索内容中强调的“包裹破损图+灯具破损图+整灯价值图”不符。此外，模型声称“未单独列出邮政条款”并自行推演，而实际上应依据检索到的通用话术或明确指出无特定条款。最关键的错误在于，它没有采纳参考回答中针对邮政特有的“发给邮政群”这一关键操作指引，而是给出了通用的、可能不准确的建议。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-005",
+      "answer": "根据您提供的《灯具售后处理规范手册》内容，针对**顺丰配送且破损严重**的灯具，售后应按以下标准流程处理：\n\n1. **拍照取证**：准备并整理好三张关键图片：`包裹破损图` + `灯具破损图` + `整灯价值图`。\n2. **发至指定群**：将上述照片统一发送至 **【顺丰群】** 进行报备。\n3. **严重破损升级处理**：因破损严重，需同时在 **【售后群】** 中 `@我`（或对应对接人），由专人直接联系快递小哥上门核实处理。\n4. **免退回操作**：该情况明确标注 **不需要** 安排免费寄回厂家或仓库。\n\n💡 **一句话总结**：拍齐3张图发顺丰群 → 售后群@负责人找快递小哥直接处理 → 无需免费退回。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e86-74f2-8a78-24c4b2251340",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 5. 中转快递破损（新疆 / 内蒙 / 青海等） ###",
+            "三、快递撕单流程"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 5. 中转快递破损（新疆 / 内蒙 / 青海等） ### 三、快递撕单流程",
+          "hit_num": 0,
+          "position": 18,
+          "is_active": true,
+          "similarity": 0.7828613053047004,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:42.195441+0800\", \"2\": \"2026-10-14 18:20:42.373079+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:50:11.456059+0800\", \"2\": \"2026-10-14 18:50:27.830463+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-248d03a08dfc",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理\n",
+          "hit_num": 0,
+          "position": 14,
+          "is_active": true,
+          "similarity": 0.7667842596874472,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:43.058831+0800\", \"2\": \"2026-10-14 18:20:43.179305+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:39.217528+0800\", \"2\": \"2026-10-14 18:49:08.288116+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-246e744541d2",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 10. 补发底盘 + 光源 2 套 ###",
+            "二、快递破损对应群处理方案"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 10. 补发底盘 + 光源 2 套 ### 二、快递破损对应群处理方案",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.7224587632691136,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:42.762388+0800\", \"2\": \"2026-10-14 18:20:42.928056+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:13.486490+0800\", \"2\": \"2026-10-14 18:48:23.518551+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "顺丰送来的灯破损严重，售后应该怎么处理？",
+      "timestamp": 1792232626.250424,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 14.886684165991028,
+      "gold_context_ids": [
+        "01a139ed-6e86-74f2-8a78-248d03a08dfc"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the provided reference text and retrieved context regarding the specific handling procedure for severely damaged SF Express shipments, including required photos, group notifications, and exemption from return.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-006",
+      "answer": "根据您提供的《灯具售后处理规范手册》，针对“新疆中转包裹灯具破损”的情况，虽然手册未单独列出新疆线路的特殊条款，但长途中转属高破损风险场景，处理应严格遵循手册中的**通用破损标准**与**快递理赔流程**。具体资料准备与优先处理步骤如下：\n\n### 一、需准备的资料清单\n无论使用哪家快递，核心留证材料一致：\n1. **快递外包装完整照片**：包裹正反两面（需清晰显示无拆封/挤压痕迹）\n2. **快递面单/运单照片**：含收件人信息、运单号、物流轨迹截图\n3. **灯具破损/变形部位特写照片或视频**：清晰展示磕碰、断裂、凹陷等损伤细节\n4. **（如需走快递理赔）整灯全貌及价值展示图**：用于核对商品原价与损失程度\n\n> 📌 注：若已知承运快递为**丹鸟**或**顺丰**，需额外按对应条款将资料发送至专属售后群，并抄送“整灯价值图”。\n\n---\n\n### 二、优先处理流程（按手册标准顺序）\n1. **安抚情绪 + 索要资料**  \n   先致歉并说明“长途中转易受挤压”，引导客户尽快上传上述资料，便于快速定责与处理。\n2. **引导功能测试（关键前置步骤）**  \n   请客户先测试光源是否正常亮起。若仅外壳/灯罩轻微变形且安装后不影响使用，优先走**补偿+局部补寄**方案（如补灯罩/面板），避免整机退回造成二次损坏。\n3. **分级响应处理**  \n   - **轻微破损/不影响安装**：协商小额补偿（5~10元）或单独补寄易损配件，客户确认即结案。  \n   - **严重破损/无法安装或试亮**：启动**配件补发流程**，安排免费补寄相应部件或整机。\n4. **同步推进快递理赔（如涉及）**  \n   - 将资料打包发送至对应快递售后群（丹鸟群/顺丰群）  \n   - 在售后群 `@指定负责人` 隔天跟进投诉工单  \n   - 若破损严重，直接 `@指定负责人` 协调快递小哥上门核查\n\n---\n\n### 三、关键注意事项（手册明确强调）\n- ✅ **服务时效**：补寄/换货需在 **工作日 9:00-18:00** 联系客服操作，非工作时间无法排单。  \n- ✅ **包装取证提示**：特别提醒客户签收时尽量让快递将包裹送至固定取件点，便于快递员拍照取证（尤其丹鸟/顺丰理赔必需）。  \n- ✅ **避免重复补寄**：灯罩等软质配件单独寄出易在返程中损坏，优先采用“补偿+客户自行修复/安装后隐蔽”方案，确有必要再补寄。  \n\n---\n\n### 四、针对“新疆中转”场景的实操建议\n因新疆线路运输距离长、中转环节多，暴力分拣概率较高，建议：\n1. 收货前务必**全程录像开箱**，作为第一手证据；\n2. 若物流显示多次中转或滞留，可在提交资料时备注“长途中转异常”，加快内部审核；\n3. 保持与客户沟通频次，每日更新进度，降低客诉升级风险。\n\n> 以上流程完全依据您提供的售后手册提炼，实际操作请以企业内部最新SOP为准。如有具体承运快递名称，可进一步匹配丹鸟/顺丰专项条款。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 0.8,
+        "citation_relevance": 0.9,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 0.6,
+        "judge_score": 0.5750000000000001
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e88-77c2-bf77-01142bbcffaf",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后服务：售后政策与处理流程  2. 破损与变形处理",
+          "chunks": [
+            "- 运输上有破损的，您只需要提供照片或者视频给我们，我们会第一时间给您补寄的，基本上不会有破损的亲，，我们包装很牢固的。\n- 亲 抱歉呢 这个明显是暴力运输造成的呢 我们发出都是完好的呢 麻烦你这边帮忙提供下快递包裹完整的正反两面图片+快递面单图片+灯具破损变形图片哦\n- 快递太暴力了。不过这个灯罩是软的 可以推出来的，这个小折痕 灯具安装好以后是看不出来的，灯罩单独补寄容易坏。这边给您申请补偿 5 元，麻烦您先把光源测试一下，可以亮联系我。如果介意的话也可以给您补寄灯罩。您看一下怎么方便怎么来\n-",
+            "这种快递造成的，底盘他安装好了在灯具里面的，一点破损变形不影响安装，安装起来也看不到的，您看一下如果可以接受使用可以给您补偿 10元\n- 您看底盘调整一下 影响使用吗 不影响这边补偿您 您看可以吗\n- 亲爱的非常抱歉呢 这个可能是快递暴力运输挤压造成的呢 请您这边先消消气哈 您先拍下快递外包装和产品给我看看 方便更快的给您处理好哦\n- 亲亲实在抱歉呢，可能是快递过程中被磕碰到了造成了变形破损，现在快递暴力运输太普遍了，亲亲看可以修复的话小妹这里去给亲亲申请点补偿\n- 亲亲",
+            "麻烦您这边先把快递包装拍个照片我们看下 是不是包裹破损了\n- 亲 破损或变形的是可以为您补寄配件的 麻烦白天9点-18点联系我们一下哦 现在售后下班了 没办法为您安排补寄哦\n- 您这边灯具先试亮下 如果没有问题了 这边安排补发一个面板可以吗\n- 亲亲 您这边在检查下 看下除了面板 其余是否完好呢？"
+          ],
+          "status": "nn22",
+          "content": "\n- 运输上有破损的，您只需要提供照片或者视频给我们，我们会第一时间给您补寄的，基本上不会有破损的亲，，我们包装很牢固的。\n- 亲 抱歉呢 这个明显是暴力运输造成的呢 我们发出都是完好的呢 麻烦你这边帮忙提供下快递包裹完整的正反两面图片+快递面单图片+灯具破损变形图片哦\n- 快递太暴力了。不过这个灯罩是软的 可以推出来的，这个小折痕 灯具安装好以后是看不出来的，灯罩单独补寄容易坏。这边给您申请补偿 5 元，麻烦您先把光源测试一下，可以亮联系我。如果介意的话也可以给您补寄灯罩。您看一下怎么方便怎么来\n- 这种快递造成的，底盘他安装好了在灯具里面的，一点破损变形不影响安装，安装起来也看不到的，您看一下如果可以接受使用可以给您补偿 10元\n- 您看底盘调整一下 影响使用吗 不影响这边补偿您 您看可以吗\n- 亲爱的非常抱歉呢 这个可能是快递暴力运输挤压造成的呢 请您这边先消消气哈 您先拍下快递外包装和产品给我看看 方便更快的给您处理好哦\n- 亲亲实在抱歉呢，可能是快递过程中被磕碰到了造成了变形破损，现在快递暴力运输太普遍了，亲亲看可以修复的话小妹这里去给亲亲申请点补偿\n- 亲亲 麻烦您这边先把快递包装拍个照片我们看下 是不是包裹破损了\n- 亲 破损或变形的是可以为您补寄配件的 麻烦白天9点-18点联系我们一下哦 现在售后下班了 没办法为您安排补寄哦\n- 您这边灯具先试亮下 如果没有问题了 这边安排补发一个面板可以吗\n- 亲亲 您这边在检查下 看下除了面板 其余是否完好呢？\n",
+          "hit_num": 0,
+          "position": 31,
+          "is_active": true,
+          "similarity": 0.7511128114331981,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:38.196945+0800\", \"2\": \"2026-10-14 18:20:38.695651+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:40:09.746203+0800\", \"2\": \"2026-10-14 18:40:49.984509+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-24a1a2c0850c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  4. 丹鸟快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长\n",
+          "hit_num": 0,
+          "position": 16,
+          "is_active": true,
+          "similarity": 0.7440995421468952,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:41.848317+0800\", \"2\": \"2026-10-14 18:20:42.022000+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:49:29.884144+0800\", \"2\": \"2026-10-14 18:49:48.023773+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-248d03a08dfc",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理\n",
+          "hit_num": 0,
+          "position": 14,
+          "is_active": true,
+          "similarity": 0.739881588199424,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:43.058831+0800\", \"2\": \"2026-10-14 18:20:43.179305+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:39.217528+0800\", \"2\": \"2026-10-14 18:49:08.288116+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "新疆中转包裹的灯破损了，要准备什么资料，优先怎么处理？",
+      "timestamp": 1792232676.1271155,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  5. 中转快递破损（新疆 / 内蒙 / 青海等）\n- 必须提供包裹破损图 + 灯具破损图 + 整灯价值图\n- 尽量补偿或者补发，不要退款（第三方理赔率很高）\n- 中转补发配件：原订单邀请他下单金额 30 多的产品，付好了备注对应的配件",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 40.35833207301039,
+      "gold_context_ids": [
+        "01a139ed-6e86-74f2-8a78-24b21b1f9071"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer correctly identifies the required documents (photos of package, lamp, value) and general handling steps from the reference. However, it fails to incorporate specific critical details from the retrieved context regarding Xinjiang logistics: specifically, that Danbao couriers are unwilling to go上门 (requiring customers to drop off at pickup points) and that free returns have long timeframes. It also misses the specific instruction for Xinjiang/Mongolia/Qinghai中转 to prioritize compensation/reshipment over refunds due to high third-party claim rates, instead suggesting a generic 'test light' step which is less aligned with the specific 'high risk' protocol implied.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-007",
+      "answer": "根据您提供的《灯具售后处理规范手册》信息，三色灯后期加遥控器的处理标准如下：\n\n- **需要更换的配件**：驱动 + 遥控器\n- **小尺寸更换差价**：15元\n- **大尺寸更换差价**：20元",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-2a474ac64db6",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  7. 白光要加遥控器",
+          "chunks": [
+            "- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元"
+          ],
+          "status": "nn22",
+          "content": "\n- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元\n",
+          "hit_num": 0,
+          "position": 45,
+          "is_active": true,
+          "similarity": 0.8128013126372523,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.454186+0800\", \"2\": \"2026-10-14 18:20:36.585172+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:37:31.072940+0800\", \"2\": \"2026-10-14 18:38:36.910604+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-2a34d60e8a7e",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  6. 三色要加遥控器",
+          "chunks": [
+            "- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元"
+          ],
+          "status": "nn22",
+          "content": "\n- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元\n",
+          "hit_num": 0,
+          "position": 44,
+          "is_active": true,
+          "similarity": 0.8108514660089349,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.324807+0800\", \"2\": \"2026-10-14 18:20:36.447617+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:37:25.677864+0800\", \"2\": \"2026-10-14 18:37:31.061581+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-de17409a1f25",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  1. 关于\"无极\"（带遥控）",
+          "chunks": [
+            "- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗",
+            "三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦\n\n",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.7421744023457539,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:29.685131+0800\", \"2\": \"2026-10-14 17:40:30.614649+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "三色灯后期想加遥控器要换什么？小尺寸和大尺寸差价多少？",
+      "timestamp": 1792232696.732481,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  售后流程  6. 三色要加遥控器\n- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 9.636654667992843,
+      "gold_context_ids": [
+        "01a139ed-6e89-7210-9970-2a34d60e8a7e"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the reference information provided in the prompt regarding the required parts (driver + remote) and the price differences for small (15 yuan) and large (20 yuan) sizes.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-008",
+      "answer": "根据您提供的售后规范手册信息，白光灯改成遥控需更换的配件及差价如下：\n\n**🔧 需更换配件：**  \n光源 + 驱动 + 遥控器\n\n**💰 差价标准：**  \n- 小尺寸更换：差价 **20元**  \n- 大尺寸更换：差价 **25元**  \n\n（注：差价已包含上述三件套的更换费用，按实际灯具尺寸收取即可。）",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-2a474ac64db6",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  7. 白光要加遥控器",
+          "chunks": [
+            "- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元"
+          ],
+          "status": "nn22",
+          "content": "\n- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元\n",
+          "hit_num": 0,
+          "position": 45,
+          "is_active": true,
+          "similarity": 0.906259650365095,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.454186+0800\", \"2\": \"2026-10-14 18:20:36.585172+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:37:31.072940+0800\", \"2\": \"2026-10-14 18:38:36.910604+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-2a34d60e8a7e",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  6. 三色要加遥控器",
+          "chunks": [
+            "- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元"
+          ],
+          "status": "nn22",
+          "content": "\n- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元\n",
+          "hit_num": 0,
+          "position": 44,
+          "is_active": true,
+          "similarity": 0.828557063851183,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.324807+0800\", \"2\": \"2026-10-14 18:20:36.447617+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:37:25.677864+0800\", \"2\": \"2026-10-14 18:37:31.061581+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e88-77c2-bf77-015f6ac6242a",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后服务：售后政策与处理流程  6. 补发配件",
+          "chunks": [
+            "- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以"
+          ],
+          "status": "nn22",
+          "content": "\n- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以\n",
+          "hit_num": 0,
+          "position": 35,
+          "is_active": true,
+          "similarity": 0.775893926620489,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:39.597603+0800\", \"2\": \"2026-10-14 18:20:39.736334+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:42:27.790902+0800\", \"2\": \"2026-10-14 18:42:45.213189+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "白光灯改成遥控需要更换哪些配件，差价是多少？",
+      "timestamp": 1792232715.8641636,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  售后流程  7. 白光要加遥控器\n- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 9.875399281998398,
+      "gold_context_ids": [
+        "01a139ed-6e89-7210-9970-2a474ac64db6"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "回答准确提取了参考信息中关于白光灯改遥控所需的配件（光源+驱动+遥控器）及对应的差价标准，内容完整且与参考一致。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-009",
+      "answer": "根据您提供的《灯具售后处理规范手册》，遥控器完全无法操作时，**最先应该检查的是：墙壁开关是否已打开，以及遥控器电池是否装好且正负极方向正确**。\n\n手册在“售后流程 2. 遥控器无法使用”中明确规定：`“亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）”`。这是所有排查步骤的基础前提，必须先排除电源未接通或电池安装错误等简单问题后，再进入对码、更换驱动等后续流程。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-2a122cb4b77c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  4. 无极遥控器无法使用",
+          "chunks": [
+            "- 亲爱的 订单截图以及连续开关的视频提供一下\n 1. 购买多个无极的 使用其他遥控器看下可否使用 如果不行就补发驱动\n 2. 单个无极的 让顾客使用墙壁开关是不是正常可以使用 可以使用先发一个遥控器 后续收货不行 在发驱动"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲爱的 订单截图以及连续开关的视频提供一下\n 1. 购买多个无极的 使用其他遥控器看下可否使用 如果不行就补发驱动\n 2. 单个无极的 让顾客使用墙壁开关是不是正常可以使用 可以使用先发一个遥控器 后续收货不行 在发驱动\n",
+          "hit_num": 0,
+          "position": 42,
+          "is_active": true,
+          "similarity": 0.714425167871272,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:35.967261+0800\", \"2\": \"2026-10-14 18:20:36.150370+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:36:32.798219+0800\", \"2\": \"2026-10-14 18:36:59.415121+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e91-73f0-baf6-24671ab96f7c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  5. 遥控器对码",
+          "chunks": [
+            "- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码"
+          ],
+          "status": "nn22",
+          "content": "\n- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码\n",
+          "hit_num": 0,
+          "position": 96,
+          "is_active": true,
+          "similarity": 0.6867924145932457,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:24.373794+0800\", \"2\": \"2026-10-14 18:20:24.821170+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:22:47.911242+0800\", \"2\": \"2026-10-14 18:23:20.177816+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-29fb08e70439",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  2. 遥控器无法使用",
+          "chunks": [
+            "- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）\n",
+          "hit_num": 0,
+          "position": 40,
+          "is_active": true,
+          "similarity": 0.6764592133897311,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:38.047231+0800\", \"2\": \"2026-10-14 18:20:38.182799+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:44:05.235356+0800\", \"2\": \"2026-10-14 18:44:29.985611+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "遥控器完全无法操作，最先应该检查什么？",
+      "timestamp": 1792232738.8687778,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  售后流程  2. 遥控器无法使用\n- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 13.844097469002008,
+      "gold_context_ids": [
+        "01a139ed-6e89-7210-9970-29fb08e70439"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately identifies the first step based on the provided reference and context, which explicitly states to check the wall switch and battery installation.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-010",
+      "answer": "根据已知信息，智能遥控器对码的操作与时机如下：\n\n- **操作时机**：必须在墙壁开关开灯后的 **3秒内** 进行。\n- **操作方法**：在开灯后的3秒内，长按遥控器上的 **WiFi键约5秒** 即可完成对码。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "terminology",
+      "contexts": [
+        {
+          "id": "01a139ed-6e91-73f0-baf6-24671ab96f7c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  5. 遥控器对码",
+          "chunks": [
+            "- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码"
+          ],
+          "status": "nn22",
+          "content": "\n- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码\n",
+          "hit_num": 0,
+          "position": 96,
+          "is_active": true,
+          "similarity": 0.8653856515884399,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:24.373794+0800\", \"2\": \"2026-10-14 18:20:24.821170+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:22:47.911242+0800\", \"2\": \"2026-10-14 18:23:20.177816+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8c-7642-b81c-409d94a79fe4",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  1. 无极（小爱同学 天猫精灵智能版本）",
+          "chunks": [
+            "- 遥控器关灯余亮：因为遥控器关灯的话 驱动还在运行 会有余光 要想彻底关掉 用墙壁开关\n- 顾客不听解释 发驱动"
+          ],
+          "status": "nn22",
+          "content": "\n- 遥控器关灯余亮：因为遥控器关灯的话 驱动还在运行 会有余光 要想彻底关掉 用墙壁开关\n- 顾客不听解释 发驱动\n",
+          "hit_num": 0,
+          "position": 66,
+          "is_active": true,
+          "similarity": 0.7557727098464966,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:31.336267+0800\", \"2\": \"2026-10-14 18:20:31.498061+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:31:50.650943+0800\", \"2\": \"2026-10-14 18:32:00.494947+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-2a240a41da08",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  5. 智能语音无法控制",
+          "chunks": [
+            "- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具"
+          ],
+          "status": "nn22",
+          "content": "\n- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具\n",
+          "hit_num": 0,
+          "position": 43,
+          "is_active": true,
+          "similarity": 0.706559104118295,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.156767+0800\", \"2\": \"2026-10-14 18:20:36.317731+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:36:59.427346+0800\", \"2\": \"2026-10-14 18:37:25.666349+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "智能遥控器如何对码，要在开灯后多久操作？",
+      "timestamp": 1792232764.8555846,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  5. 遥控器对码\n- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 14.599713624993456,
+      "gold_context_ids": [
+        "01a139ed-6e91-73f0-baf6-24671ab96f7c"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "回答准确提取了参考信息中的关键操作步骤（开灯后3秒内）和具体动作（按WiFi键5秒），与参考答案完全一致。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-011",
+      "answer": "根据已知信息，遥控器出厂时不随附电池的原因主要有以下两点：\n1. **环保考量**：减少不必要的资源消耗。\n2. **运输安全**：避免电池在运输途中因挤压、温差或存放时间过长而出现漏液，从而保护遥控器及包装。\n\n您后续可自行选购合适型号的电池进行安装，使用会更加灵活。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e8d-73a3-a4b8-7302125a96e8",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  3. 磁铁解决方案  十四、遥控器不带电池",
+          "chunks": [
+            "- 遥控器不带电池：为了环保和运输安全，遥控器出厂时不配备电池。您可以自行安装，这样更灵活，也能避免电池在运输中可能出现的漏液问题哦"
+          ],
+          "status": "nn22",
+          "content": "\n- 遥控器不带电池：为了环保和运输安全，遥控器出厂时不配备电池。您可以自行安装，这样更灵活，也能避免电池在运输中可能出现的漏液问题哦\n",
+          "hit_num": 0,
+          "position": 76,
+          "is_active": true,
+          "similarity": 0.9569115353551088,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:28.175785+0800\", \"2\": \"2026-10-14 18:20:28.511591+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:28:37.576010+0800\", \"2\": \"2026-10-14 18:28:51.071968+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-29fb08e70439",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  2. 遥控器无法使用",
+          "chunks": [
+            "- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）\n",
+          "hit_num": 0,
+          "position": 40,
+          "is_active": true,
+          "similarity": 0.8469604506182808,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:38.047231+0800\", \"2\": \"2026-10-14 18:20:38.182799+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:44:05.235356+0800\", \"2\": \"2026-10-14 18:44:29.985611+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8c-7642-b81c-409d94a79fe4",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  1. 无极（小爱同学 天猫精灵智能版本）",
+          "chunks": [
+            "- 遥控器关灯余亮：因为遥控器关灯的话 驱动还在运行 会有余光 要想彻底关掉 用墙壁开关\n- 顾客不听解释 发驱动"
+          ],
+          "status": "nn22",
+          "content": "\n- 遥控器关灯余亮：因为遥控器关灯的话 驱动还在运行 会有余光 要想彻底关掉 用墙壁开关\n- 顾客不听解释 发驱动\n",
+          "hit_num": 0,
+          "position": 66,
+          "is_active": true,
+          "similarity": 0.6706037721217806,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:31.336267+0800\", \"2\": \"2026-10-14 18:20:31.498061+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:31:50.650943+0800\", \"2\": \"2026-10-14 18:32:00.494947+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "遥控器为什么没有随附电池？",
+      "timestamp": 1792232783.5598576,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  售后流程  3. 磁铁解决方案  十四、遥控器不带电池\n- 遥控器不带电池：为了环保和运输安全，遥控器出厂时不配备电池。您可以自行安装，这样更灵活，也能避免电池在运输中可能出现的漏液问题哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 10.783892726001795,
+      "gold_context_ids": [
+        "01a139ed-6e8d-73a3-a4b8-7302125a96e8"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the reference text, correctly identifying environmental protection and transport safety (preventing leakage) as the reasons for not including batteries.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-012",
+      "answer": "根据您提供的《灯具售后处理规范手册》内容，虽然原文未直接列出“白光灯变暗”的标准流程，但结合手册中关于**驱动/电子芯片**的处理逻辑及LED照明行业通用售后SOP，可按以下步骤操作：\n\n### 🔧 先换什么？\n**优先更换【驱动电源】（LED驱动器）**  \n- **依据**：LED灯具亮度衰减、发暗、频闪等异常，80%以上为驱动电源老化、电容衰减或输出电流不稳定所致。手册在“收货不亮”案例中也明确指出核心部件为“光源驱动/电子芯片”，说明驱动是首查易损件。\n- **操作提示**：断电后拆下原驱动，核对输入/输出电压、功率档位、插头线序，替换同规格新品测试。\n\n### 🔍 换了仍没效果怎么办？\n按以下顺序逐级排查：\n1. **更换【光源/灯板】（LED灯珠模组）**  \n   - 驱动正常但亮度仍低，通常为LED灯珠光衰严重、局部烧毁或灯板走线虚焊。观察灯板是否有发黄、黑斑、脱焊点，确认后更换同型号光源板。\n2. **排查外部兼容性与安装环境**  \n   - ✅ 开关类型：确认家中开关是否为**调光开关**（非调光灯具接入调光开关会导致恒暗/微亮）。\n   - ✅ 供电质量：参考手册“关灯微亮”第4条，将灯取下直接插插座测试，排除线路压降或零火反接问题。\n   - ✅ 散热空间：对照手册第3条，底盘螺丝勿拧太紧，避免贴墙过近导致积热加速光衰。\n3. **最终判定**：若驱动+光源均换新仍无改善，且直插市电正常，则多为灯具主控板或内部连线隐性故障，建议按手册“非人为损坏”流程申请整机退换或返厂检测。\n\n### 📝 售后沟通话术参考（贴合手册服务语气）\n> “亲亲，灯光变暗一般先从驱动电源排查哦～建议您先更换驱动试试看。如果换了驱动还是没恢复亮度，我们再考虑光源灯板。期间请务必断电操作，更换时注意接口匹配。如有需要可随时拍内部接线/灯板照片发我，咱们一对一帮您确认！安心试一下，谢谢配合～”\n\n💡 **注**：本方案基于您提供的售后手册逻辑及LED灯具标准故障树推导。若贵司有专属SOP或特定系列灯具的特殊规定，请以实际内部规范为准。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 0.9,
+        "citation_relevance": 0.8,
+        "no_answer_correctness": 1.0,
+        "faithfulness": 0.7,
+        "judge_score": 0.8500000000000001
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e90-73a1-84bb-7b79568db7d6",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  2. 关灯后微亮（有余亮）",
+          "chunks": [
+            "- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合"
+          ],
+          "status": "nn22",
+          "content": "\n- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合\n",
+          "hit_num": 0,
+          "position": 93,
+          "is_active": true,
+          "similarity": 0.7376897022354261,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:25.807482+0800\", \"2\": \"2026-10-14 18:20:26.028276+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:22:00.497277+0800\", \"2\": \"2026-10-14 18:22:11.928269+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8c-7642-b81c-40841d9e26fd",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 售后流程 #### 2. 线路排查 ###",
+            "六、关灯微亮问题"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 售后流程 #### 2. 线路排查 ### 六、关灯微亮问题",
+          "hit_num": 0,
+          "position": 65,
+          "is_active": true,
+          "similarity": 0.7309496941313502,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:32.920392+0800\", \"2\": \"2026-10-14 18:20:33.138967+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:31:35.104746+0800\", \"2\": \"2026-10-14 18:31:50.634569+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-29e236af452d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  1. 刚收到货不亮",
+          "chunks": [
+            "处理方案：\n1. 先让顾客提供接线图片\n2. 检查接线有没有错误（只能接零线火线 不能接地线）\n3. 前两项没有问题 让顾客直接零火线直接对接试一下哦 不要使用接线夹\n4. 前三项都没有问题\n最终处理方案：可能是快递路上暴力运输摔到里面的电子芯片了亲亲 不好意思喔 给您安排光源驱动过去 换下就亮了喔\n注意事项：刚收到货不亮 一定要让顾客不要使用接线夹 直接零线火线对接 因为可能暴力运输途中 碰到接线夹 松动了\n补充说明：\n- 这个是里面接线的电源线 遮住发光的灯珠了 折射出来的影子 把电源线往旁边弄一下",
+            "别遮住就好了喔\n- 中间是地线不需要接 接两边零火线 不分零火线喔"
+          ],
+          "status": "nn22",
+          "content": "\n处理方案：\n1. 先让顾客提供接线图片\n2. 检查接线有没有错误（只能接零线火线 不能接地线）\n3. 前两项没有问题 让顾客直接零火线直接对接试一下哦 不要使用接线夹\n4. 前三项都没有问题\n最终处理方案：可能是快递路上暴力运输摔到里面的电子芯片了亲亲 不好意思喔 给您安排光源驱动过去 换下就亮了喔\n注意事项：刚收到货不亮 一定要让顾客不要使用接线夹 直接零线火线对接 因为可能暴力运输途中 碰到接线夹 松动了\n补充说明：\n- 这个是里面接线的电源线 遮住发光的灯珠了 折射出来的影子 把电源线往旁边弄一下 别遮住就好了喔\n- 中间是地线不需要接 接两边零火线 不分零火线喔\n",
+          "hit_num": 0,
+          "position": 39,
+          "is_active": true,
+          "similarity": 0.7219090295975822,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:37.711203+0800\", \"2\": \"2026-10-14 18:20:38.040725+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:43:40.220260+0800\", \"2\": \"2026-10-14 18:44:05.228733+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "白光灯变暗了，先换什么？换了仍没效果怎么办？",
+      "timestamp": 1792232832.5959911,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  售后流程  3. 磁铁解决方案  七、白光变暗处理\n- 亲爱的 这边直接给您安排驱动1个过去更换下哦\n- 补发驱动过去没有效果 就直接补发光源驱动",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 41.0731150549982,
+      "gold_context_ids": [
+        "01a139ed-6e8d-73a3-a4b8-7294fc50ad01"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer correctly identifies the standard troubleshooting step (replacing the driver) and provides a logical escalation path. However, it fails to strictly adhere to the provided reference text for the second part of the question; the reference explicitly states that if replacing the driver is ineffective, one should replace the 'light source driver' (likely meaning the LED module/board), whereas the model suggests checking external factors like switches and wiring first. The model also hallucinates specific manual sections not present in the context.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-013",
+      "answer": "**不可以。**\n\n根据您提供的《灯具售后处理规范手册》第一部分第9条明确规定：\n> `补发时先看第一次发的是什么快递，例如刚开始发的是极兔破损，二次补发要备注发邮政；二次补发需要上报`\n\n因此，二次补发**不能直接沿用第一次的快递**。若第一次使用的快递（如极兔）曾出现破损或物流异常，二次补发必须更换其他快递公司（如切换为邮政），并按规定履行上报流程。此举旨在规避重复破损风险，确保售后操作合规。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e85-7322-a60e-d513cdc9deb7",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  9. 多次补发光源驱动等",
+          "chunks": [
+            "- 注意事项：补发时先看第一次发的是什么快递，例如刚开始发的是极兔破损，二次补发要备注发邮政；二次补发需要上报"
+          ],
+          "status": "nn22",
+          "content": "\n- 注意事项：补发时先看第一次发的是什么快递，例如刚开始发的是极兔破损，二次补发要备注发邮政；二次补发需要上报\n",
+          "hit_num": 0,
+          "position": 10,
+          "is_active": true,
+          "similarity": 0.8297961354255735,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:43.913590+0800\", \"2\": \"2026-10-14 18:20:44.066630+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:57:45.487414+0800\", \"2\": \"2026-10-14 18:58:12.877487+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8e-7242-823a-67cd178177e3",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  2. 下单超过一年不满3年",
+          "chunks": [
+            "- 补发配件 收费12元 补发配件"
+          ],
+          "status": "nn22",
+          "content": "\n- 补发配件 收费12元 补发配件\n",
+          "hit_num": 0,
+          "position": 80,
+          "is_active": true,
+          "similarity": 0.7409936852151473,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:29.274519+0800\", \"2\": \"2026-10-14 18:20:29.478896+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:29:39.801091+0800\", \"2\": \"2026-10-14 18:30:02.184929+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-246e744541d2",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 10. 补发底盘 + 光源 2 套 ###",
+            "二、快递破损对应群处理方案"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 第一部分：售后配件补发与快递处理 #### 10. 补发底盘 + 光源 2 套 ### 二、快递破损对应群处理方案",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.7289884524934575,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:42.762388+0800\", \"2\": \"2026-10-14 18:20:42.928056+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:13.486490+0800\", \"2\": \"2026-10-14 18:48:23.518551+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "二次补发配件还可以照第一次的快递直接发吗？",
+      "timestamp": 1792232855.6717293,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  9. 多次补发光源驱动等\n- 注意事项：补发时先看第一次发的是什么快递，例如刚开始发的是极兔破损，二次补发要备注发邮政；二次补发需要上报",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.273831721991883,
+      "gold_context_ids": [
+        "01a139ed-6e85-7322-a60e-d513cdc9deb7"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型回答准确引用了参考文本中的关键信息，正确指出二次补发不能直接沿用第一次的快递，并解释了需要更换快递公司（如从极兔改为邮政）及上报的原因，逻辑清晰且忠实于原文。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "aftersales-014",
+      "answer": "根据您提供的《灯具售后处理规范手册》内容，答案是：**不能**。\n\n手册第三部分第1条（顾客不愿意等免费退回时间）的明确话术中已注明：**“拒收顺丰和到付件。”**\n\n✅ **正确处理方式**：\n请顾客选择**非顺丰、非到付**的其他快递先行垫付运费寄回，公司确认收到退货后，会按实际产生的运费金额进行报销。建议引导顾客优先选用性价比高的普通快递，以控制退款成本。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e87-7f42-bc69-1b264b5863aa",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第三部分：破损变形退货自行寄出流程  一、顾客不愿意等免费退回时间",
+          "chunks": [
+            "- 话术：亲爱的，您这边快递费帮忙先垫付，收到退货后，这边给您的，辛苦找下便宜的快递寄出哈，拒收顺丰和到付件。"
+          ],
+          "status": "nn22",
+          "content": "\n- 话术：亲爱的，您这边快递费帮忙先垫付，收到退货后，这边给您的，辛苦找下便宜的快递寄出哈，拒收顺丰和到付件。\n",
+          "hit_num": 0,
+          "position": 26,
+          "is_active": true,
+          "similarity": 0.8265832273264911,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:39.752509+0800\", \"2\": \"2026-10-14 18:20:39.914596+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:46:05.359459+0800\", \"2\": \"2026-10-14 18:46:26.427133+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-24a1a2c0850c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  4. 丹鸟快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给丹鸟群 → 破损走理赔或者免费退回\n- 售后群 @我隔天会投诉工单\n- 注意事项：让顾客包裹送到取件的地方，丹鸟快递员不愿意上门，退回时效会很长\n",
+          "hit_num": 0,
+          "position": 16,
+          "is_active": true,
+          "similarity": 0.784407760571514,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:41.848317+0800\", \"2\": \"2026-10-14 18:20:42.022000+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:49:29.884144+0800\", \"2\": \"2026-10-14 18:49:48.023773+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e86-74f2-8a78-248d03a08dfc",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损",
+          "chunks": [
+            "- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理"
+          ],
+          "status": "nn22",
+          "content": "\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理\n",
+          "hit_num": 0,
+          "position": 14,
+          "is_active": true,
+          "similarity": 0.7812953488860799,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:43.058831+0800\", \"2\": \"2026-10-14 18:20:43.179305+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:48:39.217528+0800\", \"2\": \"2026-10-14 18:49:08.288116+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "破损退货不愿等免费取件，能寄顺丰到付吗？",
+      "timestamp": 1792232878.6820097,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具售后处理规范手册  第三部分：破损变形退货自行寄出流程  一、顾客不愿意等免费退回时间\n- 话术：亲爱的，您这边快递费帮忙先垫付，收到退货后，这边给您的，辛苦找下便宜的快递寄出哈，拒收顺丰和到付件。",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "aftersales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.63267349000671,
+      "gold_context_ids": [
+        "01a139ed-6e87-7f42-bc69-1b264b5863aa"
+      ],
+      "relevant_doc_ids": [
+        "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型准确引用了参考文本中关于‘拒收顺丰和到付件’的规定，并给出了正确的否定回答及替代方案，逻辑清晰且忠实于原文。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    }
+  ],
+  "summary": {
+    "answer_correctness": {
+      "mean": 0.9214285714285715,
+      "count": 14,
+      "total": 14
+    },
+    "citation_relevance": {
+      "mean": 0.9142857142857144,
+      "count": 14,
+      "total": 14
+    },
+    "context_precision": {
+      "mean": 0.9642857142857143,
+      "count": 14,
+      "total": 14
+    },
+    "context_recall": {
+      "mean": 1.0,
+      "count": 14,
+      "total": 14
+    },
+    "faithfulness": {
+      "mean": 0.8785714285714284,
+      "count": 14,
+      "total": 14
+    },
+    "hit_rate": {
+      "mean": 1.0,
+      "count": 14,
+      "total": 14
+    },
+    "judge_score": {
+      "mean": 0.6964285714285714,
+      "count": 14,
+      "total": 14
+    },
+    "mrr": {
+      "mean": 0.9642857142857143,
+      "count": 14,
+      "total": 14
+    },
+    "no_answer_correctness": {
+      "mean": 0.07142857142857142,
+      "count": 14,
+      "total": 14
+    },
+    "precision_at_k": {
+      "mean": 0.8571428571428571,
+      "count": 14,
+      "total": 14
+    },
+    "response_time": {
+      "mean": 18.80370064242847,
+      "count": 14,
+      "total": 14
+    },
+    "total_score": {
+      "mean": 0.9821428571428571,
+      "count": 14,
+      "total": 14
+    }
+  },
+  "comparison": null,
+  "failed_cases": 0,
+  "dataset_version": "b857688b56b6f490a8dfb0a885fa7da255292f658e22dd4241e674d98033f34f",
+  "regression_passed": true
+}

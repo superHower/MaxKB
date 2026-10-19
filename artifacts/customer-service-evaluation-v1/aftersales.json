@@ -1,0 +1,282 @@
+[
+  {
+    "id": "aftersales-001",
+    "question": "我买了多盏灯，只收到一盏，是不是漏发？现在能叫师傅来安装吗？",
+    "ground_truth": "灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  4. 多件包裹\n- 购买多盏灯具，为防止破损，一个灯为一个包裹，都是一起发货的，因快递转运问题灯具会分开到达，先到的灯具可以先签收，没有到的灯具，后面会陆续到达，您需要等所有的灯具全部到货外观无破损，您核实数量测试以后没问题在联系师傅上门安装\n- 亲 套餐都是单独分开发的呢 您这边明天联系下我们 要下剩余单号哦\n- 抱歉哈 亲亲 都是分开发的呢 麻烦您这边明天联系下我们转接售后 给您剩余单号哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4297-7361-8051-65fcf521cb83"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-002",
+    "question": "能保证快递送货上门吗？",
+    "ground_truth": "灯具客服快捷短语手册  四、物流与包装：发货、收货与运费  3. 送货上门\n- 亲 这边只能给您备注下送货上门 具体看您当地快递 不能保证哈\n- 我这边只能备注上门送货 具体看您当地快递 不能保证",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-4297-7361-8051-65e3d37a1090"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-003",
+    "question": "有人冒充快递打电话说丢件退款，让我加微信接收文件，怎么办？",
+    "ground_truth": "灯具客服快捷短语手册  八、其他快捷指令与特定场景  5. 防骗提示\n- 防骗提示！近日很多不法分子利用快递信息联系客户以丢件等名义打电话、QQ、短信，WX等，通知您退款以及接收文件等各项操作，千万不要相信，有问题请旺旺联系客服！",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+    ],
+    "gold_context_ids": [
+      "01a139c8-429b-7042-809f-be1c13e379cb"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-004",
+    "question": "邮政送来的灯破损，需要提供什么照片，怎么寄回？",
+    "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  1. 邮政快递破损\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给邮政群 → 让顾客自行寄出（普通快递）",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e86-74f2-8a78-247cdd3a47c8"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-005",
+    "question": "顺丰送来的灯破损严重，售后应该怎么处理？",
+    "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  2. 顺丰快递破损\n- 提供包裹破损图 + 灯具破损图 + 整灯价值图 → 发给顺丰群 → 不需要发免费退回\n- 破损严重：售后群 @我去找快递小哥处理",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e86-74f2-8a78-248d03a08dfc"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-006",
+    "question": "新疆中转包裹的灯破损了，要准备什么资料，优先怎么处理？",
+    "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  5. 中转快递破损（新疆 / 内蒙 / 青海等）\n- 必须提供包裹破损图 + 灯具破损图 + 整灯价值图\n- 尽量补偿或者补发，不要退款（第三方理赔率很高）\n- 中转补发配件：原订单邀请他下单金额 30 多的产品，付好了备注对应的配件",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e86-74f2-8a78-24b21b1f9071"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-007",
+    "question": "三色灯后期想加遥控器要换什么？小尺寸和大尺寸差价多少？",
+    "ground_truth": "灯具售后处理规范手册  售后流程  6. 三色要加遥控器\n- 就让他换驱动 + 遥控器\n- 小尺寸更换 差价是15元\n- 大尺寸更换 差价是20元",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e89-7210-9970-2a34d60e8a7e"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-008",
+    "question": "白光灯改成遥控需要更换哪些配件，差价是多少？",
+    "ground_truth": "灯具售后处理规范手册  售后流程  7. 白光要加遥控器\n- 您这边需要更换光源+驱动+遥控器\n- 小尺寸更换 差价是20元\n- 大尺寸更换 差价是25元",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e89-7210-9970-2a474ac64db6"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-009",
+    "question": "遥控器完全无法操作，最先应该检查什么？",
+    "ground_truth": "灯具售后处理规范手册  售后流程  2. 遥控器无法使用\n- 亲爱的 麻烦您这边先打开墙壁开关 遥控器装上电池就可以操作了（电池正负极务必装对）",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e89-7210-9970-29fb08e70439"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-010",
+    "question": "智能遥控器如何对码，要在开灯后多久操作？",
+    "ground_truth": "灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  5. 遥控器对码\n- 智能遥控 墙壁开关开灯3秒内 按遥控器wifi键5秒左右 对码",
+    "category": "terminology",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e91-73f0-baf6-24671ab96f7c"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-011",
+    "question": "遥控器为什么没有随附电池？",
+    "ground_truth": "灯具售后处理规范手册  售后流程  3. 磁铁解决方案  十四、遥控器不带电池\n- 遥控器不带电池：为了环保和运输安全，遥控器出厂时不配备电池。您可以自行安装，这样更灵活，也能避免电池在运输中可能出现的漏液问题哦",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e8d-73a3-a4b8-7302125a96e8"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-012",
+    "question": "白光灯变暗了，先换什么？换了仍没效果怎么办？",
+    "ground_truth": "灯具售后处理规范手册  售后流程  3. 磁铁解决方案  七、白光变暗处理\n- 亲爱的 这边直接给您安排驱动1个过去更换下哦\n- 补发驱动过去没有效果 就直接补发光源驱动",
+    "category": "frequent",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e8d-73a3-a4b8-7294fc50ad01"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-013",
+    "question": "二次补发配件还可以照第一次的快递直接发吗？",
+    "ground_truth": "灯具售后处理规范手册  第一部分：售后配件补发与快递处理  9. 多次补发光源驱动等\n- 注意事项：补发时先看第一次发的是什么快递，例如刚开始发的是极兔破损，二次补发要备注发邮政；二次补发需要上报",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e85-7322-a60e-d513cdc9deb7"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  },
+  {
+    "id": "aftersales-014",
+    "question": "破损退货不愿等免费取件，能寄顺丰到付吗？",
+    "ground_truth": "灯具售后处理规范手册  第三部分：破损变形退货自行寄出流程  一、顾客不愿意等免费退回时间\n- 话术：亲爱的，您这边快递费帮忙先垫付，收到退货后，这边给您的，辛苦找下便宜的快递寄出哈，拒收顺丰和到付件。",
+    "category": "boundary",
+    "relevant_doc_ids": [
+      "01a139ed-6e81-7f03-80c0-5861f6f11c5d"
+    ],
+    "gold_context_ids": [
+      "01a139ed-6e87-7f42-bc69-1b264b5863aa"
+    ],
+    "knowledge_ids": [
+      "01a139c7-4be8-7d53-93cc-50687d496a58"
+    ],
+    "document_tags": [
+      "客服知识库完整实测-v1",
+      "aftersales"
+    ],
+    "expected_no_answer": false
+  }
+]

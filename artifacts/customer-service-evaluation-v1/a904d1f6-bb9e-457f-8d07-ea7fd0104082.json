@@ -1,0 +1,2282 @@
+{
+  "id": "a904d1f6-bb9e-457f-8d07-ea7fd0104082",
+  "config": {
+    "top_k": null,
+    "rerank": false,
+    "weights": {
+      "mrr": 1,
+      "hit_rate": 1,
+      "context_recall": 1,
+      "context_precision": 1
+    },
+    "llm_model": null,
+    "dimensions": {},
+    "regression": false,
+    "judge_model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6",
+    "seed_marker": "客服知识库完整实测-v1",
+    "model_version": null,
+    "embedding_model": "42f63a3d-427e-11ef-b3ec-a8a1595801ab",
+    "evaluator_version": "rule-v1",
+    "knowledge_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "rag_config_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "application_version": "01a139ce-30f2-7411-99dc-3a9bef5c6c8e",
+    "regression_threshold": 0.05,
+    "similarity_threshold": null
+  },
+  "groups": {
+    "category:boundary": {
+      "answer_correctness": {
+        "mean": 0.96,
+        "count": 5,
+        "total": 5
+      },
+      "citation_relevance": {
+        "mean": 1.0,
+        "count": 5,
+        "total": 5
+      },
+      "context_precision": {
+        "mean": 0.8,
+        "count": 5,
+        "total": 5
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 5,
+        "total": 5
+      },
+      "faithfulness": {
+        "mean": 0.9800000000000001,
+        "count": 5,
+        "total": 5
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 5,
+        "total": 5
+      },
+      "judge_score": {
+        "mean": 0.735,
+        "count": 5,
+        "total": 5
+      },
+      "mrr": {
+        "mean": 0.8,
+        "count": 5,
+        "total": 5
+      },
+      "no_answer_correctness": {
+        "mean": 0.0,
+        "count": 5,
+        "total": 5
+      },
+      "precision_at_k": {
+        "mean": 0.7,
+        "count": 5,
+        "total": 5
+      },
+      "response_time": {
+        "mean": 14.894707841402852,
+        "count": 5,
+        "total": 5
+      },
+      "total_score": {
+        "mean": 0.9,
+        "count": 5,
+        "total": 5
+      }
+    },
+    "category:frequent": {
+      "answer_correctness": {
+        "mean": 0.8625,
+        "count": 8,
+        "total": 8
+      },
+      "citation_relevance": {
+        "mean": 0.775,
+        "count": 8,
+        "total": 8
+      },
+      "context_precision": {
+        "mean": 0.75,
+        "count": 8,
+        "total": 8
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 8,
+        "total": 8
+      },
+      "faithfulness": {
+        "mean": 0.975,
+        "count": 8,
+        "total": 8
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 8,
+        "total": 8
+      },
+      "judge_score": {
+        "mean": 0.71875,
+        "count": 8,
+        "total": 8
+      },
+      "mrr": {
+        "mean": 0.75,
+        "count": 8,
+        "total": 8
+      },
+      "no_answer_correctness": {
+        "mean": 0.2625,
+        "count": 8,
+        "total": 8
+      },
+      "precision_at_k": {
+        "mean": 0.6875,
+        "count": 8,
+        "total": 8
+      },
+      "response_time": {
+        "mean": 14.284572098002172,
+        "count": 8,
+        "total": 8
+      },
+      "total_score": {
+        "mean": 0.875,
+        "count": 8,
+        "total": 8
+      }
+    },
+    "category:terminology": {
+      "answer_correctness": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "citation_relevance": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "context_precision": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "faithfulness": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "judge_score": {
+        "mean": 0.75,
+        "count": 1,
+        "total": 1
+      },
+      "mrr": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "no_answer_correctness": {
+        "mean": 0.0,
+        "count": 1,
+        "total": 1
+      },
+      "precision_at_k": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      },
+      "response_time": {
+        "mean": 18.979104904006817,
+        "count": 1,
+        "total": 1
+      },
+      "total_score": {
+        "mean": 1.0,
+        "count": 1,
+        "total": 1
+      }
+    },
+    "document_tags:presales": {
+      "answer_correctness": {
+        "mean": 0.9071428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.8714285714285713,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.9785714285714286,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.7267857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.15,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.7142857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 14.837801492502747,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.8928571428571429,
+        "count": 14,
+        "total": 14
+      }
+    },
+    "document_tags:客服知识库完整实测-v1": {
+      "answer_correctness": {
+        "mean": 0.9071428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.8714285714285713,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.9785714285714286,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.7267857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.15,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.7142857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 14.837801492502747,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.8928571428571429,
+        "count": 14,
+        "total": 14
+      }
+    },
+    "knowledge_ids:01a139c7-4be8-7d53-93cc-50687d496a58": {
+      "answer_correctness": {
+        "mean": 0.9071428571428571,
+        "count": 14,
+        "total": 14
+      },
+      "citation_relevance": {
+        "mean": 0.8714285714285713,
+        "count": 14,
+        "total": 14
+      },
+      "context_precision": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "context_recall": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "faithfulness": {
+        "mean": 0.9785714285714286,
+        "count": 14,
+        "total": 14
+      },
+      "hit_rate": {
+        "mean": 1.0,
+        "count": 14,
+        "total": 14
+      },
+      "judge_score": {
+        "mean": 0.7267857142857144,
+        "count": 14,
+        "total": 14
+      },
+      "mrr": {
+        "mean": 0.7857142857142857,
+        "count": 14,
+        "total": 14
+      },
+      "no_answer_correctness": {
+        "mean": 0.15,
+        "count": 14,
+        "total": 14
+      },
+      "precision_at_k": {
+        "mean": 0.7142857142857143,
+        "count": 14,
+        "total": 14
+      },
+      "response_time": {
+        "mean": 14.837801492502747,
+        "count": 14,
+        "total": 14
+      },
+      "total_score": {
+        "mean": 0.8928571428571429,
+        "count": 14,
+        "total": 14
+      }
+    }
+  },
+  "status": "completed",
+  "dataset": "客服知识库完整实测-v1·售前产品与选购",
+  "results": [
+    {
+      "id": "presales-001",
+      "answer": "根据您提供的已知信息，手册中**仅说明了灯具支持“白光、暖光、中性光”三种光色及对应的控制方式，但并未提供具体的色温数值（K值）**。\n\n💡 **补充参考（行业通用标准，非手册原文）：**\n通常家用LED灯具的常规色温划分如下，供您参考：\n* **暖光**：约 3000K（偏黄、温馨）\n* **中性光**：约 4000K（自然、接近日光）\n* **白光**：约 6000K-6500K（偏蓝白、明亮）\n\n如需获取该批次灯具的精确色温参数，建议查看产品外包装标签、说明书，或直接咨询品牌官方客服以获取最准确的规格数据。",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 0.0,
+        "citation_relevance": 0.0,
+        "no_answer_correctness": 1.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.5
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e8e-7242-823a-67f60cfdd486",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  3. 下单超过3年  十八、边框与灯光说明",
+          "chunks": [
+            "- 边框是白光的 中间可以三色切换变光的"
+          ],
+          "status": "nn22",
+          "content": "\n- 边框是白光的 中间可以三色切换变光的\n",
+          "hit_num": 0,
+          "position": 83,
+          "is_active": true,
+          "similarity": 0.7219477080718395,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:27.296938+0800\", \"2\": \"2026-10-14 18:20:27.555593+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:24:13.179352+0800\", \"2\": \"2026-10-14 18:24:18.109646+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-de17409a1f25",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  1. 关于\"无极\"（带遥控）",
+          "chunks": [
+            "- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗",
+            "三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦\n\n",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.6763203933048025,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:29.685131+0800\", \"2\": \"2026-10-14 17:40:30.614649+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4297-7361-8051-665018143d75",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  2. 无极跟白光三色",
+          "chunks": [
+            "- 回复：\n  1. 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  2. 三色的不带遥控器 用墙壁开关 一开一关实现白光 暖光 中性光 三种颜色变色的\n  3. 白光就是一个颜色 打开就是全亮"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：\n  1. 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  2. 三色的不带遥控器 用墙壁开关 一开一关实现白光 暖光 中性光 三种颜色变色的\n  3. 白光就是一个颜色 打开就是全亮\n\n",
+          "hit_num": 0,
+          "position": 33,
+          "is_active": true,
+          "similarity": 0.6574740818173788,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:13.382461+0800\", \"2\": \"2026-10-14 17:40:14.559606+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "三种灯光的色温分别是多少？",
+      "timestamp": 1792232156.6183438,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  5. 色温、功率与照明面积\n- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈 是很省电的哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 17.224289464997128,
+      "gold_context_ids": [
+        "01a139c8-4294-7503-8fc8-1d6d826b9fd1"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型正确指出检索到的上下文（Retrieved context）中未包含具体的色温数值，因此拒绝直接回答并提供了通用行业参考，符合基于给定信息的忠实性要求。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-002",
+      "answer": "根据您提供的《灯具客服快捷短语手册》内容，15㎡与30㎡房间的瓦数参考如下：\n\n🔹 **15平方米房间**\n- **基础参考**：**48W**（手册明确标注“48W大概照明15平方左右”，且方形/长方形灯具均将48W列为12-15㎡的标准配置）\n- **进阶选择**：若层高较高、墙面颜色较深或希望光线更明亮，可升级至 **60W或72W**（手册标注适配15-18㎡）\n\n🔹 **30平方米房间**\n- **基础参考**：**96W**（手册明确标注“96W照明30平方左右”）\n- **进阶选择**：结合长方形灯具规格，**120W** 明确适配“25-30㎡”的大面积空间（如大客厅、客餐厅一体等）。若追求均匀高亮度或为开放式布局，推荐直接选择 **120W**\n\n💡 **客服话术提示**（可直接复制使用）：\n> “亲，15㎡房间建议选48W，如需更亮可选60W或72W；30㎡房间建议选96W，若为客餐厅一体或喜欢明亮效果，推荐120W哦。我们灯具的瓦数和尺寸都是按实际使用面积匹配的，想要亮一点可以往上选一级瓦数哈～”",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139c8-4294-7503-8fc8-1d6d826b9fd1",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  5. 色温、功率与照明面积",
+          "chunks": [
+            "- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈",
+            "是很省电的哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈 是很省电的哦\n\n",
+          "hit_num": 0,
+          "position": 5,
+          "is_active": true,
+          "similarity": 0.7184297870653753,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:49.208088+0800\", \"2\": \"2026-10-14 17:40:50.083366+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-dde6ac001097",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  7. 尺寸与厚度  二、正方形灯具",
+          "chunks": [
+            "1. 40×40cm / 功率 24W：适配照明面积 5-8㎡，适配玄关、小型储物间等极小空间\n2. 40×40cm / 功率 36W：适配照明面积 8-12㎡，适配小卧室、小型书房、阳台等空间\n3. 50×50cm / 功率 36W：适配照明面积 8-12㎡，适配小卧室、小型书房、阳台等空间\n4. 50×50cm / 功率 48W：适配照明面积 12-15㎡，适配常规次卧、中型书房等空间\n5. 60×60cm / 功率 48W：适配照明面积 12-15㎡，适配常规次卧、中型书房等空间\n6.",
+            "60×60cm / 功率 72W：适配照明面积 15-18㎡，适配主卧室、中小型客厅等空间"
+          ],
+          "status": "nnn2",
+          "content": "\n\n1. 40×40cm / 功率 24W：适配照明面积 5-8㎡，适配玄关、小型储物间等极小空间\n2. 40×40cm / 功率 36W：适配照明面积 8-12㎡，适配小卧室、小型书房、阳台等空间\n3. 50×50cm / 功率 36W：适配照明面积 8-12㎡，适配小卧室、小型书房、阳台等空间\n4. 50×50cm / 功率 48W：适配照明面积 12-15㎡，适配常规次卧、中型书房等空间\n5. 60×60cm / 功率 48W：适配照明面积 12-15㎡，适配常规次卧、中型书房等空间\n6. 60×60cm / 功率 72W：适配照明面积 15-18㎡，适配主卧室、中小型客厅等空间\n\n",
+          "hit_num": 0,
+          "position": 9,
+          "is_active": true,
+          "similarity": 0.6757290363311768,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:37.348618+0800\", \"2\": \"2026-10-14 17:40:40.610461+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-ddf0c411372c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  7. 尺寸与厚度  三、长方形灯具",
+          "chunks": [
+            "1. 60×40cm / 功率 48W：适配照明面积 12-15㎡，适配中型书房、小型餐厅等空间\n2. 60×40cm / 功率 60W：适配照明面积 13-16㎡，适配偏大次卧、小型客厅等空间\n3. 90×60cm / 功率 72W：适配照明面积 15-18㎡，适配主卧室、中小型客厅等空间\n4. 90×60cm / 功率 96W：适配照明面积 18-25㎡，适配常规客厅、大主卧、开放式小厅等空间\n5. 110×70cm / 功率 96W：适配照明面积",
+            "18-25㎡，适配常规客厅、大主卧、开放式小厅等空间\n6. 110×70cm / 功率 120W：适配照明面积 25-30㎡，适配大客厅、客餐厅一体空间、大平层主卧等大面积空间"
+          ],
+          "status": "nnn2",
+          "content": "\n\n1. 60×40cm / 功率 48W：适配照明面积 12-15㎡，适配中型书房、小型餐厅等空间\n2. 60×40cm / 功率 60W：适配照明面积 13-16㎡，适配偏大次卧、小型客厅等空间\n3. 90×60cm / 功率 72W：适配照明面积 15-18㎡，适配主卧室、中小型客厅等空间\n4. 90×60cm / 功率 96W：适配照明面积 18-25㎡，适配常规客厅、大主卧、开放式小厅等空间\n5. 110×70cm / 功率 96W：适配照明面积 18-25㎡，适配常规客厅、大主卧、开放式小厅等空间\n6. 110×70cm / 功率 120W：适配照明面积 25-30㎡，适配大客厅、客餐厅一体空间、大平层主卧等大面积空间\n\n",
+          "hit_num": 0,
+          "position": 10,
+          "is_active": true,
+          "similarity": 0.6579215118791522,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:40.626344+0800\", \"2\": \"2026-10-14 17:40:41.563329+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "15平方米的房间和30平方米的房间分别参考多少瓦的灯？",
+      "timestamp": 1792232185.8899264,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  5. 色温、功率与照明面积\n- 白光6000k 暖光3000K 自然光4500K\n- 亲 参考下以下照明面积：\n  24W大概照明5平方左右\n  36w大概照明9平方左右\n  48w大概照明15平方左右\n  72w大概照明18平方左右\n  96w照明30平方左右\n  120W照明40平方左右\n- 灯具尺寸都是根据使用面积数据，瓦数越大房间灯具也就越亮哦\n- 瓦数 灯具尺寸选择是根据使用面积来的，如果想要亮一些，就选择大一点的瓦数\n- 亲我们采用的都是LED的光源的节能省电的， LED灯 比如72w的开10小时才使用一度电的哈 是很省电的哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 19.052506990003167,
+      "gold_context_ids": [
+        "01a139c8-4294-7503-8fc8-1d6d826b9fd1"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately identifies the reference wattages (48W for 15㎡ and 96W for 30㎡) directly from the provided text. It also correctly incorporates additional context regarding higher brightness options (72W/120W) supported by the retrieved data.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-003",
+      "answer": "根据已知信息，明确回答如下：\n\n- **白光灯和三色灯均不送遥控器**。这两款灯具都需要通过家里的**墙壁开关**进行控制（白光为固定单色常亮；三色灯需通过墙壁开关“一开一关”来循环切换白光、暖光、中性光）。\n- **自带遥控器的款式是“无极”款**。该款式会随灯附赠遥控器（需自备电池），支持遥控器直接操作，可随意调节三种光色及明暗亮度（无级调光），也可与墙壁开关配合使用。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 1.0,
+        "faithfulness": 1.0,
+        "judge_score": 1.0
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-429a-7ca0-82c1-187e61d0572d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  27. 带遥控器吗",
+          "chunks": [
+            "- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦\n\n",
+          "hit_num": 0,
+          "position": 58,
+          "is_active": true,
+          "similarity": 0.8310680884759494,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:03.526710+0800\", \"2\": \"2026-10-14 17:40:03.650813+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-de17409a1f25",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  1. 关于\"无极\"（带遥控）",
+          "chunks": [
+            "- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗",
+            "三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦\n\n",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.7893141978570355,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:29.685131+0800\", \"2\": \"2026-10-14 17:40:30.614649+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4297-7361-8051-665018143d75",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  2. 无极跟白光三色",
+          "chunks": [
+            "- 回复：\n  1. 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  2. 三色的不带遥控器 用墙壁开关 一开一关实现白光 暖光 中性光 三种颜色变色的\n  3. 白光就是一个颜色 打开就是全亮"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：\n  1. 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  2. 三色的不带遥控器 用墙壁开关 一开一关实现白光 暖光 中性光 三种颜色变色的\n  3. 白光就是一个颜色 打开就是全亮\n\n",
+          "hit_num": 0,
+          "position": 33,
+          "is_active": true,
+          "similarity": 0.7889215946197565,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:13.382461+0800\", \"2\": \"2026-10-14 17:40:14.559606+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "白光灯和三色灯都送遥控器吗？哪种款式自带遥控器？",
+      "timestamp": 1792232208.4075494,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  27. 带遥控器吗\n- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 14.073395306011662,
+      "gold_context_ids": [
+        "01a139c8-429a-7ca0-82c1-187e61d0572d"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型回答准确无误，明确指出白光灯和三色灯不送遥控器，而无极款自带遥控器，与参考信息及检索内容完全一致。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-004",
+      "answer": "根据您提供的《灯具客服快捷短语手册》内容，**三色款**与**无极款**的核心区别主要体现在以下三个方面：\n\n| 对比维度 | 三色款 | 无极款 |\n|:---|:---|:---|\n| **📦 是否自带遥控** | ❌ 无遥控器 | ✅ 下单自带遥控器（需自备电池安装） |\n| **🎛️ 控制方式** | 仅支持**墙壁开关**控制，通过“一开一关”循环切换3种预设光色 | 支持**遥控器 + 墙壁开关**双重控制 |\n| **💡 调光调色能力** | 只能固定切换3种光色，**不可调节明暗**，无可视化渐变效果 | 可自由调节白光/暖光/中性光，且能像手机音量一样**无级调节明暗**；部分款式还带有从白光到暖光的渐变小夜灯模式 |\n\n**💡 客服总结话术参考：**  \n> “亲，两者主要区别在于：三色款是通过墙壁开关一开一关切换3种固定光色，不带遥控器也无法调亮度；而无极款自带遥控器，不仅能用遥控器或墙壁开关控制，还可以随意调节光色和亮度明暗，支持无级调光和渐变小夜灯模式，使用体验更灵活细腻哦～”",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "terminology",
+      "contexts": [
+        {
+          "id": "01a139c8-429a-7ca0-82c1-187e61d0572d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  27. 带遥控器吗",
+          "chunks": [
+            "- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：白光跟三色是没有遥控器的呢 无极才自带遥控器哦\n\n",
+          "hit_num": 0,
+          "position": 58,
+          "is_active": true,
+          "similarity": 0.7035180782553748,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:03.526710+0800\", \"2\": \"2026-10-14 17:40:03.650813+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4297-7361-8051-666b07562b96",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  3. 无极跟三色的区别",
+          "chunks": [
+            "- 回复：无极带遥控 1.不仅可以用遥控器控制 也可以用墙壁开关控制 2.无极还可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：无极带遥控 1.不仅可以用遥控器控制 也可以用墙壁开关控制 2.无极还可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗\n\n",
+          "hit_num": 0,
+          "position": 34,
+          "is_active": true,
+          "similarity": 0.6569407778066865,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:14.577355+0800\", \"2\": \"2026-10-14 17:40:16.621698+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4295-7641-810b-de17409a1f25",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  1. 关于\"无极\"（带遥控）",
+          "chunks": [
+            "- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗",
+            "三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极是带遥控的呢 三色跟白光 是本身就没有遥控的呢 是用家里墙壁开关直接控制亲\n- 无极是带遥控的 可以调节白光 暖光 中性光 三种颜色 还可以调节每种颜色的明暗的\n  三色的不带遥控器 是用墙壁开关 一开一关实现变色的\n  白光就是一个颜色\n- 无极的是带遥控器的 可以使用遥控器和墙壁开关 两种方法控制\n- 无极下单才会有遥控器的呢 白光跟三色是没有遥控器\n- 无极遥控灯具： 1.自备电池 遥控器装好 2.灯具开灯的情况 您这边遥控对着灯具操作就可以\n- 无极带遥控 可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗\n- 无极调光可以通过遥控器随意调节灯的亮度和发光的颜色，可以像手机音量一样一点一点随意调节，还带有小夜灯模式是从白光到暖光的渐变过程哦\n\n",
+          "hit_num": 0,
+          "position": 12,
+          "is_active": true,
+          "similarity": 0.6239016017825979,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:29.685131+0800\", \"2\": \"2026-10-14 17:40:30.614649+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "三色跟无极的区别是什么？",
+      "timestamp": 1792232236.532689,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  3. 无极跟三色的区别\n- 回复：无极带遥控 1.不仅可以用遥控器控制 也可以用墙壁开关控制 2.无极还可以调节光色明暗 三色只能用墙壁开关控制三种光色 不能调光色明暗",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 18.979104904006817,
+      "gold_context_ids": [
+        "01a139c8-4297-7361-8051-666b07562b96"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the reference material and retrieved context, correctly distinguishing between three-color (fixed colors, wall switch only) and stepless (remote control, adjustable brightness/color). It adds helpful formatting and a summary script based on the provided data.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-005",
+      "answer": "可以的。根据手册说明，离线语音版本**完全不需要连接WiFi，也不需要下载或绑定任何APP**。只需完成打孔安装并接通电源，即可直接使用。\n\n**唤醒及使用方法：**\n直接对着灯具说出唤醒词 **“小爱小爱”**，等待灯具发出 **“滴”的一声** 提示音后，即可接着下达控制指令（如开灯、关灯、调亮度等）。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cc34b7cd8e8c",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  21. 离线语音版本",
+          "chunks": [
+            "- 回复：离线语音不需要连接任何app，不需要连接wifi，不需要u盘，打孔安装，接上电就可以使用（离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。）"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：离线语音不需要连接任何app，不需要连接wifi，不需要u盘，打孔安装，接上电就可以使用（离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。）\n\n",
+          "hit_num": 0,
+          "position": 52,
+          "is_active": true,
+          "similarity": 0.8242239847316748,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:04.642928+0800\", \"2\": \"2026-10-14 17:40:04.839787+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4296-7e31-b7b6-25a265e04f2d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  5. 关于\"智能语音\"",
+          "chunks": [
+            "- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙",
+            "3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙\n  3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接\n\n",
+          "hit_num": 0,
+          "position": 16,
+          "is_active": true,
+          "similarity": 0.7954939603805599,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:23.778434+0800\", \"2\": \"2026-10-14 17:40:24.749841+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cc4515fb91d2",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  22. 智能语音区别",
+          "chunks": [
+            "- 回复：小爱同学跟天猫精灵版本必须自备音箱才能语音控制的呢 离线语音不需要音箱 打孔安装好灯具 直接语音的呢"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：小爱同学跟天猫精灵版本必须自备音箱才能语音控制的呢 离线语音不需要音箱 打孔安装好灯具 直接语音的呢\n\n",
+          "hit_num": 0,
+          "position": 53,
+          "is_active": true,
+          "similarity": 0.756714076604137,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:04.851561+0800\", \"2\": \"2026-10-14 17:40:05.156426+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "不接WiFi、不下载APP可以用离线语音灯吗？怎么唤醒？",
+      "timestamp": 1792232261.9562824,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  21. 离线语音版本\n- 回复：离线语音不需要连接任何app，不需要连接wifi，不需要u盘，打孔安装，接上电就可以使用（离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。）",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.526188289994025,
+      "gold_context_ids": [
+        "01a139c8-4299-72a2-a7bc-cc34b7cd8e8c"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型回答准确无误，完全符合参考手册中关于离线语音灯无需WiFi/APP以及唤醒方式（小爱小爱）的描述。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-006",
+      "answer": "**不是的，小爱同学版本是需要您自备音箱的。**\n\n根据您提供的规范手册明确说明：\n- 小爱同学（及天猫精灵）属于**智能语音版本**，**必须自备智能音箱**才能完成对码并实现语音控制。\n- 如果您希望“不用自备音箱”，需要选购的是**离线语音版本**。该版本安装好灯具后，直接对着灯具说话即可控制，无需额外设备。\n\n💡注：是否自备音箱仅影响语音控制功能，不影响灯具的基础照明、调光调色等正常使用。",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-2a240a41da08",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  5. 智能语音无法控制",
+          "chunks": [
+            "- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具"
+          ],
+          "status": "nn22",
+          "content": "\n- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具\n",
+          "hit_num": 0,
+          "position": 43,
+          "is_active": true,
+          "similarity": 0.7438452381811025,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.156767+0800\", \"2\": \"2026-10-14 18:20:36.317731+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:36:59.427346+0800\", \"2\": \"2026-10-14 18:37:25.666349+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cc4515fb91d2",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  22. 智能语音区别",
+          "chunks": [
+            "- 回复：小爱同学跟天猫精灵版本必须自备音箱才能语音控制的呢 离线语音不需要音箱 打孔安装好灯具 直接语音的呢"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：小爱同学跟天猫精灵版本必须自备音箱才能语音控制的呢 离线语音不需要音箱 打孔安装好灯具 直接语音的呢\n\n",
+          "hit_num": 0,
+          "position": 53,
+          "is_active": true,
+          "similarity": 0.7432812810829004,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:04.851561+0800\", \"2\": \"2026-10-14 17:40:05.156426+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cc2dca09597e",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  20. 小爱版本智能语音",
+          "chunks": [
+            "- 回复：小爱版本：在无极调光的基础上增加了支持小爱音箱语音控制，调节亮度和颜色 注意: 开关 及 音响 需自备"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：小爱版本：在无极调光的基础上增加了支持小爱音箱语音控制，调节亮度和颜色 注意: 开关 及 音响 需自备\n\n",
+          "hit_num": 0,
+          "position": 51,
+          "is_active": true,
+          "similarity": 0.7105245880386892,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:04.477048+0800\", \"2\": \"2026-10-14 17:40:04.632268+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "小爱同学版本是不是不用自己准备音箱？",
+      "timestamp": 1792232283.3945253,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  20. 小爱版本智能语音\n- 回复：小爱版本：在无极调光的基础上增加了支持小爱音箱语音控制，调节亮度和颜色 注意: 开关 及 音响 需自备",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.175814427013393,
+      "gold_context_ids": [
+        "01a139c8-4299-72a2-a7bc-cc2dca09597e"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer correctly addresses the user's question by stating that a speaker is required, which aligns with both the reference answer and the retrieved context. It accurately interprets the 'must prepare speaker' requirement from the source material.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-007",
+      "answer": "根据已知信息，同一个空间内有多盏智能语音灯时，可通过以下方法分别控制：\n\n📱 **在配套APP中为每盏灯设置唯一名称** → 设置完成后，**直接语音呼唤该灯的特定名称**即可单独控制。  \n（例如：`“打开书房灯”`、`“关闭客厅主灯”`）\n\n💡 *提示：确保灯具已正常联网并绑定至同一账号，且手机蓝牙/WIFI权限已开启，以保证语音指令识别准确。*",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-2a240a41da08",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  5. 智能语音无法控制",
+          "chunks": [
+            "- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具"
+          ],
+          "status": "nn22",
+          "content": "\n- 智能语音天猫精灵跟小爱同学遥控器是需要对码的 参考下视频\n- 注意事项：天猫精灵跟小爱同学是智能语音的 是需要自备音箱的 没有影响 无法语音控制灯具\n",
+          "hit_num": 0,
+          "position": 43,
+          "is_active": true,
+          "similarity": 0.7105563879013062,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:36.156767+0800\", \"2\": \"2026-10-14 18:20:36.317731+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:36:59.427346+0800\", \"2\": \"2026-10-14 18:37:25.666349+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4296-7e31-b7b6-25a265e04f2d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  5. 关于\"智能语音\"",
+          "chunks": [
+            "- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙",
+            "3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接"
+          ],
+          "status": "nnn2",
+          "content": "\n- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙\n  3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接\n\n",
+          "hit_num": 0,
+          "position": 16,
+          "is_active": true,
+          "similarity": 0.7033224878714999,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:23.778434+0800\", \"2\": \"2026-10-14 17:40:24.749841+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8d-73a3-a4b8-7311cc09a425",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  3. 磁铁解决方案  十五、补发配件数量核实",
+          "chunks": [
+            "- 必须要顾客提供多个灯具全部放一起的视频 方便核实补发配件数量"
+          ],
+          "status": "nn22",
+          "content": "\n- 必须要顾客提供多个灯具全部放一起的视频 方便核实补发配件数量\n",
+          "hit_num": 0,
+          "position": 77,
+          "is_active": true,
+          "similarity": 0.6596869230270386,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:28.518600+0800\", \"2\": \"2026-10-14 18:20:28.712432+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:28:51.083058+0800\", \"2\": \"2026-10-14 18:28:58.365095+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "同一个空间有好几盏智能语音灯，怎样分别控制？",
+      "timestamp": 1792232305.075587,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  5. 关于\"智能语音\"\n- 无极就是普通灯具 没有语音功能 小爱同学或者天猫精灵是需要自备音箱 语音控制灯具的呢\n- 智能语音如果在同一个空间 多个灯具 那要在APP里面设置好灯的名称 然后直接呼叫对应的名称就行了哦\n- 离线语音不需要连接任何app，不需要连接wifi，不需要u盘，接上电就可以使用；离线语音唤醒方式：小爱小爱，听到灯滴一声后就可以了。\n- 亲亲设置小爱同学的步骤：\n  1下载最新版本米家APP，安装完毕后，允许米家APP所有权限\n  2打开手机的WIFI、蓝牙\n  3设备通电，在米家APP首页，APP会自动弹窗出来设备，“开始连接”\n  4输入正确的WIFI密码，点击下一步\n  5等待连接成功\n  6完成\n- 手机下载好：“天猫精灵”APP 以及准备好天猫精灵音响一台\n  2、APP登陆账号 绑定好天猫精灵音响\n  3、灯具保持打开的状态下直接呼唤天猫精灵搜索设备进行链接跟随步骤操作链接",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.534472012994229,
+      "gold_context_ids": [
+        "01a139c8-4296-7e31-b7b6-25a265e04f2d"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the reference material, which states that multiple smart voice lights in the same space can be controlled individually by setting unique names in the APP and calling them by name.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-008",
+      "answer": "您好！根据客服手册说明，**新灯的安装孔距无法保证与旧灯完全一模一样**。\n\n手册中明确指出：`“光源驱动都是一样的，就是孔位不同，安装方法不同哦”`。这是因为目前厂家会对光源及驱动模块进行持续迭代升级，新旧批次在外观结构或定位孔位上可能存在细微差异，但**核心功率与性能参数保持一致**。\n\n💡 **安装建议：**\n- 新光源可通过螺丝直接穿透底盘进行固定；\n- 若孔距略有偏差，通常可使用随附螺丝配合垫片微调，或在不影响走线和安全的前提下适当调整固定位置；\n- 如您方便提供旧灯孔距尺寸或实物照片，客服可为您进一步评估适配方案。\n\n如有其他安装细节需要协助，随时告诉我，祝您安装顺利！",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 1.0,
+        "answer_correctness": 0.8,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 0.9,
+        "judge_score": 0.675
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139c8-4295-7641-810b-de3a74ad5f26",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  二、功能详解：产品功能与分类说明  3. 关于光源和驱动",
+          "chunks": [
+            "- 光源驱动都是一样的 就是孔位不同 安装方法不同哦\n- 灯条都是一样的 就是驱动不同\n- 灯芯都是螺丝固定的螺丝拧下来换上去就行了\n- 光源批次不一样，现在都是这样的，光源都是在不断更新的，没有跟以前一模一样的 功率是一样的 使用螺丝穿透底盘固定光源就可以的\n- 亲爱的 因为现在市场上面很少 有led光源是可以达到完全百分之百的瓦数 做到百分之百也会对光源灯珠使用寿命有很大的影响 灯具在试亮的途中 都会损耗一些电流的哈 使用在合适的面积是完全够的\n- 灯珠1.5w是一个 您这边收到了 可以数一下哦\n-",
+            "48W里面 4根灯条 一根灯条12W\n- 96W里面 8根灯条 一根灯条12W\n- 72W里面 6根灯条 一根灯条12W\n- 120W里面 10根灯条 一根灯条12W"
+          ],
+          "status": "nnn2",
+          "content": "\n- 光源驱动都是一样的 就是孔位不同 安装方法不同哦\n- 灯条都是一样的 就是驱动不同\n- 灯芯都是螺丝固定的螺丝拧下来换上去就行了\n- 光源批次不一样，现在都是这样的，光源都是在不断更新的，没有跟以前一模一样的 功率是一样的 使用螺丝穿透底盘固定光源就可以的\n- 亲爱的 因为现在市场上面很少 有led光源是可以达到完全百分之百的瓦数 做到百分之百也会对光源灯珠使用寿命有很大的影响 灯具在试亮的途中 都会损耗一些电流的哈 使用在合适的面积是完全够的\n- 灯珠1.5w是一个 您这边收到了 可以数一下哦\n- 48W里面 4根灯条 一根灯条12W\n- 96W里面 8根灯条 一根灯条12W\n- 72W里面 6根灯条 一根灯条12W\n- 120W里面 10根灯条 一根灯条12W\n\n",
+          "hit_num": 0,
+          "position": 14,
+          "is_active": true,
+          "similarity": 0.7695150054079343,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:31.793121+0800\", \"2\": \"2026-10-14 17:40:32.667336+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e89-7210-9970-2a6244a5cba8",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  9. 光源批次不同",
+          "chunks": [
+            "- 亲爱的 现在光源都是在不断更新升级的呢，没有跟以前一模一样的 功率是一样的 使用螺丝穿透底盘固定光源就可以的"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲爱的 现在光源都是在不断更新升级的呢，没有跟以前一模一样的 功率是一样的 使用螺丝穿透底盘固定光源就可以的\n",
+          "hit_num": 0,
+          "position": 47,
+          "is_active": true,
+          "similarity": 0.76448640054627,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:35.055027+0800\", \"2\": \"2026-10-14 18:20:35.228810+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:39:07.528945+0800\", \"2\": \"2026-10-14 18:39:25.469154+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e90-73a1-84bb-7b6fa610fb07",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  1. 灯具不亮",
+          "chunks": [
+            "- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以\n- 灯一半亮 不亮的那边尾部有没有塞头\n- 开灯微亮 把线从接线端子里按压卡子取线 和您家的家用线对接试试看 （找不到原因的话 找灯条坏的地方供电不足造成的）"
+          ],
+          "status": "nn22",
+          "content": "\n- 灯具不亮 一般就是光源驱动问题哦 您这边付个12元 安排一套光源 驱动过去给您更换就可以\n- 灯一半亮 不亮的那边尾部有没有塞头\n- 开灯微亮 把线从接线端子里按压卡子取线 和您家的家用线对接试试看 （找不到原因的话 找灯条坏的地方供电不足造成的）\n",
+          "hit_num": 0,
+          "position": 92,
+          "is_active": true,
+          "similarity": 0.7393492615610814,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:25.619000+0800\", \"2\": \"2026-10-14 18:20:25.801175+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:21:52.530767+0800\", \"2\": \"2026-10-14 18:22:00.485826+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "新灯的安装孔距保证跟我家旧灯一模一样吗？",
+      "timestamp": 1792232330.4484403,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  26. 孔距数据多少\n- 回复：孔距无法保证完全一致的哦 这个没有具体的尺寸哦 这个都是人工手工打孔的 都会有一点误差，您安装的话建议您收到之后根据我们打好的安装螺丝孔打孔固定哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 15.287743810011307,
+      "gold_context_ids": [
+        "01a139c8-429a-7ca0-82c1-186d7accafd9"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型正确指出了孔距无法保证一致，并引用了检索内容中关于光源更新导致孔位不同的信息。但模型错误地声称手册明确指出“光源驱动都是一样的，就是孔位不同”，而检索内容显示这是两条独立的短语（“光源驱动都是一样的 就是孔位不同”和“灯条都是一样的 就是驱动不同”），且参考回答强调是手工打孔误差，模型未提及此关键原因，存在轻微幻觉。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-009",
+      "answer": "您好！根据您提供的《灯具客服快捷短语手册》内容，**手册中暂未收录关于“石膏板吊顶安装”的具体说明**。不过结合行业通用规范，为您补充以下安全安装建议，供您参考：\n\n🔹 **石膏板吊顶可以装灯，但需注意：**\n1. **严禁直接固定在石膏板上**：石膏板本身承重较弱，灯具必须固定在内部的**轻钢龙骨或木龙骨**上，否则存在脱落风险。\n2. **重量限制**：小型吸顶灯、筒射灯一般可直接固定；若为大尺寸吊灯、水晶灯等重型灯具，需提前评估龙骨承载力，必要时需加装加固底板或独立吊杆。\n3. **打孔定位**：安装前建议使用探测器或手动试探确认龙骨位置，避免打穿龙骨或破坏吊顶结构。\n\n💡 **本店售后支持**：如您已购买本店灯具，我们发货时会随箱附赠《安装流程指南》及对应型号的**安装视频**（手册中已整理多款灯具优酷/抖音教程），您也可随时联系在线客服，我们将安排专人进行**一对一远程指导**。\n\n如需更精准的建议，欢迎提供您的**灯具款式/重量**及**吊顶厚度/龙骨类型**，我们将为您匹配专属安装方案。祝您施工顺利！",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 1.0,
+        "answer_correctness": 0.9,
+        "citation_relevance": 0.2,
+        "no_answer_correctness": 0.1,
+        "faithfulness": 0.8,
+        "judge_score": 0.5
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-4296-7e31-b7b6-25db7b2f7955",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  三、安装相关：安装、费用与打孔  1. 安装说明与指导",
+          "chunks": [
+            "- 安装的话需要一个电钻就可以了，您准备6mm的钻头打孔，然后连接零火线就可以了\n- 吸顶灯是全部组装好的 直接安装就可以了 吊灯是半成品 需要自己组装\n- 我们这边发货的时候都会送安装流程的呢 很简单的呢\n- 您收到货不会安装的话我们可以教您的哦\n- 大饼灯完整安装视频 http://m.youku.com/v_show/id_XNDkzNjY1Nzk5Mg==.",
+            "html?pgcpgcid=UODI5ODIzMDQ%3D&sharekey=c8b817fc0497cd95beefcccc3a4873f49 长按复制此口令 ＄ZOfBXjsmGHV＄，打开【优酷APP】就可以看了~！\n- 魔豆吊灯安装视频，点击链接或者复制链接到浏览器观看 http://v.youku.com/v_show/id_XMzMzODIwOTEwMA==.html?spm=a2h3j.8428770.3416059.1\n- 钻石餐吊灯视频 http://v.youku.",
+            "com/v_show/id_XMzMzODIxMjE1Ng==.html?spm=a2h3j.8428770.3416059.1\n- 配件 http://v.youku.com/v_show/id_XMzMzODIxMzY2OA==.html?spm=a2h3j.8428770.3416059.1\n- 钻石餐吊安装视频 https://v.youku.com/v_show/id_XMzY5NDAzODg0MA==.html?spm=a2hzp.8244740.0.0\n- 餐吊灯安装 http://www.",
+            "iqiyi.com/w_19rtwam491.html\n- 光源条和驱动配件安装说明 http://www.iqiyi.com/w_19ru1ncr3p.html\n- http://v.youku.com/v_show/id_XNDkzNjY2MDMyOA==.html?x&sharefrom=android&sharekey=c96dbc5fd56f5ffdd2a151cc138199e68 亲，视频中有4个安装视频\n- 网红客厅 https://v.youku.",
+            "com/v_show/id_XNDk2NDcwMzk4OA==.html?spm=a2h0c.8166622.PhoneSokuUgc_5.dscreenshot 吸顶灯安装视频\n- 风扇灯 安装视频 https://m.youku.com/video/id_XNDIzNTA3NDg4NA==.html?spm=a2h0k.11417342.soresults.dtitle\n- 风扇灯底座和光源安装视频 https://v.youku.com/v_show/id_XNDM0MjM4OTg4MA==.",
+            "html?spm=a2h3j.8428770.3416059.1\n- 8.74 YzT:/ 餐吊灯------三头钻石安装教程 https://v.douyin.com/YLTCB75/ 复制此链接，打开Dou音搜索，直接观看视频！\n- 长方形的灯 https://v.youku.com/v_show/id_XNDk2NDcwMzk4OA==.html?spm=a2h0c.8166622.PhoneSokuUgc_5.dscreenshot"
+          ],
+          "status": "nnn2",
+          "content": "\n- 安装的话需要一个电钻就可以了，您准备6mm的钻头打孔，然后连接零火线就可以了\n- 吸顶灯是全部组装好的 直接安装就可以了 吊灯是半成品 需要自己组装\n- 我们这边发货的时候都会送安装流程的呢 很简单的呢\n- 您收到货不会安装的话我们可以教您的哦\n- 大饼灯完整安装视频 http://m.youku.com/v_show/id_XNDkzNjY1Nzk5Mg==.html?pgcpgcid=UODI5ODIzMDQ%3D&sharekey=c8b817fc0497cd95beefcccc3a4873f49 长按复制此口令 ＄ZOfBXjsmGHV＄，打开【优酷APP】就可以看了~！\n- 魔豆吊灯安装视频，点击链接或者复制链接到浏览器观看 http://v.youku.com/v_show/id_XMzMzODIwOTEwMA==.html?spm=a2h3j.8428770.3416059.1\n- 钻石餐吊灯视频 http://v.youku.com/v_show/id_XMzMzODIxMjE1Ng==.html?spm=a2h3j.8428770.3416059.1\n- 配件 http://v.youku.com/v_show/id_XMzMzODIxMzY2OA==.html?spm=a2h3j.8428770.3416059.1\n- 钻石餐吊安装视频 https://v.youku.com/v_show/id_XMzY5NDAzODg0MA==.html?spm=a2hzp.8244740.0.0\n- 餐吊灯安装 http://www.iqiyi.com/w_19rtwam491.html\n- 光源条和驱动配件安装说明 http://www.iqiyi.com/w_19ru1ncr3p.html\n- http://v.youku.com/v_show/id_XNDkzNjY2MDMyOA==.html?x&sharefrom=android&sharekey=c96dbc5fd56f5ffdd2a151cc138199e68 亲，视频中有4个安装视频\n- 网红客厅 https://v.youku.com/v_show/id_XNDk2NDcwMzk4OA==.html?spm=a2h0c.8166622.PhoneSokuUgc_5.dscreenshot 吸顶灯安装视频\n- 风扇灯 安装视频 https://m.youku.com/video/id_XNDIzNTA3NDg4NA==.html?spm=a2h0k.11417342.soresults.dtitle\n- 风扇灯底座和光源安装视频 https://v.youku.com/v_show/id_XNDM0MjM4OTg4MA==.html?spm=a2h3j.8428770.3416059.1\n- 8.74 YzT:/ 餐吊灯------三头钻石安装教程 https://v.douyin.com/YLTCB75/ 复制此链接，打开Dou音搜索，直接观看视频！\n- 长方形的灯 https://v.youku.com/v_show/id_XNDk2NDcwMzk4OA==.html?spm=a2h0c.8166622.PhoneSokuUgc_5.dscreenshot\n\n",
+          "hit_num": 0,
+          "position": 19,
+          "is_active": true,
+          "similarity": 0.6424733400344849,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:26.074560+0800\", \"2\": \"2026-10-14 17:40:27.771943+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4298-7720-949c-591d892e2f99",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  7. 质量好不好",
+          "chunks": [
+            "- 回复：我们灯具都是采用优质led光源 高亮芯片 无频闪不伤眼 寿命长久 节能省电呢"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：我们灯具都是采用优质led光源 高亮芯片 无频闪不伤眼 寿命长久 节能省电呢\n\n",
+          "hit_num": 0,
+          "position": 38,
+          "is_active": true,
+          "similarity": 0.6375340007265818,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:09.218437+0800\", \"2\": \"2026-10-14 17:40:09.496149+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8c-7642-b81c-4037c31cab26",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  3. 灯罩破损",
+          "chunks": [
+            "- 您这边先试亮下哦 都没有问题的话 这边安排一个灯罩过去可以吗"
+          ],
+          "status": "nn22",
+          "content": "\n- 您这边先试亮下哦 都没有问题的话 这边安排一个灯罩过去可以吗\n",
+          "hit_num": 0,
+          "position": 60,
+          "is_active": true,
+          "similarity": 0.6346670360565542,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:33.830129+0800\", \"2\": \"2026-10-14 18:20:33.974106+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:35:43.188293+0800\", \"2\": \"2026-10-14 18:36:26.690829+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "我家石膏板吊顶能安装灯具吗？",
+      "timestamp": 1792232359.033562,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  18. 石膏板可以装吗\n- 回复：石膏板吊顶安装，把螺丝固定在龙骨上或者你们吊顶的木板上石膏板才能安装，打的时候一定要将螺丝打深一点，石膏本身不承重的",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 19.053015028999653,
+      "gold_context_ids": [
+        "01a139c8-4299-72a2-a7bc-cc053f389cd0"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "Answer correctly addresses the user's question with accurate safety advice (fixing to龙骨 instead of gypsum board). However, it fails citation relevance by claiming the manual lacks info, while the reference explicitly contains the answer. It also hallucinates that installation videos are included in the manual, which is not supported by the retrieved context.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-010",
+      "answer": "根据已知信息，灯具整灯厚度大约是**5CM左右**。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cbc96a7e89da",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  14. 灯具厚度",
+          "chunks": [
+            "- 回复：这款灯具整灯厚度大概是5CM左右哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：这款灯具整灯厚度大概是5CM左右哦\n\n",
+          "hit_num": 0,
+          "position": 45,
+          "is_active": true,
+          "similarity": 0.8163553233040806,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:08.830750+0800\", \"2\": \"2026-10-14 17:40:07.341276+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4294-7503-8fc8-1d83363f53c0",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  一、售前咨询：欢迎与通用话术  7. 尺寸与厚度",
+          "chunks": [
+            "- 亲亲 您这边面积多大的呢 我这边给您推荐下尺寸需要吗\n- 灯具安装后测量下灯罩最大的尺寸 相差2-3CM都是属于正常范围之内\n- 亲爱的 这款灯具整灯厚度大概是5CM左右哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲亲 您这边面积多大的呢 我这边给您推荐下尺寸需要吗\n- 灯具安装后测量下灯罩最大的尺寸 相差2-3CM都是属于正常范围之内\n- 亲爱的 这款灯具整灯厚度大概是5CM左右哦\n",
+          "hit_num": 0,
+          "position": 7,
+          "is_active": true,
+          "similarity": 0.7193455649007432,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:34.879281+0800\", \"2\": \"2026-10-14 17:40:36.083742+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-4299-72a2-a7bc-cbb2e944e4e3",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  13. 灯具材质",
+          "chunks": [
+            "- 回复：材质：底盘是铁艺烤漆的，灯罩是亚克力的，灯条都是最新的LED光源的"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：材质：底盘是铁艺烤漆的，灯罩是亚克力的，灯条都是最新的LED光源的\n\n",
+          "hit_num": 0,
+          "position": 44,
+          "is_active": true,
+          "similarity": 0.6380638886075078,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:08.491748+0800\", \"2\": \"2026-10-14 17:40:08.814382+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "灯具整灯厚度大约多少？",
+      "timestamp": 1792232377.9356222,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  14. 灯具厚度\n- 回复：这款灯具整灯厚度大概是5CM左右哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 7.274274377006805,
+      "gold_context_ids": [
+        "01a139c8-4299-72a2-a7bc-cbc96a7e89da"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately reflects the information provided in the reference and retrieved context, stating the thickness is approximately 5CM.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-011",
+      "answer": "根据您提供的《灯具客服快捷短语手册》内容，针对您的提问回复如下：\n\n1. **灯具会赠送墙壁开关吗？**  \n   已知信息中未明确说明会随灯赠送墙壁开关。结合售后与售前话术的常规逻辑，此类灯具**通常不标配/不赠送**独立墙壁开关，需顾客自行准备或复用原有开关。\n\n2. **原来的开关可以继续用吗？**  \n   **完全可以。** 手册中已给出标准答复：`“家里原来的开关就可以使用的呢。”` 无需额外购买智能开关、调光开关或特殊规格开关，直接接入原有墙壁开关即可正常控制。\n\n💡 **客服沟通建议**：可直接复制快捷短语回复客户：`“您好，这款灯具不需要额外购买开关哦，家里原来的墙壁开关就可以正常使用的呢，请放心安装~”`",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e89-7210-9970-29e236af452d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  1. 刚收到货不亮",
+          "chunks": [
+            "处理方案：\n1. 先让顾客提供接线图片\n2. 检查接线有没有错误（只能接零线火线 不能接地线）\n3. 前两项没有问题 让顾客直接零火线直接对接试一下哦 不要使用接线夹\n4. 前三项都没有问题\n最终处理方案：可能是快递路上暴力运输摔到里面的电子芯片了亲亲 不好意思喔 给您安排光源驱动过去 换下就亮了喔\n注意事项：刚收到货不亮 一定要让顾客不要使用接线夹 直接零线火线对接 因为可能暴力运输途中 碰到接线夹 松动了\n补充说明：\n- 这个是里面接线的电源线 遮住发光的灯珠了 折射出来的影子 把电源线往旁边弄一下",
+            "别遮住就好了喔\n- 中间是地线不需要接 接两边零火线 不分零火线喔"
+          ],
+          "status": "nn22",
+          "content": "\n处理方案：\n1. 先让顾客提供接线图片\n2. 检查接线有没有错误（只能接零线火线 不能接地线）\n3. 前两项没有问题 让顾客直接零火线直接对接试一下哦 不要使用接线夹\n4. 前三项都没有问题\n最终处理方案：可能是快递路上暴力运输摔到里面的电子芯片了亲亲 不好意思喔 给您安排光源驱动过去 换下就亮了喔\n注意事项：刚收到货不亮 一定要让顾客不要使用接线夹 直接零线火线对接 因为可能暴力运输途中 碰到接线夹 松动了\n补充说明：\n- 这个是里面接线的电源线 遮住发光的灯珠了 折射出来的影子 把电源线往旁边弄一下 别遮住就好了喔\n- 中间是地线不需要接 接两边零火线 不分零火线喔\n",
+          "hit_num": 0,
+          "position": 39,
+          "is_active": true,
+          "similarity": 0.7109408630062191,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:37.711203+0800\", \"2\": \"2026-10-14 18:20:38.040725+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:43:40.220260+0800\", \"2\": \"2026-10-14 18:44:05.228733+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-429a-7ca0-82c1-184871f8df15",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  售前常见回答话术  24. 开关需要什么样的",
+          "chunks": [
+            "- 回复：家里原来的开关就可以使用的呢"
+          ],
+          "status": "nnn2",
+          "content": "\n- 回复：家里原来的开关就可以使用的呢\n\n",
+          "hit_num": 0,
+          "position": 55,
+          "is_active": true,
+          "similarity": 0.7010516763987168,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:05.345690+0800\", \"2\": \"2026-10-14 17:40:05.488539+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e90-73a1-84bb-7b79568db7d6",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  常见问题与故障排查：技术问题与解决方案  2. 关灯后微亮（有余亮）",
+          "chunks": [
+            "- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合"
+          ],
+          "status": "nn22",
+          "content": "\n- 关灯余亮解决方法：\n 1 灯的开关零火线对换一下位置\n 2 家里总闸的开关零火线对换一下位置\n 3把底盘的螺丝拧松点 不要太贴近墙面\n 4把灯拿下来去插孔试亮一下\n 如果他是全灭的 就是你家开关的问题 如果不是全灭的 就是灯具的问题 请安心试一下 谢谢配合\n",
+          "hit_num": 0,
+          "position": 93,
+          "is_active": true,
+          "similarity": 0.6985245403989327,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:25.807482+0800\", \"2\": \"2026-10-14 18:20:26.028276+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:22:00.497277+0800\", \"2\": \"2026-10-14 18:22:11.928269+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "灯具会赠送墙壁开关吗？原来的开关可以继续用吗？",
+      "timestamp": 1792232407.8757987,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  售前常见回答话术  25. 赠送开关吗\n- 回复：抱歉呢 没有赠送这个活动呢 您可以使用家里原有的开关哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 20.182486661011353,
+      "gold_context_ids": [
+        "01a139c8-429a-7ca0-82c1-1855368cde81"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "模型准确提取了参考文本中关于开关赠送和原有开关使用的关键信息，回答完全符合事实且逻辑清晰。",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-012",
+      "answer": "根据已知信息，为您解答如下：\n\n📌 **需提供资料**：发票抬头、税号、邮箱  \n⏰ **联系时间**：在**确认收货后**联系客服即可\n\n> 💡 温馨提示：我们支持为您开具**普通电子发票**，收货后随时联系工作人员为您办理即可。",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139ed-6e8a-7581-97c1-092ffc9d1427",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 售后流程 #### 11. 透镜脱落 ###",
+            "二、退货退款处理"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 售后流程 #### 11. 透镜脱落 ### 二、退货退款处理",
+          "hit_num": 0,
+          "position": 50,
+          "is_active": true,
+          "similarity": 0.73875851083623,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:35.513449+0800\", \"2\": \"2026-10-14 18:20:35.760240+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:39:47.529117+0800\", \"2\": \"2026-10-14 18:40:09.729391+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-429b-7042-809f-bde04a2b72eb",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  八、其他快捷指令与特定场景  1. 发票相关",
+          "chunks": [
+            "- 亲爱哒~提供一下发票抬头，税号，邮箱哦\n- 亲爱的 我们这边是可以开普通电子发票的呢 您这边收货后联系我们开哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲爱哒~提供一下发票抬头，税号，邮箱哦\n- 亲爱的 我们这边是可以开普通电子发票的呢 您这边收货后联系我们开哦\n",
+          "hit_num": 0,
+          "position": 66,
+          "is_active": true,
+          "similarity": 0.7268515066415983,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:00.476417+0800\", \"2\": \"2026-10-14 17:40:00.773383+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e8e-7242-823a-67a8c4119e39",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": "",
+          "chunks": [
+            "# 灯具售后处理规范手册 ## 售后流程 #### 3. 磁铁解决方案 ###",
+            "十六、补发配件收费标准"
+          ],
+          "status": "nn22",
+          "content": "# 灯具售后处理规范手册 ## 售后流程 #### 3. 磁铁解决方案 ### 十六、补发配件收费标准",
+          "hit_num": 0,
+          "position": 78,
+          "is_active": true,
+          "similarity": 0.7105298677560572,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:28.722378+0800\", \"2\": \"2026-10-14 18:20:29.024538+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:28:58.377492+0800\", \"2\": \"2026-10-14 18:29:19.476088+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "灯具需要开发票，我要提供什么资料，什么时候联系？",
+      "timestamp": 1792232429.2623708,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  八、其他快捷指令与特定场景  1. 发票相关\n- 亲爱哒~提供一下发票抬头，税号，邮箱哦\n- 亲爱的 我们这边是可以开普通电子发票的呢 您这边收货后联系我们开哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 11.505636197995045,
+      "gold_context_ids": [
+        "01a139c8-429b-7042-809f-bde04a2b72eb"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer accurately extracts the required information (invoice title, tax ID, email) and timing (after receiving goods) directly from the reference text.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-013",
+      "answer": "根据您提供的客服手册内容，您需要**先提交订单，但千万不要立即付款**。\n\n手册中多次明确提示：`“您这边提交订单 不要付款 我来改价算优惠哦”`。这是因为电商系统中，只有当订单处于**“待付款”**状态时，客服才有权在后台直接修改商品金额（叠加满减、包邮或专属折扣）。一旦您完成付款，订单金额就会自动结算并锁定，客服系统将无法再进行改价操作。\n\n💡 **正确操作步骤：**\n1. 选择好商品，点击“提交订单”；\n2. 进入支付页面前**暂时跳过付款**；\n3. 通知客服已提交订单，等待客服后台改价成功；\n4. 收到客服“已改价”的回复后，再返回支付页面完成付款。",
+      "scores": {
+        "mrr": 1.0,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 1.0,
+        "context_precision": 1.0,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "frequent",
+      "contexts": [
+        {
+          "id": "01a139c8-429a-7ca0-82c1-18e1ccb3a0a7",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  6. 改价流程",
+          "chunks": [
+            "- 亲爱的 您这边提交订单 不要付款 我来改价算优惠哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲爱的 您这边提交订单 不要付款 我来改价算优惠哦\n\n",
+          "hit_num": 0,
+          "position": 65,
+          "is_active": true,
+          "similarity": 0.796951389403603,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:02.977912+0800\", \"2\": \"2026-10-14 17:40:03.116968+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-429a-7ca0-82c1-189ed43006c2",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  1. 日常优惠话术",
+          "chunks": [
+            "- 亲 年底仓库爆仓 材料飞涨哦 本身就是低价销售的呢 所以没有优惠的呢 但是可以送您运费险哦\n- 亲 我们也是小本生意 没有多少利润的呢 请您谅解一下哦 我们是厂家直销的，已经是全网最低价的了哦\n- 亲，我非常理解您想要优惠的心情呢，但是小店的价格已经是最低的呢，本身就是赚个销量的，没有什么来去的空间呢，您理解下哟\n- 亲亲 您的这个没有达到店铺的优惠呢 小店薄利多销 这种小灯定价本身是比较低的呢 没有什么来去呢 您多理解下哟 像这种同尺寸的 您也可以对比下呢 我们价格定的也是非常低的呢\n-",
+            "我们工厂把利润已经压得很低了，不像其他店铺，他们工厂那端赚了一次钱，店铺还要赚一次，我们基本销售出来的价格仅仅是工厂的一个出厂价了\n- 亲亲--这边产品本身就是直接最低价格在卖的哦，已经没有什么利润了呢，现在灯的成本还大幅度涨价了，我们价格还是之前的价格，已经没最低了呦！您放心购买哈\n- 亲 您这边可以去看下其他店铺同等灯具的尺寸哦 我们家价格全网最低的呢 而且还质保三年 我们家呢都是批发价格哦 本身也没有利润\n- 亲爱的 现在下单还有优惠哦 满100减3 满500减10 满1000减20\n- 亲爱的",
+            "您这边提交订单 不要付款 我来改价算优惠哦\n- 亲爱的 下单总价是多少呢 我来算个优惠哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲 年底仓库爆仓 材料飞涨哦 本身就是低价销售的呢 所以没有优惠的呢 但是可以送您运费险哦\n- 亲 我们也是小本生意 没有多少利润的呢 请您谅解一下哦 我们是厂家直销的，已经是全网最低价的了哦\n- 亲，我非常理解您想要优惠的心情呢，但是小店的价格已经是最低的呢，本身就是赚个销量的，没有什么来去的空间呢，您理解下哟\n- 亲亲 您的这个没有达到店铺的优惠呢 小店薄利多销 这种小灯定价本身是比较低的呢 没有什么来去呢 您多理解下哟 像这种同尺寸的 您也可以对比下呢 我们价格定的也是非常低的呢\n- 我们工厂把利润已经压得很低了，不像其他店铺，他们工厂那端赚了一次钱，店铺还要赚一次，我们基本销售出来的价格仅仅是工厂的一个出厂价了\n- 亲亲--这边产品本身就是直接最低价格在卖的哦，已经没有什么利润了呢，现在灯的成本还大幅度涨价了，我们价格还是之前的价格，已经没最低了呦！您放心购买哈\n- 亲 您这边可以去看下其他店铺同等灯具的尺寸哦 我们家价格全网最低的呢 而且还质保三年 我们家呢都是批发价格哦 本身也没有利润\n- 亲爱的 现在下单还有优惠哦 满100减3 满500减10 满1000减20\n- 亲爱的 您这边提交订单 不要付款 我来改价算优惠哦\n- 亲爱的 下单总价是多少呢 我来算个优惠哦\n\n",
+          "hit_num": 0,
+          "position": 60,
+          "is_active": true,
+          "similarity": 0.7485000940859163,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:03.805390+0800\", \"2\": \"2026-10-14 17:40:04.458588+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-429a-7ca0-82c1-18b63a5d012d",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  3. 包邮",
+          "chunks": [
+            "- 亲亲 您这边提交订单 不要付款 我这边给您改价 包邮哦"
+          ],
+          "status": "nnn2",
+          "content": "\n- 亲亲 您这边提交订单 不要付款 我这边给您改价 包邮哦\n\n",
+          "hit_num": 0,
+          "position": 62,
+          "is_active": true,
+          "similarity": 0.7155213952064565,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:02.302375+0800\", \"2\": \"2026-10-14 17:40:02.467009+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "先提交订单还是先付款才能让客服修改优惠价格？",
+      "timestamp": 1792232453.061156,
+      "token_usage": null,
+      "total_score": 1.0,
+      "ground_truth": "灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  6. 改价流程\n- 亲爱的 您这边提交订单 不要付款 我来改价算优惠哦",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 12.429007735001505,
+      "gold_context_ids": [
+        "01a139c8-429a-7ca0-82c1-18e1ccb3a0a7"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The answer correctly identifies the required sequence (submit order first, do not pay) based on the provided reference and context snippets.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    },
+    {
+      "id": "presales-014",
+      "answer": "不可以哦。根据活动规则说明，这款9.9元特价灯具是专为回馈新老顾客推出的限时福利，**每人/每单仅限购买1个**（先拍先得），因此无法一次性下单3个。\n\n如果您需要多盏灯具，建议选择店内其他常规价格的产品，这些产品均享受3年质保及完整的售后补发服务。感谢您的理解与配合！如有其他疑问可随时联系在线客服为您详细解答。",
+      "scores": {
+        "mrr": 0.5,
+        "hit_rate": 1.0,
+        "context_recall": 1.0,
+        "precision_at_k": 0.5,
+        "context_precision": 0.5,
+        "answer_correctness": 1.0,
+        "citation_relevance": 1.0,
+        "no_answer_correctness": 0.0,
+        "faithfulness": 1.0,
+        "judge_score": 0.75
+      },
+      "category": "boundary",
+      "contexts": [
+        {
+          "id": "01a139ed-6e8e-7242-823a-67f60cfdd486",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后流程  3. 下单超过3年  十八、边框与灯光说明",
+          "chunks": [
+            "- 边框是白光的 中间可以三色切换变光的"
+          ],
+          "status": "nn22",
+          "content": "\n- 边框是白光的 中间可以三色切换变光的\n",
+          "hit_num": 0,
+          "position": 83,
+          "is_active": true,
+          "similarity": 0.6368019147875219,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:27.296938+0800\", \"2\": \"2026-10-14 18:20:27.555593+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:24:13.179352+0800\", \"2\": \"2026-10-14 18:24:18.109646+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139ed-6e88-77c2-bf77-010a1548d25a",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139ed-3ccf-70f1-aa9d-a20b69e87754"
+          },
+          "title": " 灯具售后处理规范手册  售后服务：售后政策与处理流程  1. 质保政策",
+          "chunks": [
+            "- 亲，我们质保3年，如果正常使用情况下灯出现故障，我们为您补发配件哦\n- 亲，我们质保3年，如果正常使用情况下灯出现故障，我们为您补发配件哦，我们这边也有专门对接的售后哦 质量和售后都是有保证的哦\n- 亲，除了9.9元特价之外没有质保 其余价格都是质保3年哦 质保期间的第一年光源 驱动坏了联系我们都是给您免费补发的，质保期之后的2年光源驱动坏了我们依然补寄但是买家承担运费\n- 第二年和第三年质保\n 1: 您可以把坏的配件寄回来，我们给您更换\n 2:",
+            "您如果嫌麻烦的话，可以补一下发货运费12元，我们给你发一套配件更换\n- 亲今天限时活动哦 下单不仅送运费险 光源驱动还给您延保到五年哦\n- 您购买的产品已经是折后最低价格啦，不能再优惠了哦，请您见谅，本店所有产品光源都是质保3年的，质量非常好呢"
+          ],
+          "status": "nn22",
+          "content": "\n- 亲，我们质保3年，如果正常使用情况下灯出现故障，我们为您补发配件哦\n- 亲，我们质保3年，如果正常使用情况下灯出现故障，我们为您补发配件哦，我们这边也有专门对接的售后哦 质量和售后都是有保证的哦\n- 亲，除了9.9元特价之外没有质保 其余价格都是质保3年哦 质保期间的第一年光源 驱动坏了联系我们都是给您免费补发的，质保期之后的2年光源驱动坏了我们依然补寄但是买家承担运费\n- 第二年和第三年质保\n 1: 您可以把坏的配件寄回来，我们给您更换\n 2: 您如果嫌麻烦的话，可以补一下发货运费12元，我们给你发一套配件更换\n- 亲今天限时活动哦 下单不仅送运费险 光源驱动还给您延保到五年哦\n- 您购买的产品已经是折后最低价格啦，不能再优惠了哦，请您见谅，本店所有产品光源都是质保3年的，质量非常好呢\n",
+          "hit_num": 0,
+          "position": 30,
+          "is_active": true,
+          "similarity": 0.6229797044712794,
+          "create_time": "2026-10-14 10:20:24",
+          "document_id": "01a139ed-6e81-7f03-80c0-5861f6f11c5d",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 18:20:24.207245+0800\", \"1\": \"2026-10-14 18:20:40.491670+0800\", \"2\": \"2026-10-14 18:20:40.838058+0800\"}, \"2\": {\"0\": \"2026-10-14 18:21:35.578819+0800\", \"1\": \"2026-10-14 18:47:51.740556+0800\", \"2\": \"2026-10-14 18:48:04.634440+0800\"}}}",
+          "update_time": "2026-10-14 10:20:24",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售后多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        },
+        {
+          "id": "01a139c8-429a-7ca0-82c1-18d05499c664",
+          "meta": {
+            "allow_download": true,
+            "source_file_id": "01a139c8-1b7c-7df2-9424-192953fd7776"
+          },
+          "title": " 灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  5. 9.9元特价",
+          "chunks": [
+            "- 这款9.9元是为了回馈新老顾客 所做的活动哦 只能限购一个呢 先拍先得哈"
+          ],
+          "status": "nnn2",
+          "content": "\n- 这款9.9元是为了回馈新老顾客 所做的活动哦 只能限购一个呢 先拍先得哈\n\n",
+          "hit_num": 0,
+          "position": 64,
+          "is_active": true,
+          "similarity": 0.6154836370483336,
+          "create_time": "2026-10-14 09:39:48",
+          "document_id": "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b",
+          "status_meta": "{\"state_time\": {\"1\": {\"0\": \"2026-10-14 17:39:48.173035+0800\", \"1\": \"2026-10-14 17:40:02.783752+0800\", \"2\": \"2026-10-14 17:40:02.967523+0800\"}}}",
+          "update_time": "2026-10-14 09:39:48",
+          "knowledge_id": "01a139c7-4be8-7d53-93cc-50687d496a58",
+          "document_name": "灯具售前客服多年经验.md",
+          "knowledge_name": "客服",
+          "knowledge_type": 0,
+          "hit_handling_method": "optimization",
+          "is_hit_handling_method": false,
+          "directly_return_similarity": 0.9
+        }
+      ],
+      "question": "9.9元活动灯我想买三个，可以吗？",
+      "timestamp": 1792232478.028723,
+      "token_usage": null,
+      "total_score": 0.75,
+      "ground_truth": "灯具客服快捷短语手册  六、优惠活动与价格：活动、价格与优惠  5. 9.9元特价\n- 这款9.9元是为了回馈新老顾客 所做的活动哦 只能限购一个呢 先拍先得哈",
+      "document_tags": [
+        "客服知识库完整实测-v1",
+        "presales"
+      ],
+      "knowledge_ids": [
+        "01a139c7-4be8-7d53-93cc-50687d496a58"
+      ],
+      "metric_errors": {},
+      "response_time": 15.431285689992364,
+      "gold_context_ids": [
+        "01a139c8-429a-7ca0-82c1-18d05499c664"
+      ],
+      "relevant_doc_ids": [
+        "01a139c8-4291-7ff2-a3e5-1cf511d6ae9b"
+      ],
+      "expected_no_answer": false,
+      "judge": {
+        "reason": "The model correctly identifies the purchase limit based on the retrieved context and reference answer, explicitly stating that only one unit can be purchased at the promotional price.",
+        "model": "01a1010b-31b5-7a82-a131-3268e6a9cdd6"
+      }
+    }
+  ],
+  "summary": {
+    "answer_correctness": {
+      "mean": 0.9071428571428571,
+      "count": 14,
+      "total": 14
+    },
+    "citation_relevance": {
+      "mean": 0.8714285714285713,
+      "count": 14,
+      "total": 14
+    },
+    "context_precision": {
+      "mean": 0.7857142857142857,
+      "count": 14,
+      "total": 14
+    },
+    "context_recall": {
+      "mean": 1.0,
+      "count": 14,
+      "total": 14
+    },
+    "faithfulness": {
+      "mean": 0.9785714285714286,
+      "count": 14,
+      "total": 14
+    },
+    "hit_rate": {
+      "mean": 1.0,
+      "count": 14,
+      "total": 14
+    },
+    "judge_score": {
+      "mean": 0.7267857142857144,
+      "count": 14,
+      "total": 14
+    },
+    "mrr": {
+      "mean": 0.7857142857142857,
+      "count": 14,
+      "total": 14
+    },
+    "no_answer_correctness": {
+      "mean": 0.15,
+      "count": 14,
+      "total": 14
+    },
+    "precision_at_k": {
+      "mean": 0.7142857142857143,
+      "count": 14,
+      "total": 14
+    },
+    "response_time": {
+      "mean": 14.837801492502747,
+      "count": 14,
+      "total": 14
+    },
+    "total_score": {
+      "mean": 0.8928571428571429,
+      "count": 14,
+      "total": 14
+    }
+  },
+  "comparison": null,
+  "failed_cases": 0,
+  "dataset_version": "aa3d9c4bcc148f27cc51302e056af51fa90bc6e6abc0cdb5a4e8531001b47e4a",
+  "regression_passed": true
+}

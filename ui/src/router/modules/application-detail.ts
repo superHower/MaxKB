@@ -1,4 +1,5 @@
 import { SourceTypeEnum } from '@/enums/common'
+import evaluationIcon from '@/assets/balance-two.png'
 import { get_next_route } from '@/utils/permission'
 
 import { EditionConst, PermissionConst, RoleConst } from '@/utils/permission/data'
@@ -196,10 +197,8 @@ const ApplicationDetailRouter = {
     {
       path: 'evaluation',
       name: 'ApplicationEvaluation',
-      hidden: true,
       meta: {
-        icon: 'app-data-source',
-        iconActive: 'app-data-source-active',
+        iconImage: evaluationIcon,
         title: 'views.applicationEvaluation.title',
         active: 'evaluation',
         parentPath: '/application/:from/:id/:type',

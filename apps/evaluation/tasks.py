@@ -8,7 +8,7 @@ from django.db.models import QuerySet
 from django.utils import timezone
 from application.models import Application, ChatRecord, ChatUserType
 from application.serializers.common import ChatInfo
-from chat.serializers.chat import DebugChatSerializers, OpenChatSerializers
+from chat.serializers.chat import ChatSerializers, OpenChatSerializers
 from common.handle.impl.response.system_to_response import SystemToResponse
 from models_provider.models import Model
 from models_provider.tools import get_model_instance_by_model_workspace_id
@@ -51,9 +51,14 @@ def _response_text(response):
 def _chat(application, question, user_id):
     chat_id = OpenChatSerializers(data={
         "workspace_id": application.workspace_id, "application_id": str(application.id),
-        "chat_user_id": str(user_id), "chat_user_type": ChatUserType.PLATFORM_USER, "debug": True,
+        "chat_user_id": str(user_id), "chat_user_type": ChatUserType.PLATFORM_USER, "debug": False,
+        "source": {"type": "evaluation"}, "ip_address": "127.0.0.1",
     }).open()
-    response = DebugChatSerializers(data={"chat_id": chat_id}).chat(
+    response = ChatSerializers(data={
+        "chat_id": chat_id, "chat_user_id": str(user_id), "chat_user_type": ChatUserType.PLATFORM_USER,
+        "application_id": str(application.id), "debug": False, "source": {"type": "evaluation"},
+        "ip_address": "127.0.0.1",
+    }).chat(
         {"message": question, "stream": True, "re_chat": False}, SystemToResponse())
     answer, record_id = _response_text(response)
     record = QuerySet(ChatRecord).filter(id=record_id, chat_id=chat_id).first()
@@ -80,7 +85,11 @@ Question: {question}
 Reference answer: {ground_truth}
 Answer: {answer}
 Retrieved context:\n{context_text[:24000]}'''
-    raw = _content(model.invoke([HumanMessage(content=prompt)]))
+    messages = [HumanMessage(content=prompt)]
+    options = {}
+    if "qwen" in str(getattr(model, "model_name", "")).lower():
+        options["extra_body"] = {"enable_thinking": False}
+    raw = _content(model.invoke(messages, **options))
     match = re.search(r"\{.*\}", raw, re.DOTALL)
     if not match:
         raise ValueError("Judge 未返回 JSON")

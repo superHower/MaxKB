@@ -1,5 +1,5 @@
 <template>
-  <div class="p-16">
+  <div class="evaluation-page p-16">
     <div class="flex align-center justify-between mb-16">
       <div>
         <h2>{{ tr('title') }}</h2>
@@ -169,7 +169,14 @@
               :label="`${item.name} (${item.count})`"
               :value="item.id" /></el-select></el-form-item
       ></el-form>
-      <p>{{ tr('mode') }}</p>
+      <el-form label-position="top">
+        <el-form-item :label="tr('judgeModel')"><el-select v-model="judgeModelId" clearable class="w-full"><el-option v-for="model in models.filter(m => m.model_type === 'LLM')" :key="model.id" :label="model.name" :value="model.id" /></el-select></el-form-item>
+        <el-form-item v-if="judgeModelId" :label="tr('embeddingModel')" required><el-select v-model="embeddingModelId" class="w-full"><el-option v-for="model in models.filter(m => m.model_type === 'EMBEDDING')" :key="model.id" :label="model.name" :value="model.id" /></el-select></el-form-item>
+        <el-form-item :label="tr('baseline')"><el-select v-model="baselineId" clearable class="w-full"><el-option v-for="run in availableBaselines" :key="run.id" :label="`${run.dataset_name} · ${date(run.created_at)}`" :value="run.id" /></el-select></el-form-item>
+        <el-form-item :label="tr('regression')"><el-switch v-model="regression" /></el-form-item>
+        <el-form-item v-if="regression" :label="tr('regressionThreshold')"><el-input-number v-model="regressionThreshold" :min="0.01" :max="1" :step="0.01" :precision="2" /></el-form-item>
+      </el-form>
+      <p>{{ tr(judgeModelId ? 'judgeMode' : 'mode') }}</p>
       <el-alert :title="tr('capability')" type="info" :closable="false" />
       <p>{{ tr('runHint') }}</p>
       <template #footer
@@ -272,6 +279,7 @@
         >
       </div>
     </el-drawer>
+    <QualityPanel :application-id="id" />
   </div>
 </template>
 <script setup lang="ts">
@@ -279,6 +287,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { ElMessage, type UploadUserFile } from 'element-plus'
+import QualityPanel from './QualityPanel.vue'
+import modelApi from '@/api/model/model'
 import {
   getEvaluationDatasets,
   getEvaluationRuns,
@@ -288,7 +298,7 @@ import {
   downloadEvaluationReport,
 } from '@/api/application/evaluation'
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 const tr = (key: string) => t(`views.applicationEvaluation.ux.${key}`)
 const id = String(useRoute().params.id)
 const datasets = ref<any[]>([])
@@ -306,6 +316,13 @@ const entryMode = ref('manual')
 const questions = ref([{ question: '', ground_truth: '' }])
 const files = ref<UploadUserFile[]>([])
 const search = ref('')
+const models = ref<any[]>([])
+const judgeModelId = ref('')
+const embeddingModelId = ref('')
+const baselineId = ref('')
+const regression = ref(false)
+const regressionThreshold = ref(0.05)
+const availableBaselines = computed(() => runs.value.filter(run => ['completed', 'partial'].includes(run.status)))
 let timer: number | undefined
 let disposed = false
 const busy = computed(() => runs.value.some((run) => ['queued', 'running'].includes(run.status)))
@@ -322,17 +339,7 @@ const statusType = (value: string): 'primary' | 'success' | 'warning' | 'danger'
 const percentage = (row: any) =>
   row.total ? Math.min(100, Math.round((row.completed / row.total) * 100)) : 0
 const metricName = (name: string) =>
-  [
-    'context_precision',
-    'context_recall',
-    'hit_rate',
-    'mrr',
-    'precision_at_k',
-    'total_score',
-    'response_time',
-  ].includes(name)
-    ? tr(name)
-    : name
+  te(`views.applicationEvaluation.ux.${name}`) ? tr(name) : name
 const metrics = computed(() =>
   Object.entries(detail.value.summary || {}).map(([name, value]) => ({
     name,
@@ -349,7 +356,12 @@ const filteredResults = computed(() =>
 )
 const openRun = (selected?: string) => {
   datasetId.value = selected || datasets.value[0]?.id || ''
+  judgeModelId.value = ''
+  embeddingModelId.value = ''
+  baselineId.value = ''
+  regression.value = false
   runDialog.value = true
+  modelApi.getModelList().then(result => { models.value = result.data.filter(model => model.status === 'SUCCESS') }).catch(() => {})
 }
 const fileExceeded = () => ElMessage.warning(tr('oneFile'))
 const saveBlob = (blob: Blob, name: string) => {
@@ -428,9 +440,17 @@ const importDataset = async () => {
 }
 const start = async () => {
   if (!datasetId.value || busy.value) return
+  if (judgeModelId.value && !embeddingModelId.value) return ElMessage.warning(tr('embeddingRequired'))
+  if (regression.value && !baselineId.value) return ElMessage.warning(tr('baselineRequired'))
   submitting.value = true
   try {
-    const result = await startEvaluation(id, { dataset_id: datasetId.value })
+    const result = await startEvaluation(id, {
+      dataset_id: datasetId.value,
+      ...(judgeModelId.value ? { judge_model_id: judgeModelId.value, embedding_model_id: embeddingModelId.value } : {}),
+      ...(baselineId.value ? { baseline_id: baselineId.value } : {}),
+      regression: regression.value,
+      regression_threshold: regressionThreshold.value,
+    })
     runDialog.value = false
     await load()
     ElMessage.success(tr('started'))
@@ -482,6 +502,12 @@ onUnmounted(() => {
 })
 </script>
 <style scoped>
+.evaluation-page {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
 .w-full {
   width: 100%;
 }

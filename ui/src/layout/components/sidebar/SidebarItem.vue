@@ -6,7 +6,8 @@
       popper-class="sidebar-container-popper"
     >
       <template #title>
-        <AppIcon v-if="menu.meta && menu.meta.icon" :iconName="menuIcon" class="sidebar-icon" />
+        <img v-if="menuImage" :src="menuImage" class="sidebar-icon sidebar-image" alt="" />
+        <AppIcon v-else-if="menu.meta && menu.meta.icon" :iconName="menuIcon" class="sidebar-icon" />
 
         <span class="lighter">{{ $t(menu.meta?.title as string) }}</span>
       </template>
@@ -27,7 +28,8 @@
       @click="clickHandle(menu)"
     >
       <template #title>
-        <AppIcon v-if="menu.meta && menu.meta.icon" :iconName="menuIcon" class="sidebar-icon" />
+        <img v-if="menuImage" :src="menuImage" class="sidebar-icon sidebar-image" alt="" />
+        <AppIcon v-else-if="menu.meta && menu.meta.icon" :iconName="menuIcon" class="sidebar-icon" />
         <span v-if="menu.meta && menu.meta.title">{{ $t(menu.meta?.title as string) }}</span>
       </template>
     </el-menu-item>
@@ -64,6 +66,7 @@ function clickHandle(item?: any) {
     router.push({ path: `/knowledge/${id}/${folderId}/workflow` })
   }
 }
+const menuImage = computed(() => String(props.menu.meta?.iconImage || ''))
 const menuIcon = computed(() => {
   if (props.activeMenu === props.menu.path) {
     return props.menu.meta?.iconActive || props.menu?.meta?.icon
@@ -78,6 +81,13 @@ const menuIcon = computed(() => {
   .sidebar-icon {
     font-size: 20px;
     margin-top: -2px;
+  }
+  .sidebar-image {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-right: 8px;
   }
   .el-menu-item {
     padding: 13px 12px 13px 8px !important;
