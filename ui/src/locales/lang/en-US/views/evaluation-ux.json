@@ -197,5 +197,12 @@
     "no_answer_response": "no answer response",
     "input_tokens": "input tokens",
     "output_tokens": "output tokens"
+    ,"task_success_rate": "task success rate"
+    ,"task_success_count": "task success labels"
+    ,"tool_call_accuracy": "tool call accuracy"
+    ,"tool_call_accuracy_count": "tool accuracy labels"
+    ,"confirmation_compliance_rate": "confirmation compliance rate"
+    ,"confirmation_sample_count": "confirmation samples"
+    ,"tool_call_count": "tool calls"
   }
 }

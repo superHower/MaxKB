@@ -9,9 +9,20 @@ def capture_chat_record(record, application):
     candidates, contexts = [], []
     prompts = []
     model_ids = set()
+    intent_categories = []
+    tool_call_count = 0
+    confirmation_requested = False
+    confirmation_confirmed = False
     for detail in details.values():
         if not isinstance(detail, dict):
             continue
+        if detail.get("category"):
+            intent_categories.append(str(detail["category"]))
+        if detail.get("type") in {"tool-node", "tool-lib-node", "tool-workflow-lib-node", "mcp-node"}:
+            tool_call_count += 1
+        if detail.get("type") == "form-node":
+            confirmation_requested = True
+            confirmation_confirmed = confirmation_confirmed or detail.get("is_submit") is True
         if isinstance(detail.get("paragraph_list"), list):
             candidates.extend(p for p in detail["paragraph_list"] if isinstance(p, dict))
         if detail.get("model_id"):
@@ -46,6 +57,13 @@ def capture_chat_record(record, application):
         "estimated_cost": record.const,
         "feedback": {"vote": record.vote_status, "reason": record.vote_reason},
         "human_handoff": None,
+        "intent_category": intent_categories[-1] if intent_categories else None,
+        "tool_call_count": tool_call_count,
+        "confirmation_required": confirmation_requested if confirmation_requested else None,
+        "confirmation_confirmed": confirmation_confirmed if confirmation_requested else None,
+        # These fields are intentionally nullable until a business system or reviewer supplies ground truth.
+        "task_success": (record.source or {}).get("task_success") if isinstance(record.source, dict) else None,
+        "tool_call_accuracy": (record.source or {}).get("tool_call_accuracy") if isinstance(record.source, dict) else None,
         "experiment_id": (record.source or {}).get("experiment_id") if isinstance(record.source, dict) else None,
         "experiment_variant": (record.source or {}).get("experiment_variant") if isinstance(record.source, dict) else None,
         "evaluable": bool(contexts),

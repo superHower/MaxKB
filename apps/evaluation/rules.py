@@ -37,6 +37,14 @@ def evaluate_event(data):
         "latency_ms": data.get("latency_ms"),
         "input_tokens": token_usage.get("input"),
         "output_tokens": token_usage.get("output"),
+        "task_success": data.get("task_success"),
+        "tool_call_accuracy": data.get("tool_call_accuracy"),
+        "confirmation_compliance": (
+            float(data["confirmation_confirmed"])
+            if isinstance(data.get("confirmation_required"), bool)
+            and isinstance(data.get("confirmation_confirmed"), bool)
+            else None
+        ),
     }
     reasons = {
         "context": "有最终上下文" if contexts else "没有最终上下文，无法评估引用和忠实度",
@@ -45,6 +53,12 @@ def evaluate_event(data):
         "faithfulness": (f"答案词项中约 {supported_terms}/{len(answer_terms)} 可在上下文找到"
                           if answer_terms and context_text else "缺少答案或上下文，忠实度不可评估"),
         "no_answer": ("检测到拒答" if answer_is_refusal else "未检测到拒答"),
+        "task": ("已提供任务成功标记" if isinstance(data.get("task_success"), bool)
+                 else "缺少业务结果或人工标注，任务成功率不可评估"),
+        "tool": ("已提供工具调用准确率标记" if isinstance(data.get("tool_call_accuracy"), bool)
+                 else "缺少工具期望结果或人工标注，工具调用准确率不可评估"),
+        "confirmation": ("已完成确认合规检查" if scores["confirmation_compliance"] is not None
+                         else "未触发或未记录确认流程，确认合规率不可评估"),
     }
     return {"scores": scores, "reasons": reasons, "evaluator_version": EVALUATOR_VERSION,
             "metadata": {"candidate_count": len(candidate_ids), "context_count": len(context_ids)}}

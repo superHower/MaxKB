@@ -197,5 +197,12 @@
     "no_answer_response": "检测到拒答",
     "input_tokens": "输入 Token",
     "output_tokens": "输出 Token"
+    ,"task_success_rate": "任务成功率"
+    ,"task_success_count": "任务成功标注数"
+    ,"tool_call_accuracy": "工具调用准确率"
+    ,"tool_call_accuracy_count": "工具调用准确标注数"
+    ,"confirmation_compliance_rate": "确认合规率"
+    ,"confirmation_sample_count": "确认样本数"
+    ,"tool_call_count": "工具调用次数"
   }
 }
