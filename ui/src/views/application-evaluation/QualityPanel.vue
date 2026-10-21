@@ -1,12 +1,16 @@
 <template>
-  <el-card class="mt-16">
+  <el-tabs v-model="activeTab" class="quality-tabs">
+  <el-tab-pane :label="tr('onlineQuality')" name="quality">
+  <el-card>
     <template #header><div class="flex justify-between align-center"><strong>{{ tr('onlineQuality') }}</strong><el-button :loading="loading" @click="load">{{ tr('refresh') }}</el-button></div></template>
     <el-table :data="metricRows" v-loading="loading">
       <el-table-column prop="label" :label="tr('metric')" />
       <el-table-column prop="value" :label="tr('value')" />
     </el-table>
   </el-card>
-  <el-card class="mt-16">
+  </el-tab-pane>
+  <el-tab-pane :label="tr('experiments')" name="experiments">
+  <el-card>
     <template #header><div class="flex justify-between align-center"><strong>{{ tr('experiments') }}</strong><el-button @click="openExperiment">{{ tr('newExperiment') }}</el-button></div></template>
     <el-alert :title="tr('experimentHint')" type="info" :closable="false" class="mb-16" />
     <el-table :data="experiments" v-loading="loading">
@@ -17,7 +21,9 @@
       <el-table-column :label="tr('actions')"><template #default="{ row }"><el-button link type="primary" :disabled="saving" @click="toggleExperiment(row)">{{ row.status === 'running' ? tr('stop') : tr('startExperiment') }}</el-button></template></el-table-column>
     </el-table>
   </el-card>
-  <el-card class="mt-16">
+  </el-tab-pane>
+  <el-tab-pane :label="tr('samples')" name="samples">
+  <el-card>
     <template #header><div class="flex justify-between align-center"><strong>{{ tr('samples') }}</strong><el-button :loading="saving" @click="sampleEvents">{{ tr('sample') }}</el-button></div></template>
     <el-text type="info">{{ tr('sampleHint') }}</el-text>
     <el-table :data="samples" v-loading="loading">
@@ -34,7 +40,9 @@
       <el-table-column :label="tr('actions')" width="180"><template #default="{ row }"><el-button link type="primary" :disabled="saving || row.status === 'archived'" @click="openReview(row)">{{ tr('review') }}</el-button><el-button link :disabled="saving || row.status === 'archived'" @click="evaluateSample(row)">{{ tr('evaluate') }}</el-button></template></el-table-column>
     </el-table>
   </el-card>
-  <el-card class="mt-16">
+  </el-tab-pane>
+  <el-tab-pane :label="tr('badcases')" name="badcases">
+  <el-card>
     <template #header><div class="flex justify-between align-center"><strong>{{ tr('badcases') }}</strong><el-button :loading="saving" @click="generateBadcases">{{ tr('generate') }}</el-button></div></template>
     <el-table :data="badcases" v-loading="loading">
       <el-table-column prop="event.question" :label="tr('question')" min-width="200" />
@@ -46,6 +54,8 @@
       <el-table-column :label="tr('actions')"><template #default="{ row }"><el-button link type="primary" :disabled="saving || row.badcase.status === 'resolved'" @click="openResolution(row)">{{ tr('resolve') }}</el-button></template></el-table-column>
     </el-table>
   </el-card>
+  </el-tab-pane>
+  </el-tabs>
   <el-dialog v-model="experimentVisible" :title="tr('newExperiment')" width="560px">
     <el-form label-position="top">
       <el-form-item :label="tr('experimentName')" required><el-input v-model="experiment.name" maxlength="128" /></el-form-item>
@@ -86,6 +96,7 @@ import {
 
 const props = defineProps<{ applicationId: string }>()
 const { t, te } = useI18n()
+const activeTab = ref('quality')
 const tr = (key: string) => t(`views.applicationEvaluation.ux.${key}`)
 const label = (key: string) => te(`views.applicationEvaluation.ux.labels.${key}`) ? tr(`labels.${key}`) : key
 const loading = ref(false)
@@ -178,7 +189,11 @@ onMounted(load)
 </script>
 
 <style scoped>
-.mt-16 { margin-top: 16px; }
+.quality-tabs { margin-top: 16px; }
+.quality-tabs :deep(.el-tabs__header) { margin-bottom: 16px; }
+.quality-tabs :deep(.el-tabs__nav-wrap::after) { background-color: var(--el-border-color-lighter); }
+.quality-tabs :deep(.el-card) { border-radius: 10px; border-color: var(--el-border-color-lighter); box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
+.quality-tabs :deep(.el-card__header) { padding: 14px 18px; }
 .sample-detail { padding: 16px; }
 .answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .variant-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }

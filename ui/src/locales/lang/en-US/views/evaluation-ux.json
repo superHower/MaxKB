@@ -1,5 +1,13 @@
 {
   "title": "Agent evaluation",
+  "evaluationLabel": "Evaluation workspace",
+  "latestScore": "Latest score",
+  "datasetsSummary": "Datasets",
+  "completedSummary": "Completed runs",
+  "currentStatus": "Current status",
+  "ready": "Ready",
+  "progressHint": "Running in the background",
+  "readyHint": "Ready for a new evaluation",
   "intro": "Prepare business questions, review answers in batches, and find areas to improve.",
   "start": "Start evaluation",
   "prepare": "1. Prepare questions",

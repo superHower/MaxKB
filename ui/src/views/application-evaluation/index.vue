@@ -1,22 +1,40 @@
 <template>
   <div class="evaluation-page p-16">
-    <div class="flex align-center justify-between mb-16">
+    <section class="page-hero">
       <div>
+        <div class="eyebrow">{{ tr('evaluationLabel') }}</div>
         <h2>{{ tr('title') }}</h2>
         <el-text type="info">{{ tr('intro') }}</el-text>
       </div>
-      <el-button type="primary" :disabled="!datasets.length || busy" @click="openRun()">{{
-        tr('start')
-      }}</el-button>
+      <el-button type="primary" size="large" :disabled="!datasets.length || busy" @click="openRun()">
+        {{ tr('start') }}
+      </el-button>
+    </section>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <el-text type="info">{{ tr('latestScore') }}</el-text>
+        <strong>{{ latestScore }}</strong>
+        <span>{{ latestRun ? date(latestRun.created_at) : tr('noRuns') }}</span>
+      </div>
+      <div class="summary-item">
+        <el-text type="info">{{ tr('datasetsSummary') }}</el-text>
+        <strong>{{ datasets.length }}</strong>
+        <span>{{ tr('dataset') }}</span>
+      </div>
+      <div class="summary-item">
+        <el-text type="info">{{ tr('completedSummary') }}</el-text>
+        <strong>{{ completedRuns }}</strong>
+        <span>{{ tr('completed') }}</span>
+      </div>
+      <div class="summary-item" :class="{ active: busy }">
+        <el-text type="info">{{ tr('currentStatus') }}</el-text>
+        <strong>{{ busy ? tr('running') : tr('ready') }}</strong>
+        <span>{{ busy ? tr('progressHint') : tr('readyHint') }}</span>
+      </div>
     </div>
-    <el-card class="mb-16">
-      <el-steps :active="busy ? 2 : datasets.length ? 1 : 0" simple
-        ><el-step :title="tr('prepare')" /><el-step :title="tr('configure')" /><el-step
-          :title="tr('results')"
-      /></el-steps>
-      <el-alert class="mt-16" :title="tr('capability')" type="info" :closable="false" />
-    </el-card>
-    <el-card class="mb-16">
+    <el-alert class="capability-alert" :title="tr('capability')" type="info" :closable="false" />
+    <div class="workspace-grid">
+    <el-card class="content-card">
       <template #header
         ><div class="flex justify-between align-center">
           <strong>{{ tr('prepare') }}</strong>
@@ -58,7 +76,7 @@
         >
       </el-table>
     </el-card>
-    <el-card>
+    <el-card class="content-card">
       <template #header
         ><div class="flex justify-between align-center">
           <strong>{{ tr('history') }}</strong
@@ -279,6 +297,7 @@
         >
       </div>
     </el-drawer>
+    </div>
     <QualityPanel :application-id="id" />
   </div>
 </template>
@@ -323,6 +342,9 @@ const baselineId = ref('')
 const regression = ref(false)
 const regressionThreshold = ref(0.05)
 const availableBaselines = computed(() => runs.value.filter(run => ['completed', 'partial'].includes(run.status)))
+const latestRun = computed(() => runs.value[0])
+const latestScore = computed(() => score(latestRun.value?.summary?.total_score?.mean))
+const completedRuns = computed(() => runs.value.filter(run => run.status === 'completed').length)
 let timer: number | undefined
 let disposed = false
 const busy = computed(() => runs.value.some((run) => ['queued', 'running'].includes(run.status)))
@@ -507,6 +529,27 @@ onUnmounted(() => {
   min-height: 0;
   overflow-y: auto;
   box-sizing: border-box;
+  background: var(--el-fill-color-lighter);
+}
+.page-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 20px;
+}
+.page-hero h2 { margin: 4px 0 6px; font-size: 24px; }
+.eyebrow { color: var(--el-color-primary); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.summary-item { display: flex; flex-direction: column; gap: 4px; min-height: 92px; padding: 16px 18px; background: var(--el-bg-color); border: 1px solid var(--el-border-color-lighter); border-radius: 10px; box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
+.summary-item strong { color: var(--el-text-color-primary); font-size: 24px; line-height: 1.2; }
+.summary-item span { color: var(--el-text-color-secondary); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.summary-item.active { border-color: var(--el-color-primary-light-5); background: var(--el-color-primary-light-9); }
+.capability-alert { margin-bottom: 16px; border: 0; }
+.workspace-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.45fr); gap: 16px; align-items: start; }
+.content-card { min-width: 0; border: 1px solid var(--el-border-color-lighter); border-radius: 10px; box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
+.content-card :deep(.el-card__header) { padding: 14px 18px; }
+.content-card :deep(.el-card__body) { padding: 0; }
+.content-card :deep(.el-table) { border-radius: 0 0 10px 10px; }
 }
 .w-full {
   width: 100%;
@@ -535,6 +578,8 @@ onUnmounted(() => {
   margin: 0 8px 8px 0;
 }
 @media (max-width: 768px) {
+  .page-hero { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .summary-grid, .workspace-grid { grid-template-columns: 1fr; }
   .answer-comparison {
     grid-template-columns: 1fr;
   }

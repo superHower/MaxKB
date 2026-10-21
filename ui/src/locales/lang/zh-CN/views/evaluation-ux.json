@@ -1,5 +1,13 @@
 {
   "title": "智能体测评",
+  "evaluationLabel": "评测工作台",
+  "latestScore": "最近得分",
+  "datasetsSummary": "测试集数量",
+  "completedSummary": "完成次数",
+  "currentStatus": "当前状态",
+  "ready": "准备就绪",
+  "progressHint": "任务正在后台执行",
+  "readyHint": "可以开始新的测评",
   "intro": "准备业务问题，批量查看智能体回答，定位需要改进的地方。",
   "start": "开始测评",
   "prepare": "1. 准备题目",
