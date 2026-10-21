@@ -78,6 +78,19 @@
           >
             {{ $t('views.login.forgotPassword') }}?
           </el-button>
+          <el-popover
+            v-if="loginMode === ''"
+            trigger="click"
+            placement="bottom-end"
+            :width="240"
+            :title="$t('views.login.defaultAccount')"
+          >
+            <p>{{ $t('views.login.loginForm.username.label') }}：<code>admin</code></p>
+            <p>{{ $t('views.login.loginForm.password.label') }}：<code>admin@123</code></p>
+            <template #reference>
+              <el-button link type="info">{{ $t('views.login.defaultAccount') }}</el-button>
+            </template>
+          </el-popover>
         </div>
       </div>
       <div v-if="showQrCodeTab">

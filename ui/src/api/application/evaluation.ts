@@ -9,6 +9,8 @@ const prefix = (applicationId: string) => {
 }
 export const getEvaluationDatasets = (id: string, loading?: Ref<boolean>): Promise<Result<any[]>> =>
   get(`${prefix(id)}/datasets`, {}, loading)
+export const getEvaluationDataset = (id: string, datasetId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
+  get(`${prefix(id)}/datasets/${datasetId}`, {}, loading)
 export const uploadEvaluationDataset = (
   id: string,
   name: string,

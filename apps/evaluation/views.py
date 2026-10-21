@@ -37,6 +37,10 @@ def dataset_data(item):
             "categories": sorted({row.get("category", "unclassified") for row in item.cases})}
 
 
+def dataset_detail(item):
+    return {**dataset_data(item), "cases": item.cases}
+
+
 def run_data(item, detail=False):
     data = {"id": str(item.id), "status": item.status, "completed": item.completed,
             "total": len(item.dataset.cases), "dataset_name": item.dataset.name,
@@ -81,6 +85,17 @@ class Datasets(APIView):
             application_id=application_id, workspace_id=workspace_id, name=name, version=version(cases),
             defaults={"cases": cases})
         return result.success(dataset_data(item))
+
+
+class DatasetDetail(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id, dataset_id):
+        scope(workspace_id, application_id)
+        item = get_object_or_404(Dataset, id=dataset_id, workspace_id=workspace_id,
+                                 application_id=application_id)
+        return result.success(dataset_detail(item))
 
 
 class Runs(APIView):

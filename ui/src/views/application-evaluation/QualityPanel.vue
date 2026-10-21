@@ -3,10 +3,12 @@
   <el-tab-pane :label="tr('onlineQuality')" name="quality">
   <el-card>
     <template #header><div class="flex justify-between align-center"><strong>{{ tr('onlineQuality') }}</strong><el-button :loading="loading" @click="load">{{ tr('refresh') }}</el-button></div></template>
-    <el-table :data="metricRows" v-loading="loading">
-      <el-table-column prop="label" :label="tr('metric')" />
-      <el-table-column prop="value" :label="tr('value')" />
-    </el-table>
+    <div v-loading="loading" class="metric-grid">
+      <el-empty v-if="!metricRows.length && !loading" :description="tr('noMetrics')" />
+      <el-card v-for="row in metricRows" :key="row.key" class="metric-card" shadow="never">
+        <el-statistic :title="row.label" :value="row.value" />
+      </el-card>
+    </div>
   </el-card>
   </el-tab-pane>
   <el-tab-pane :label="tr('experiments')" name="experiments">
@@ -112,8 +114,8 @@ const formatValue = (key: string, value: any) => {
   return value.toLocaleString(undefined, { maximumFractionDigits: 6 })
 }
 const metricRows = computed(() => Object.entries(metrics.value).flatMap(([key, value]) => {
-  if (value && typeof value === 'object') return Object.entries(value).map(([part, v]) => ({ label: `${label(key)} · ${label(part)}`, value: formatValue(part === 'count' ? part : `${key}.${part}`, v) }))
-  return [{ label: label(key), value: formatValue(key, value) }]
+  if (value && typeof value === 'object') return Object.entries(value).map(([part, v]) => ({ key: `${key}.${part}`, label: `${label(key)} · ${label(part)}`, value: formatValue(part === 'count' ? part : `${key}.${part}`, v) }))
+  return [{ key, label: label(key), value: formatValue(key, value) }]
 }))
 const ruleRows = (scores: Record<string, any>) => Object.entries(scores).map(([key, value]) => ({ label: label(key), value: formatValue(key, value) }))
 const load = async () => {
@@ -194,6 +196,11 @@ onMounted(load)
 .quality-tabs :deep(.el-tabs__nav-wrap::after) { background-color: var(--el-border-color-lighter); }
 .quality-tabs :deep(.el-card) { border-radius: 10px; border-color: var(--el-border-color-lighter); box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
 .quality-tabs :deep(.el-card__header) { padding: 14px 18px; }
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; min-height: 120px; }
+.metric-card { min-width: 0; background: var(--el-fill-color-lighter); }
+.metric-card :deep(.el-card__body) { padding: 16px; }
+.metric-card :deep(.el-statistic__head) { min-height: 34px; color: var(--el-text-color-secondary); font-size: 13px; line-height: 17px; }
+.metric-card :deep(.el-statistic__content) { color: var(--el-text-color-primary); font-size: 24px; font-weight: 600; }
 .sample-detail { padding: 16px; }
 .answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .variant-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }

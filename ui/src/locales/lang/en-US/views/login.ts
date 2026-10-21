@@ -1,5 +1,6 @@
 export default {
   title: 'Login',
+  defaultAccount: 'Default credentials',
   loginForm: {
     username: {
       label: 'Username',

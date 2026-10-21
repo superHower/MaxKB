@@ -83,6 +83,7 @@
   "downloadFailed": "报告下载失败，请确认测评已生成报告后重试。",
   "onlineQuality": "线上质量",
   "value": "数值",
+  "noMetrics": "暂无线上质量数据",
   "experiments": "灰度实验",
   "newExperiment": "新建实验",
   "subjectType": "分流主体",

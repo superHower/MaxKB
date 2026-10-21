@@ -1,5 +1,6 @@
 export default {
   title: '账号登录',
+  defaultAccount: '默认账号说明',
   loginForm: {
     username: {
       label: '用户名',

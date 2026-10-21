@@ -550,7 +550,6 @@ onUnmounted(() => {
 .content-card :deep(.el-card__header) { padding: 14px 18px; }
 .content-card :deep(.el-card__body) { padding: 0; }
 .content-card :deep(.el-table) { border-radius: 0 0 10px 10px; }
-}
 .w-full {
   width: 100%;
 }

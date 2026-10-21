@@ -83,6 +83,7 @@
   "downloadFailed": "Could not download the report. Check that the evaluation has generated a report and try again.",
   "onlineQuality": "Online quality",
   "value": "Value",
+  "noMetrics": "No online quality data",
   "experiments": "Experiments",
   "newExperiment": "New experiment",
   "subjectType": "Subject",
