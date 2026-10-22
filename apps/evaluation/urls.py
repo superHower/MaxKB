@@ -1,15 +1,21 @@
 # coding=utf-8
 from django.urls import path
-from .views import Datasets, DatasetDetail, Runs, RunDetail
+from .views import Datasets, DatasetDetail, Runs, RunDetail, RunReplay
+from .candidate_views import Candidates, CandidateDetail, CandidateAction, CandidateOptions
 from .quality_views import (Events, OnlineMetrics, Experiments, ExperimentAction, ExperimentAssignment,
                             Samples, SampleDetail, Annotation, SampleExport, RuleEvaluate, Badcases, BadcaseDetail)
 
 prefix = "workspace/<str:workspace_id>/application/<str:application_id>/evaluation/"
 urlpatterns = [
+    path(prefix + "candidates", Candidates.as_view()),
+    path(prefix + "candidates/options", CandidateOptions.as_view()),
+    path(prefix + "candidates/<uuid:candidate_id>", CandidateDetail.as_view()),
+    path(prefix + "candidates/<uuid:candidate_id>/action", CandidateAction.as_view()),
     path(prefix + "datasets", Datasets.as_view()),
     path(prefix + "datasets/<uuid:dataset_id>", DatasetDetail.as_view()),
     path(prefix + "runs", Runs.as_view()),
     path(prefix + "runs/<uuid:run_id>", RunDetail.as_view()),
+    path(prefix + "runs/<uuid:run_id>/replay", RunReplay.as_view()),
     path(prefix + "events", Events.as_view()),
     path(prefix + "metrics", OnlineMetrics.as_view()),
     path(prefix + "experiments", Experiments.as_view()),

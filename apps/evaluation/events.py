@@ -2,6 +2,7 @@
 """Capture the evidence available when a chat record is saved."""
 from application.models import ApplicationVersion
 from .models import EvaluationEvent
+from .evidence import node_evidence
 
 
 def _workflow_capabilities(application):
@@ -61,8 +62,18 @@ def capture_chat_record(record, application):
         content = paragraph.get("content")
         if isinstance(content, str) and content and content in prompt_text:
             contexts.append(paragraph)
-    version = ApplicationVersion.objects.filter(application_id=application.id).order_by("-create_time").first()
-    capabilities = _workflow_capabilities(application)
+    source = record.source if isinstance(record.source, dict) else {}
+    application_id = getattr(application, "application_id", None) or getattr(application, "id", None)
+    exact_version_id = source.get("application_version_id")
+    version = application if isinstance(application, ApplicationVersion) else None
+    version_inferred = version is None
+    if exact_version_id:
+        matched_version = ApplicationVersion.objects.filter(id=exact_version_id, application_id=application_id).first()
+        if matched_version is not None:
+            version, version_inferred = matched_version, False
+    if version is None:
+        version = ApplicationVersion.objects.filter(application_id=application_id).order_by("-create_time").first()
+    capabilities = _workflow_capabilities(version or application)
     memory_used = any(
         isinstance(field, dict) and field.get("key") == "memory" and bool(field.get("value"))
         for detail in details.values() if isinstance(detail, dict)
@@ -74,14 +85,15 @@ def capture_chat_record(record, application):
         "chat_id": str(record.chat_id),
         "question": record.problem_text, "answer": record.answer_text,
         "retrieval_candidates": candidates, "final_contexts": contexts,
+        "node_details": node_evidence(details),
         "citation_ids": [], "citation_ids_available": False,
         "application_version": str(version.id) if version else None,
-        "version_inferred": bool(version),
+        "version_inferred": version_inferred,
         "knowledge_ids": sorted({str(p["knowledge_id"]) for p in candidates if p.get("knowledge_id")}),
         "document_ids": sorted({str(p["document_id"]) for p in candidates if p.get("document_id")}),
         "model_ids": sorted(model_ids | ({str(application.model_id)} if application.model_id else set())),
-        "prompt_snapshot": application.model_setting,
-        "retrieval_snapshot": application.knowledge_setting,
+        "prompt_snapshot": getattr(version or application, "model_setting", {}),
+        "retrieval_snapshot": getattr(version or application, "knowledge_setting", {}),
         "latency_ms": round(record.run_time * 1000),
         "token_usage": {"input": record.message_tokens, "output": record.answer_tokens},
         "estimated_cost": record.const,
@@ -103,6 +115,6 @@ def capture_chat_record(record, application):
     }
     EvaluationEvent.objects.update_or_create(
         chat_record_id=record.id,
-        defaults={"workspace_id": application.workspace_id, "application_id": application.id,
+        defaults={"workspace_id": application.workspace_id, "application_id": application_id,
                   "chat_id": record.chat_id, "data": data},
     )

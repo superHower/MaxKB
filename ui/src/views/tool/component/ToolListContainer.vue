@@ -288,6 +288,13 @@
                               {{ $t('common.edit') }}
                             </el-dropdown-item>
                             <el-dropdown-item
+                              v-else-if="item.tool_type === 'SKILL' && permissionPrecise.edit(item.id)"
+                              @click.stop="openCreateSkillDialog(item)"
+                            >
+                              <AppIcon iconName="app-edit" class="color-secondary"></AppIcon>
+                              {{ $t('common.edit') }}
+                            </el-dropdown-item>
+                            <el-dropdown-item
                               v-else-if="
                                 item.tool_type === 'WORKFLOW' && permissionPrecise.edit(item.id)
                               "
@@ -698,6 +705,14 @@ function openEditDialog(data?: any) {
   if (!permissionPrecise.value.edit(data?.id)) {
     return
   }
+  if (data?.tool_type === 'SKILL') {
+    loadSharedApi({ type: 'tool', systemType: apiType.value })
+      .getToolById(data.id, loading)
+      .then((res: any) => {
+        toolStoreDescDrawerRef.value?.open(res.data.skill_content, res.data)
+      })
+    return
+  }
   // 有template_id的不允许编辑，是模板转换来的
   if (data?.template_id) {
     return
@@ -729,11 +744,6 @@ function openEditDialog(data?: any) {
   // 数据源工具
   if (data?.tool_type === 'DATA_SOURCE') {
     openCreateDataSourceDialog(data)
-    return
-  }
-  // 技能
-  if (data?.tool_type === 'SKILL') {
-    openCreateSkillDialog(data)
     return
   }
   // 工作流
@@ -825,17 +835,6 @@ function openCreateMcpDialog(data?: any) {
 }
 
 function openCreateSkillDialog(data?: any) {
-  // 有版本号的展示readme，是商店更新过来的
-  if (data?.version) {
-    let readMe = ''
-    storeTools.value
-      .filter((item) => item.id === data.template_id)
-      .forEach((item) => {
-        readMe = item.readMe
-      })
-    toolStoreDescDrawerRef.value?.open(readMe, data)
-    return
-  }
   // 有template_id的不允许编辑，是模板转换来的
   if (data?.template_id) {
     return

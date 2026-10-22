@@ -1,6 +1,7 @@
 # coding=utf-8
 """Authenticated, application-scoped evaluation API."""
 import tempfile
+import copy
 from pathlib import Path
 
 from django.db import transaction
@@ -42,16 +43,32 @@ def dataset_detail(item):
 
 
 def run_data(item, detail=False):
+    dataset_snapshot = item.config.get("dataset_snapshot", {})
     data = {"id": str(item.id), "status": item.status, "completed": item.completed,
-            "total": len(item.dataset.cases), "dataset_name": item.dataset.name,
-            "dataset_version": item.dataset.version, "created_at": item.created_at.isoformat(),
+            "total": len(item.config.get("dataset_snapshot", {}).get("cases")
+                       if "cases" in item.config.get("dataset_snapshot", {}) else item.dataset.cases),
+            "dataset_name": dataset_snapshot.get("name", item.dataset.name),
+            "dataset_version": dataset_snapshot.get("version", item.dataset.version),
+            "created_at": item.created_at.isoformat(),
             "error": item.error, "summary": item.report.get("summary", {}),
             "baseline_id": str(item.baseline_id) if item.baseline_id else None,
+            "can_replay": bool(item.config.get("application_version") and "cases" in dataset_snapshot),
             "regression": bool(item.config.get("regression")),
             "regression_passed": item.report.get("regression_passed")}
     if detail:
         data.update(config=item.config, results=item.results, report=item.report)
     return data
+
+
+def submit_run(item):
+    from .tasks import evaluate
+    try:
+        evaluate.delay(str(item.id))
+    except Exception as error:  # noqa: BLE001 - report broker failure to the user
+        item.status, item.error = "failed", "任务提交失败，请检查任务服务后重试"
+        item.save(update_fields=["status", "error"])
+        raise ValidationError(item.error) from error
+    return result.success(run_data(item))
 
 
 class Datasets(APIView):
@@ -186,6 +203,8 @@ class Runs(APIView):
             raise ValidationError("回归评测必须指定基线运行")
         with transaction.atomic():
             application = Application.objects.select_for_update().get(id=application_id, workspace_id=workspace_id)
+            dataset = get_object_or_404(Dataset.objects.select_for_update(), id=dataset.id,
+                                       workspace_id=workspace_id, application_id=application_id)
             if Run.objects.filter(application_id=application_id, status__in=["queued", "running"]).exists():
                 raise ValidationError("此应用已有评测正在执行，请等待完成")
             published = ApplicationVersion.objects.filter(application_id=application_id).order_by("-create_time").first()
@@ -196,17 +215,41 @@ class Runs(APIView):
                                               status="completed").order_by("-created_at").first()
             from .tasks import snapshot
             config = snapshot(published, judge_id, embedding_id, rubrics)
+            config["dataset_snapshot"] = {
+                "id": str(dataset.id), "name": dataset.name, "version": dataset.version,
+                "cases": copy.deepcopy(dataset.cases),
+            }
             config.update({"regression": regression, "regression_threshold": regression_threshold})
             item = Run.objects.create(application_id=application.id, workspace_id=workspace_id,
                                       user_id=request.user.id, dataset=dataset, baseline=baseline, config=config)
-        from .tasks import evaluate
-        try:
-            evaluate.delay(str(item.id))
-        except Exception as error:  # noqa: BLE001 - report broker failure to the user
-            item.status, item.error = "failed", "任务提交失败，请检查任务服务后重试"
-            item.save(update_fields=["status", "error"])
-            raise ValidationError(item.error) from error
-        return result.success(run_data(item))
+        return submit_run(item)
+
+
+class RunReplay(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def post(self, request, workspace_id, application_id, run_id):
+        with transaction.atomic():
+            get_object_or_404(Application.objects.select_for_update(), id=application_id, workspace_id=workspace_id)
+            source = get_object_or_404(Run.objects.select_related("dataset"), id=run_id,
+                                       workspace_id=workspace_id, application_id=application_id)
+            if Run.objects.filter(application_id=application_id, status__in=["queued", "running"]).exists():
+                raise ValidationError("此应用已有评测正在执行，请等待完成")
+            if not source.config.get("application_version") or "cases" not in source.config.get("dataset_snapshot", {}):
+                raise ValidationError("该历史运行缺少题目或应用版本快照，请创建新的评测")
+            published = ApplicationVersion.objects.filter(id=source.config["application_version"],
+                                                            application_id=application_id).first()
+            if published is None:
+                raise ValidationError("原发布版本已不存在，无法按原快照重新评测")
+            config = copy.deepcopy(source.config)
+            from .tasks import snapshot
+            config["resource_snapshot"] = snapshot(published)["resource_snapshot"]
+            config["replay_of"] = str(source.id)
+            item = Run.objects.create(application_id=application_id, workspace_id=workspace_id,
+                                      user_id=request.user.id, dataset=source.dataset,
+                                      baseline=source.baseline, config=config)
+        return submit_run(item)
 
 
 class RunDetail(APIView):

@@ -123,3 +123,53 @@ class Badcase(models.Model):
 
     class Meta:
         db_table = "evaluation_badcase"
+
+
+class ImprovementCandidate(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    workspace_id = models.CharField(max_length=64, db_index=True)
+    application_id = models.UUIDField(db_index=True)
+    title = models.CharField(max_length=128)
+    kind = models.CharField(max_length=32)
+    category = models.CharField(max_length=32, default="other")
+    source = models.CharField(max_length=32, default="manual")
+    status = models.CharField(max_length=32, default="draft")
+    revision = models.PositiveIntegerField(default=1)
+    spec = models.JSONField(default=dict, encoder=SystemEncoder)
+    created_by = models.UUIDField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class CandidateValidation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    candidate = models.ForeignKey(ImprovementCandidate, on_delete=models.PROTECT, related_name="validations")
+    revision = models.PositiveIntegerField()
+    status = models.CharField(max_length=20, default="queued")
+    snapshot = models.JSONField(default=dict, encoder=SystemEncoder)
+    report = models.JSONField(default=dict, encoder=SystemEncoder)
+    error = models.TextField(default="")
+    created_by = models.UUIDField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    finished_at = models.DateTimeField(null=True)
+
+
+class CandidateAudit(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    candidate = models.ForeignKey(ImprovementCandidate, on_delete=models.PROTECT, related_name="audits")
+    revision = models.PositiveIntegerField()
+    action = models.CharField(max_length=32)
+    actor_id = models.UUIDField()
+    data = models.JSONField(default=dict, encoder=SystemEncoder)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class CapabilityVersion(models.Model):
+    """Approval artifact only: deliberately absent from ApplicationVersion's production lookup."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    candidate = models.ForeignKey(ImprovementCandidate, on_delete=models.PROTECT, related_name="capability_versions")
+    validation = models.OneToOneField(CandidateValidation, on_delete=models.PROTECT)
+    status = models.CharField(max_length=32, default="pending_release")
+    manifest = models.JSONField(default=dict, encoder=SystemEncoder)
+    approved_by = models.UUIDField()
+    created_at = models.DateTimeField(auto_now_add=True)

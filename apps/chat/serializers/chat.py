@@ -291,6 +291,7 @@ class ChatSerializers(serializers.Serializer):
     debug = serializers.BooleanField(required=False, label=_("Debug"))
     ip_address = serializers.CharField(required=False, label=_("IP Address"), allow_null=True, allow_blank=True)
     source = serializers.JSONField(required=False, label=_("Source"))
+    application_version_id = serializers.UUIDField(required=False, allow_null=True, label=_("Application version ID"))
 
     def is_valid_application_workflow(self, *, raise_exception=False):
         self.is_valid_intraday_access_num()
@@ -492,16 +493,18 @@ class ChatSerializers(serializers.Serializer):
         application = QuerySet(Application).filter(id=chat.application_id).first()
         if application is None:
             raise ChatException(500, _("Application does not exist"))
-        application_version = QuerySet(ApplicationVersion).filter(application_id=application.id).order_by(
-            '-create_time')[0:1].first()
+        version_query = QuerySet(ApplicationVersion).filter(application_id=application.id)
+        if self.data.get('application_version_id'):
+            version_query = version_query.filter(id=self.data.get('application_version_id'))
+        application_version = version_query.order_by('-create_time')[0:1].first()
         if application_version is None:
             raise ChatException(500, _("The application has not been published. Please use it after publishing."))
         if application.type == ApplicationTypeChoices.SIMPLE:
-            return self.re_open_chat_simple(chat_id, application, chat)
+            return self.re_open_chat_simple(chat_id, application, chat, application_version)
         else:
             return self.re_open_chat_work_flow(chat_id, application, chat)
 
-    def re_open_chat_simple(self, chat_id, application: Application, chat: Chat):
+    def re_open_chat_simple(self, chat_id, application: Application, chat: Chat, application_version=None):
         if self.data.get('debug'):
             # 数据集id列表
             knowledge_id_list = [str(row.target_id) for row in
@@ -509,8 +512,9 @@ class ChatSerializers(serializers.Serializer):
                                                                   source_type='APPLICATION',
                                                                   target_type='KNOWLEDGE')]
         else:
-            application_version = QuerySet(ApplicationVersion).filter(application_id=application.id).order_by(
-                '-create_time')[0:1].first()
+            if application_version is None:
+                application_version = QuerySet(ApplicationVersion).filter(application_id=application.id).order_by(
+                    '-create_time')[0:1].first()
             knowledge_id_list = application_version.knowledge_ids
 
         # 需要排除的文档
@@ -521,7 +525,8 @@ class ChatSerializers(serializers.Serializer):
         chat_info = ChatInfo(chat_id, chat.chat_user_id, str(chat.chat_user_type),
                              self.data.get('ip_address'),
                              self.data.get('source'), knowledge_id_list,
-                             exclude_document_id_list, application.id)
+                             exclude_document_id_list, application.id,
+                             application_version_id=str(application_version.id) if application_version else None)
         chat_record_list = list(QuerySet(ChatRecord).filter(chat_id=chat_id).order_by('-create_time')[0:5])
         chat_record_list.sort(key=lambda r: r.create_time)
         for chat_record in chat_record_list:
@@ -532,7 +537,7 @@ class ChatSerializers(serializers.Serializer):
         chat_info = ChatInfo(chat_id, chat.chat_user_id, str(chat.chat_user_type),
                              self.data.get('ip_address'),
                              self.data.get('source'), [], [],
-                             application.id)
+                             application.id, application_version_id=self.data.get('application_version_id'))
         chat_record_list = list(QuerySet(ChatRecord).filter(chat_id=chat_id).order_by('-create_time')[0:5])
         chat_record_list.sort(key=lambda r: r.create_time)
         for chat_record in chat_record_list:
@@ -548,6 +553,7 @@ class OpenChatSerializers(serializers.Serializer):
     debug = serializers.BooleanField(required=True, label=_("Debug"))
     ip_address = serializers.CharField(required=False, label=_("IP Address"))
     source = serializers.JSONField(required=False, label=_("Source"))
+    application_version_id = serializers.UUIDField(required=False, allow_null=True, label=_("Application version ID"))
 
     def is_valid(self, *, raise_exception=False):
         super().is_valid(raise_exception=True)
@@ -565,13 +571,15 @@ class OpenChatSerializers(serializers.Serializer):
         application = QuerySet(Application).get(id=application_id)
         debug = self.data.get("debug")
         if not debug:
-            application_version = QuerySet(ApplicationVersion).filter(application_id=application_id).order_by(
-                '-create_time')[0:1].first()
+            version_query = QuerySet(ApplicationVersion).filter(application_id=application_id)
+            if self.data.get('application_version_id'):
+                version_query = version_query.filter(id=self.data.get('application_version_id'))
+            application_version = version_query.order_by('-create_time')[0:1].first()
             if application_version is None:
                 raise AppApiException(500,
                                       _("The application has not been published. Please use it after publishing."))
         if application.type == ApplicationTypeChoices.SIMPLE:
-            return self.open_simple(application)
+            return self.open_simple(application, application_version if not debug else None)
         else:
             return self.open_work_flow(application)
 
@@ -583,13 +591,14 @@ class OpenChatSerializers(serializers.Serializer):
         ip_address = self.data.get("ip_address")
         source = self.data.get("source")
         debug = self.data.get("debug")
+        application_version_id = self.data.get("application_version_id")
         chat_id = str(uuid.uuid7())
         ChatInfo(chat_id, chat_user_id, chat_user_type, ip_address, source, [],
                  [],
-                 application_id, debug).set_cache()
+                 application_id, debug, application_version_id=application_version_id).set_cache()
         return chat_id
 
-    def open_simple(self, application):
+    def open_simple(self, application, application_version=None):
         application_id = self.data.get('application_id')
         chat_user_id = self.data.get("chat_user_id")
         chat_user_type = self.data.get("chat_user_type")
@@ -602,8 +611,9 @@ class OpenChatSerializers(serializers.Serializer):
                                                                   source_type='APPLICATION',
                                                                   target_type='KNOWLEDGE')]
         else:
-            application_version = QuerySet(ApplicationVersion).filter(application_id=application_id).order_by(
-                '-create_time')[0:1].first()
+            if application_version is None:
+                application_version = QuerySet(ApplicationVersion).filter(application_id=application_id).order_by(
+                    '-create_time')[0:1].first()
             knowledge_id_list = application_version.knowledge_ids
 
         chat_id = str(uuid.uuid7())
@@ -613,7 +623,8 @@ class OpenChatSerializers(serializers.Serializer):
                       knowledge_id__in=knowledge_id_list,
                       is_active=False)],
                  application_id,
-                 debug=debug).set_cache()
+                 debug=debug,
+                 application_version_id=str(application_version.id) if application_version else None).set_cache()
         return chat_id
 
 

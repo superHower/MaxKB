@@ -51,12 +51,14 @@
         </div>
       </div>
       <MdPreview
+        v-if="markdownContent"
         ref="editorRef"
         editorId="preview-only"
         :modelValue="markdownContent"
         style="background: none"
         noImgZoomIn
       />
+      <el-empty v-else :description="$t('common.noData')" />
     </div>
   </el-drawer>
 </template>
@@ -79,9 +81,7 @@ watch(visibleInternalDesc, (bool) => {
 
 const open = (data: any, detail: any) => {
   toolDetail.value = detail
-  if (data) {
-    markdownContent.value = cloneDeep(data)
-  }
+  markdownContent.value = data ? cloneDeep(data) : ''
   visibleInternalDesc.value = true
 }
 

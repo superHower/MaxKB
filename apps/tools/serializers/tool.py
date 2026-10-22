@@ -771,6 +771,19 @@ class ToolSerializer(serializers.Serializer):
                     if skill_file
                     else None
                 )
+            skill_content = ""
+            if tool.tool_type == ToolType.SKILL and skill_file:
+                try:
+                    with zipfile.ZipFile(io.BytesIO(skill_file.get_bytes())) as archive:
+                        entries = sorted(
+                            (entry for entry in archive.infolist()
+                             if entry.filename.rsplit("/", 1)[-1] == "SKILL.md" and not entry.is_dir()),
+                            key=lambda entry: (entry.filename.count("/"), entry.filename),
+                        )
+                        if entries and entries[0].file_size <= 1024 * 1024:
+                            skill_content = archive.read(entries[0]).decode("utf-8-sig")
+                except (zipfile.BadZipFile, UnicodeDecodeError, RuntimeError, OSError) as exc:
+                    maxkb_logger.warning(f"Unable to preview skill {tool.id}: {exc}")
             work_flow = {}
             is_publish = False
             default_model_setting = {}
@@ -785,6 +798,7 @@ class ToolSerializer(serializers.Serializer):
                 "init_params": tool.init_params if tool.init_params else {},
                 "nick_name": nick_name,
                 "fileList": [skill_file_dict] if tool.tool_type == "SKILL" else [],
+                "skill_content": skill_content,
                 "work_flow": work_flow,
                 "default_model_setting": default_model_setting,
                 "is_publish": is_publish,

@@ -9,7 +9,7 @@
       <el-table-column :label="tr('status')" width="130"><template #default="{ row }"><el-tag :type="statusType(row.status)">{{ status(row.status) }}</el-tag></template></el-table-column>
       <el-table-column :label="tr('progress')" min-width="180"><template #default="{ row }"><div class="progress-cell"><el-progress :percentage="percentage(row)" :show-text="false" /><span>{{ row.completed }} / {{ row.total }} {{ tr('questions') }}</span></div></template></el-table-column>
       <el-table-column :label="tr('score')" width="120"><template #default="{ row }">{{ score(row.summary?.total_score?.mean) }}</template></el-table-column>
-      <el-table-column :label="tr('actions')" width="180"><template #default="{ row }"><el-button link type="primary" @click="props.onView(row)">{{ tr('view') }}</el-button><el-button link :disabled="!row.summary?.total_score" @click="props.onExport(row)">{{ tr('export') }}</el-button></template></el-table-column>
+      <el-table-column :label="tr('actions')" width="280"><template #default="{ row }"><el-button link type="primary" @click="props.onView(row)">{{ tr('view') }}</el-button><el-button link :disabled="!row.summary?.total_score" @click="props.onExport(row)">{{ tr('export') }}</el-button><el-tooltip :content="tr(row.can_replay ? 'replayHint' : 'replayUnavailable')"><span><el-button link :disabled="props.replayBusy || !row.can_replay" @click="props.onReplay(row)">{{ tr('replay') }}</el-button></span></el-tooltip></template></el-table-column>
     </el-table>
   </el-card>
   </el-tab-pane>
@@ -51,13 +51,15 @@
           <el-tag v-if="row.event.capabilities.business_branch_configured" size="small" type="warning">{{ row.event.capabilities.business_tool_call_present ? tr('businessToolCalled') : tr('businessPromptOnly') }}</el-tag>
         </div>
         <p>{{ tr('reviewNote') }}: {{ row.annotation?.review_note || '—' }}</p>
+        <p>{{ tr('attributionConfidence') }}: {{ row.annotation?.attribution_confidence ? label(row.annotation.attribution_confidence) : '—' }}</p>
+        <p>{{ tr('evidenceNote') }}: {{ row.annotation?.evidence_note || '—' }}</p>
         <el-table v-if="row.result" :data="ruleRows(row.result.scores)"><el-table-column prop="label" :label="tr('metric')" /><el-table-column prop="value" :label="tr('value')" /></el-table>
         <p v-for="(reason, key) in row.result?.reasons" :key="key">{{ reason }}</p>
       </div></template></el-table-column>
       <el-table-column prop="event.question" :label="tr('question')" min-width="220" />
       <el-table-column :label="tr('reason')"><template #default="{ row }">{{ label(row.sampling_reason) }}</template></el-table-column>
       <el-table-column :label="tr('status')"><template #default="{ row }">{{ label(row.status) }}</template></el-table-column>
-      <el-table-column :label="tr('actions')" width="180"><template #default="{ row }"><el-button link type="primary" :disabled="saving || row.status === 'archived'" @click="openReview(row)">{{ tr('review') }}</el-button><el-button link :disabled="saving || row.status === 'archived'" @click="evaluateSample(row)">{{ tr('evaluate') }}</el-button></template></el-table-column>
+      <el-table-column :label="tr('actions')" width="250"><template #default="{ row }"><el-button link @click="showTrace(row)">{{ tr('traceDetail') }}</el-button><el-button link type="primary" :disabled="saving || row.status === 'archived'" @click="openReview(row)">{{ tr('review') }}</el-button><el-button link :disabled="saving || row.status === 'archived'" @click="evaluateSample(row)">{{ tr('evaluate') }}</el-button></template></el-table-column>
     </el-table>
   </el-card>
   </el-tab-pane>
@@ -71,11 +73,15 @@
       <el-table-column prop="badcase.reason" :label="tr('reason')" />
       <el-table-column prop="badcase.suggested_fix" :label="tr('suggestedFix')" />
       <el-table-column prop="badcase.resolution" :label="tr('resolution')" />
-      <el-table-column :label="tr('actions')"><template #default="{ row }"><el-button link type="primary" :disabled="saving || row.badcase.status === 'resolved'" @click="openResolution(row)">{{ tr('resolve') }}</el-button></template></el-table-column>
+      <el-table-column :label="tr('actions')" width="190"><template #default="{ row }"><el-button link @click="showTrace(row)">{{ tr('traceDetail') }}</el-button><el-button link type="primary" :disabled="saving || row.badcase.status === 'resolved'" @click="openResolution(row)">{{ tr('resolve') }}</el-button></template></el-table-column>
     </el-table>
   </el-card>
   </el-tab-pane>
+  <el-tab-pane :label="tr('candidateCenter')" name="candidates" lazy>
+    <CandidatePanel :application-id="props.applicationId" :runs="props.runs" />
+  </el-tab-pane>
   </el-tabs>
+  <TraceDrawer v-model="traceVisible" :application-id="props.applicationId" :sample-id="traceSampleId" />
   <el-dialog v-model="experimentVisible" :title="tr('newExperiment')" width="560px">
     <el-form label-position="top">
       <el-form-item :label="tr('experimentName')" required><el-input v-model="experiment.name" maxlength="128" /></el-form-item>
@@ -95,6 +101,8 @@
       <el-form-item :label="tr('reference')"><el-input v-model="annotation.gold_answer" type="textarea" :maxlength="40960" /></el-form-item>
       <el-form-item :label="tr('goldContextIds')"><el-input v-model="goldContextIds" type="textarea" :placeholder="tr('idsHint')" /></el-form-item>
       <el-form-item :label="tr('reviewNote')"><el-input v-model="annotation.review_note" type="textarea" :maxlength="40960" /></el-form-item>
+      <el-form-item :label="tr('attributionConfidence')"><el-select v-model="annotation.attribution_confidence"><el-option v-for="value in ['high', 'medium', 'low']" :key="value" :value="value" :label="label(value)" /></el-select></el-form-item>
+      <el-form-item :label="tr('evidenceNote')"><el-input v-model="annotation.evidence_note" type="textarea" :maxlength="40960" /></el-form-item>
     </el-form>
     <template #footer><el-button @click="reviewVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="saveReview">{{ tr('submit') }}</el-button></template>
   </el-dialog>
@@ -108,6 +116,8 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
+import TraceDrawer from './TraceDrawer.vue'
+import CandidatePanel from './CandidatePanel.vue'
 import {
   getEvaluationMetrics, getEvaluationExperiments, createEvaluationExperiment, actionEvaluationExperiment,
   getEvaluationSamples, sampleEvaluationEvents, annotateEvaluationSample, evaluateEvaluationSample,
@@ -121,6 +131,8 @@ const props = defineProps<{
   onRefresh: () => Promise<void>
   onView: (row: any) => void
   onExport: (row: any) => void
+  onReplay: (row: any) => void
+  replayBusy: boolean
 }>()
 const { t, te } = useI18n()
 const activeTab = ref('history')
@@ -191,14 +203,20 @@ const generateBadcases = () => mutate(async () => {
   ElMessage.success(tr(result.data?.length ? 'badcasesGenerated' : 'noNewBadcases'))
 })
 const reviewFields = ['answer_correct', 'citation_relevant', 'should_answer', 'faithful', 'needs_handoff']
-const categories = ['data', 'retrieval', 'generation', 'prompt', 'model', 'permission', 'user', 'other']
+const categories = ['data', 'retrieval', 'generation', 'prompt', 'model', 'permission', 'user', 'business', 'other']
 const reviewVisible = ref(false)
 const selectedSample = ref<any>()
+const traceVisible = ref(false)
+const traceSampleId = ref('')
+const showTrace = (row: any) => {
+  traceSampleId.value = row.id
+  traceVisible.value = true
+}
 const annotation = ref<Record<string, any>>({})
 const goldContextIds = ref('')
 const openReview = (row: any) => {
   selectedSample.value = row
-  annotation.value = { ...Object.fromEntries(reviewFields.map(field => [field, 'unknown'])), no_answer_handling: 'not_applicable', gold_answer: '', review_note: '', ...row.annotation }
+  annotation.value = { ...Object.fromEntries(reviewFields.map(field => [field, 'unknown'])), no_answer_handling: 'not_applicable', attribution_confidence: 'medium', gold_answer: '', review_note: '', evidence_note: '', ...row.annotation }
   goldContextIds.value = (row.annotation?.gold_context_ids || []).join('\n')
   reviewVisible.value = true
 }

@@ -71,7 +71,7 @@
             ><el-button native-type="button" link @click.prevent.stop="showDataset(row)">{{ tr('datasetView') }}</el-button>
             <el-button native-type="button" link @click.prevent.stop="editDataset(row)">{{ tr('edit') }}</el-button>
             <el-button native-type="button" link type="danger" @click.prevent.stop="removeDataset(row)">{{ tr('delete') }}</el-button>
-            ><el-button link type="primary" :disabled="busy" @click="openRun(row.id)">{{
+            <el-button link type="primary" :disabled="busy" @click="openRun(row.id)">{{
               tr('use')
             }}</el-button></template
           ></el-table-column
@@ -215,6 +215,19 @@
           <el-tag v-if="detail.config.capabilities.business_branches?.length" size="small" type="warning">{{ tr('businessBranchesConfigured') }}</el-tag>
           <el-text type="info">{{ tr('businessBranchHint') }}</el-text>
         </div>
+        <el-descriptions v-if="detail.config?.dataset_snapshot" :column="3" border class="snapshot-descriptions mb-16">
+          <el-descriptions-item :label="tr('datasetSnapshot')">{{ detail.config.dataset_snapshot.name }} · {{ detail.config.dataset_snapshot.version?.slice(0, 8) }}</el-descriptions-item>
+          <el-descriptions-item :label="tr('applicationVersion')">{{ detail.config.application_version?.slice(0, 8) || '—' }}</el-descriptions-item>
+          <el-descriptions-item :label="tr('resourceHash')">{{ detail.config.resource_snapshot?.workflow_sha256?.slice(0, 12) || '—' }}</el-descriptions-item>
+          <el-descriptions-item :label="tr('promptHash')">{{ detail.config.resource_snapshot?.prompt_sha256?.slice(0, 12) || '—' }}</el-descriptions-item>
+          <el-descriptions-item :label="tr('resourceModels')"><span class="resource-ids">{{ detail.config.resource_snapshot?.model_ids?.join(', ') || '—' }}</span></el-descriptions-item>
+          <el-descriptions-item :label="tr('resourceKnowledge')"><span class="resource-ids">{{ detail.config.resource_snapshot?.knowledge_ids?.join(', ') || '—' }}</span></el-descriptions-item>
+          <el-descriptions-item :label="tr('resourceSkills')">
+            <div v-for="(skill, skillId) in detail.config.resource_snapshot?.skills || {}" :key="skillId">{{ skill.name }} · {{ skill.version || '—' }}</div>
+            <span v-if="!detail.config.resource_snapshot?.skill_ids?.length">—</span>
+          </el-descriptions-item>
+          <el-descriptions-item :label="tr('resourceTools')"><span class="resource-ids">{{ detail.config.resource_snapshot?.tool_ids?.join(', ') || '—' }}</span></el-descriptions-item>
+        </el-descriptions>
         <div class="result-stat-grid"><div class="result-stat"><span>{{ tr('score') }}</span><strong>{{ score(detail.summary?.total_score?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('avgResponseTime') }}</span><strong>{{ formatSeconds(detail.summary?.response_time?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('scoredCases') }}</span><strong>{{ detail.summary?.total_score?.count || 0 }} / {{ detail.completed || 0 }}</strong></div><div class="result-stat"><span>{{ tr('failedCases') }}</span><strong>{{ failedCases }}</strong></div></div>
         <el-alert :title="tr('scoreHint')" type="info" :closable="false" class="mb-16" />
         <div class="metric-strip"><div v-for="row in metrics" :key="row.name" class="metric-chip"><span>{{ row.label }}</span><strong>{{ row.name === 'response_time' ? formatSeconds(row.mean) : score(row.mean) }}</strong><small>{{ row.count || 0 }} / {{ row.total || detail.completed || 0 }}</small></div></div>
@@ -231,6 +244,17 @@
                   <strong>{{ tr('reference') }}</strong>
                   <p class="answer-text">{{ row.ground_truth }}</p>
                 </div>
+              </div>
+              <div v-if="row.contexts?.length" class="evidence-block">
+                <strong>{{ tr('retrievedEvidence') }}</strong>
+                <div v-for="(context, index) in row.contexts" :key="index" class="evidence-item">
+                  <el-tag size="small" effect="plain">{{ index + 1 }}</el-tag>
+                  <span>{{ context.content || context.title || context.id || '—' }}</span>
+                </div>
+              </div>
+              <div v-if="row.node_details && Object.keys(row.node_details).length" class="evidence-block">
+                <strong>{{ tr('nodeEvidence') }}</strong>
+                <pre class="node-evidence">{{ JSON.stringify(row.node_details, null, 2) }}</pre>
               </div>
               <el-alert
                 v-if="row.error || Object.keys(row.metric_errors || {}).length"
@@ -266,7 +290,7 @@
       </div>
     </el-drawer>
     </div>
-    <QualityPanel :application-id="id" :runs="runs" :history-loading="loading" :on-refresh="load" :on-view="showRun" :on-export="download" />
+    <QualityPanel :application-id="id" :runs="runs" :history-loading="loading" :on-refresh="load" :on-view="showRun" :on-export="download" :on-replay="replayRun" :replay-busy="busy || submitting" />
   </div>
 </template>
 <script setup lang="ts">
@@ -287,6 +311,7 @@ import {
   updateEvaluationDataset,
   deleteEvaluationDataset,
   downloadEvaluationReport,
+  replayEvaluationRun,
 } from '@/api/application/evaluation'
 
 const { t, te } = useI18n()
@@ -505,6 +530,19 @@ const start = async () => {
     submitting.value = false
   }
 }
+const replayRun = async (row: any) => {
+  if (busy.value || submitting.value || !row.can_replay) return
+  try {
+    await ElMessageBox.confirm(tr('replayConfirm'), tr('replay'), { type: 'info' })
+  } catch { return }
+  submitting.value = true
+  try {
+    const result = await replayEvaluationRun(id, row.id)
+    ElMessage.success(tr('replayStarted'))
+    await load()
+    await showRun(result.data)
+  } finally { submitting.value = false }
+}
 const showRun = async (row: any) => {
   search.value = ''
   resultFilter.value = 'all'
@@ -626,6 +664,7 @@ onUnmounted(() => {
   border: 1px solid var(--el-border-color-lighter);
   border-radius: 8px;
 }
+.resource-ids { overflow-wrap: anywhere; }
 .question-editor :deep(.el-textarea__inner) { min-height: 72px !important; resize: vertical; }
 .add-question-button { width: 100%; border-style: dashed; }
 .file-hint { line-height: 1.55; }

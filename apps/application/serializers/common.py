@@ -117,6 +117,7 @@ class ChatInfo:
         exclude_document_id_list: list[str],
         application_id: str,
         debug=False,
+        application_version_id=None,
     ):
         """
         :param chat_id:                     对话id
@@ -141,6 +142,7 @@ class ChatInfo:
         self.ip_address = ip_address
         self.source = source
         self.debug = debug
+        self.application_version_id = application_version_id
 
     @staticmethod
     def get_no_references_setting(knowledge_setting, model_setting):
@@ -158,12 +160,10 @@ class ChatInfo:
             if not application:
                 raise ChatException(500, _("The application does not exist"))
         else:
-            application = (
-                QuerySet(ApplicationVersion)
-                .filter(application_id=self.application_id)
-                .order_by("-create_time")[0:1]
-                .first()
-            )
+            version_query = QuerySet(ApplicationVersion).filter(application_id=self.application_id)
+            if self.application_version_id:
+                version_query = version_query.filter(id=self.application_version_id)
+            application = version_query.order_by("-create_time")[0:1].first()
             if not application:
                 raise ChatException(500, _("The application has not been published. Please use it after publishing."))
         if application.type == ApplicationTypeChoices.SIMPLE.value:
@@ -273,6 +273,7 @@ class ChatInfo:
             "no_references_setting": self.get_no_references_setting(self.application.knowledge_setting, model_setting),
             "workspace_id": self.application.workspace_id,
             "application_id": self.application_id,
+            "application_version_id": str(self.application_version_id) if self.application_version_id else None,
             "mcp_enable": self.application.mcp_enable,
             "mcp_tool_ids": self.application.mcp_tool_ids,
             "mcp_servers": self.application.mcp_servers,
@@ -435,6 +436,7 @@ class ChatInfo:
             "knowledge_id_list": self.knowledge_id_list,
             "exclude_document_id_list": self.exclude_document_id_list,
             "application_id": self.application_id,
+            "application_version_id": str(self.application_version_id) if self.application_version_id else None,
             "chat_record_list": [self.chat_record_to_map(c) for c in self.chat_record_list][-20:],
             "debug": self.debug,
         }
@@ -498,6 +500,7 @@ class ChatInfo:
             chat_info_dict.get("exclude_document_id_list"),
             chat_info_dict.get("application_id"),
             debug=chat_info_dict.get("debug"),
+            application_version_id=chat_info_dict.get("application_version_id"),
         )
         c.chat_record_list = [ChatInfo.map_to_chat_record(c_r) for c_r in chat_info_dict.get("chat_record_list")]
         return c

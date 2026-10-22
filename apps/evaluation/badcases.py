@@ -2,7 +2,7 @@
 """Badcase candidate detection and category suggestions."""
 
 
-CATEGORIES = {"data", "retrieval", "generation", "prompt", "model", "permission", "user", "other"}
+CATEGORIES = {"data", "retrieval", "generation", "prompt", "model", "permission", "user", "business", "other"}
 
 
 def suggest(event, annotation=None, result=None):

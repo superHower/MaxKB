@@ -19,6 +19,8 @@ from .experiments import assign_variant
 from django.utils import timezone
 from .views import access, scope
 from .badcases import suggest
+from application.models import ChatRecord
+from .evidence import node_evidence
 
 
 def bounded_int(value, default, maximum):
@@ -252,7 +254,15 @@ class SampleDetail(APIView):
     def get(self, request, workspace_id, application_id, sample_id):
         sample = get_object_or_404(EvaluationSample, id=sample_id, workspace_id=workspace_id,
                                    application_id=application_id)
-        return result.success(sample_data(sample))
+        data = sample_data(sample)
+        if "node_details" not in data["event"]:
+            record = ChatRecord.objects.filter(id=sample.source_event.chat_record_id,
+                                                chat__application_id=application_id).first()
+            data["event"]["node_details"] = node_evidence(record.details) if record else {}
+            data["event"]["node_evidence_source"] = "chat_record" if record else "unavailable"
+        else:
+            data["event"]["node_evidence_source"] = "snapshot"
+        return result.success(data)
 
 
 class RuleEvaluate(APIView):
@@ -320,7 +330,7 @@ class BadcaseDetail(APIView):
         badcase = get_object_or_404(Badcase, id=badcase_id, sample__workspace_id=workspace_id,
                                     sample__application_id=application_id)
         if request.data.get("category"):
-            if request.data["category"] not in ("data", "retrieval", "generation", "prompt", "model", "permission", "user", "other"):
+            if request.data["category"] not in ("data", "retrieval", "generation", "prompt", "model", "permission", "user", "business", "other"):
                 raise ValidationError("无效的 Badcase 分类")
             badcase.category = request.data["category"]
         for field in ("reason", "suggested_fix", "resolution"):
@@ -353,7 +363,8 @@ class Annotation(APIView):
     def post(self, request, workspace_id, application_id, sample_id):
         fields = ("answer_correct", "answer_score", "citation_relevant", "should_answer",
                   "no_answer_handling", "faithful", "needs_handoff", "badcase_category",
-                  "gold_answer", "gold_context_ids", "review_note")
+                  "gold_answer", "gold_context_ids", "review_note", "attribution_confidence",
+                  "evidence_note")
         data = {field: request.data[field] for field in fields if field in request.data}
         for field in ("answer_correct", "citation_relevant", "should_answer", "faithful", "needs_handoff"):
             if field in data and data[field] not in ("yes", "no", "unknown"):
@@ -365,13 +376,15 @@ class Annotation(APIView):
         if data.get("no_answer_handling") not in (None, "correct", "incorrect", "not_applicable"):
             raise ValidationError("no_answer_handling 无效")
         if data.get("badcase_category") not in (None, "data", "retrieval", "generation", "prompt",
-                                                "model", "permission", "user", "other"):
+                                                "model", "permission", "user", "business", "other"):
             raise ValidationError("badcase_category 无效")
         if not isinstance(data.get("gold_context_ids", []), list) or any(
                 not isinstance(value, str) for value in data.get("gold_context_ids", [])):
             raise ValidationError("gold_context_ids 必须为字符串列表")
+        if data.get("attribution_confidence") not in (None, "high", "medium", "low"):
+            raise ValidationError("归因置信度无效")
         if any(not isinstance(data.get(field, ""), str) or len(data.get(field, "")) > 40960
-               for field in ("gold_answer", "review_note")):
+               for field in ("gold_answer", "review_note", "evidence_note")):
             raise ValidationError("标注文本无效或过长")
         with transaction.atomic():
             sample = get_object_or_404(EvaluationSample.objects.select_for_update(), id=sample_id,

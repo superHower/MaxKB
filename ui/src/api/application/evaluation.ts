@@ -42,6 +42,8 @@ export const getEvaluationRun = (
   runId: string,
   loading?: Ref<boolean>,
 ): Promise<Result<any>> => get(`${prefix(id)}/runs/${runId}`, {}, loading)
+export const replayEvaluationRun = (id: string, runId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
+  post(`${prefix(id)}/runs/${runId}/replay`, {}, undefined, loading)
 export const downloadEvaluationReport = (id: string, runId: string, format: 'json' | 'md') =>
   fetch(`${window.MaxKB?.prefix || '/admin'}/api${prefix(id)}/runs/${runId}?format=${format}`, {
     headers: { Authorization: `Bearer ${useStore().login.getToken()}` },
@@ -61,6 +63,8 @@ export const getEvaluationAssignment = (id: string, experimentId: string, subjec
   get(`${prefix(id)}/experiments/${experimentId}/assignment`, { subject_id: subjectId }, loading)
 export const getEvaluationSamples = (id: string, params?: any, loading?: Ref<boolean>) =>
   get(`${prefix(id)}/samples`, params, loading)
+export const getEvaluationSample = (id: string, sampleId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
+  get(`${prefix(id)}/samples/${sampleId}`, {}, loading)
 export const sampleEvaluationEvents = (id: string, data: any, loading?: Ref<boolean>) =>
   post(`${prefix(id)}/samples`, data, undefined, loading)
 export const annotateEvaluationSample = (id: string, sampleId: string, data: any, loading?: Ref<boolean>) =>
@@ -73,3 +77,12 @@ export const generateEvaluationBadcases = (id: string, limit = 100, loading?: Re
   post(`${prefix(id)}/badcases`, { limit }, undefined, loading)
 export const updateEvaluationBadcase = (id: string, badcaseId: string, data: any, loading?: Ref<boolean>) =>
   put(`${prefix(id)}/badcases/${badcaseId}`, data, undefined, loading)
+
+export const getImprovementCandidates = (id: string, params?: any) => get(`${prefix(id)}/candidates`, params)
+export const getImprovementCandidate = (id: string, candidateId: string) => get(`${prefix(id)}/candidates/${candidateId}`)
+export const getCandidateOptions = (id: string) => get(`${prefix(id)}/candidates/options`)
+export const saveImprovementCandidate = (id: string, data: any, candidateId?: string) => candidateId
+  ? put(`${prefix(id)}/candidates/${candidateId}`, data)
+  : post(`${prefix(id)}/candidates`, data)
+export const actionImprovementCandidate = (id: string, candidateId: string, data: any) =>
+  post(`${prefix(id)}/candidates/${candidateId}/action`, data)

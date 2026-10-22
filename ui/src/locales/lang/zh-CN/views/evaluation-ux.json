@@ -1,4 +1,5 @@
 {
+  "candidateCenter": "候选中心",
   "title": "智能体测评",
   "evaluationLabel": "评测工作台",
   "latestScore": "最近得分",
@@ -182,7 +183,11 @@
     "correct": "正确",
     "incorrect": "错误",
     "not_applicable": "不适用",
-    "data": "数据",
+    "data": "知识缺失",
+    "business": "业务接口缺失",
+    "high": "高",
+    "medium": "中",
+    "low": "低",
     "retrieval": "检索",
     "generation": "生成",
     "prompt": "提示词",
@@ -243,4 +248,33 @@
   ,"businessBranchHint": "订单、库存、售后等分支仍需真实业务工具返回结果，不能把提示话术当成已执行。"
   ,"businessToolCalled": "本次有工具调用记录"
   ,"businessPromptOnly": "当前仅为提示话术"
+  ,"retrievedEvidence": "检索证据"
+  ,"nodeEvidence": "节点证据"
+  ,"attributionConfidence": "归因置信度"
+  ,"evidenceNote": "归因证据备注"
+  ,"high": "高"
+  ,"medium": "中"
+  ,"low": "低"
+  ,"datasetSnapshot": "题目快照"
+  ,"applicationVersion": "应用版本"
+  ,"resourceHash": "工作流摘要"
+  ,"replay": "按原快照重跑"
+  ,"replayHint": "使用已保存的题目和应用版本，知识库、Skill 和工具仍读取当前资源。"
+  ,"replayUnavailable": "此历史运行缺少题目或应用版本快照，请创建新的评测。"
+  ,"replayConfirm": "将使用原题目和应用版本创建新运行。知识库、Skill 和工具仍使用当前资源，可能产生真实调用和不同结果。是否开始？"
+  ,"replayStarted": "已创建重跑任务"
+  ,"traceDetail": "查看证据"
+  ,"traceId": "轨迹 ID"
+  ,"versionInferred": "推断版本"
+  ,"versionExact": "执行版本"
+  ,"citationEvidence": "实际引用"
+  ,"citationUnavailable": "未采集引用标识，无法确认实际引用。检索命中不代表答案已引用。"
+  ,"noEvidence": "未采集到证据"
+  ,"traceLoadError": "证据加载失败，请重试"
+  ,"historicalNodeEvidence": "节点详情来自原会话记录，历史样本未保存节点快照。"
+  ,"promptHash": "Prompt 摘要"
+  ,"resourceModels": "模型 ID"
+  ,"resourceKnowledge": "知识库 ID"
+  ,"resourceSkills": "Skill 版本"
+  ,"resourceTools": "工具 ID"
 }
