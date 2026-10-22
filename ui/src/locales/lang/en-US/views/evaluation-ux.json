@@ -11,11 +11,14 @@
   "intro": "Prepare business questions, review answers in batches, and find areas to improve.",
   "start": "Start evaluation",
   "prepare": "1. Prepare questions",
+  "datasetSection": "Evaluation datasets",
   "configure": "2. Confirm settings",
+  "configureDataset": "Configure evaluation dataset",
   "results": "3. Review results",
   "capability": "Batch answers, retrieval metrics and optional Judge answer scoring are available. Without Judge, compare answers manually.",
   "template": "Download JSON template",
   "add": "Add dataset",
+  "datasetDialogHint": "Name the dataset first, then add real business questions and reference answers. You can start an evaluation after saving.",
   "empty": "No dataset yet. Enter business questions or download and import the template.",
   "dataset": "Dataset",
   "cases": "Questions",
@@ -23,6 +26,7 @@
   "date": "Created at",
   "use": "Evaluate this dataset",
   "history": "Evaluation history",
+  "historyHint": "Review progress, retrieval scores, and per-question results for each run.",
   "refresh": "Refresh",
   "noRuns": "No evaluations yet. Prepare questions to get started.",
   "status": "Status",
@@ -196,13 +200,37 @@
     "faithfulness_signal": "faithfulness signal",
     "no_answer_response": "no answer response",
     "input_tokens": "input tokens",
-    "output_tokens": "output tokens"
-    ,"task_success_rate": "task success rate"
-    ,"task_success_count": "task success labels"
-    ,"tool_call_accuracy": "tool call accuracy"
-    ,"tool_call_accuracy_count": "tool accuracy labels"
-    ,"confirmation_compliance_rate": "confirmation compliance rate"
-    ,"confirmation_sample_count": "confirmation samples"
-    ,"tool_call_count": "tool calls"
-  }
+    "output_tokens": "output tokens",
+    "task_success_rate": "task success rate",
+    "task_success_count": "task success labels",
+    "tool_call_accuracy": "tool call accuracy",
+    "tool_call_accuracy_count": "tool accuracy labels",
+    "confirmation_compliance_rate": "confirmation compliance rate",
+    "confirmation_sample_count": "confirmation samples",
+    "tool_call_count": "tool calls"
+  },
+  "datasetView": "View details",
+  "edit": "Edit",
+  "delete": "Delete",
+  "deleteDataset": "Delete evaluation dataset",
+  "deleteConfirm": "Delete this evaluation dataset? Datasets with existing runs cannot be deleted.",
+  "deleted": "Evaluation dataset deleted.",
+  "updated": "Evaluation dataset updated.",
+  "datasetDetail": "Dataset details",
+  "datasetPreview": "Dataset preview",
+  "datasetDetailHint": "Review questions, reference answers and related document labels.",
+  "caseList": "Question list",
+  "searchDataset": "Search questions, categories or references",
+  "relatedDocs": "Related docs",
+  "avgResponseTime": "Avg. response time",
+  "scoredCases": "Scored cases",
+  "failedCases": "Errors",
+  "all": "All",
+  "lowScore": "Low score",
+  "hasError": "Has error",
+  "scored": "Scored",
+  "onlineQualityHint": "Track stability, efficiency and resolution in real conversations.",
+  "experimentsHint": "Manage traffic splits for prompt or model variants.",
+  "samplesHint": "Review real conversations and turn findings into quality signals.",
+  "badcasesHint": "Resolve low-quality answers and track improvement to closure."
 }

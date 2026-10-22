@@ -37,38 +37,40 @@
     <el-card class="content-card">
       <template #header
         ><div class="flex justify-between align-center">
-          <strong>{{ tr('prepare') }}</strong>
-          <div>
+          <strong>{{ tr('datasetSection') }}</strong>
+          <div class="section-actions">
             <el-button @click="templateFile">{{ tr('template') }}</el-button
-            ><el-button type="primary" plain @click="datasetDialog = true">{{
+            ><el-button type="primary" plain @click="openDatasetDialog">{{
               tr('add')
             }}</el-button>
           </div>
         </div></template
       >
       <el-empty v-if="!datasets.length && !loading" :description="tr('empty')"
-        ><el-button type="primary" @click="datasetDialog = true">{{
+        ><el-button type="primary" @click="openDatasetDialog">{{
           tr('add')
         }}</el-button></el-empty
       >
-      <el-table v-else :data="datasets" v-loading="loading">
-        <el-table-column prop="name" :label="tr('dataset')" /><el-table-column
+      <el-table v-else :data="datasets" v-loading="loading" class="dataset-table">
+        <el-table-column :label="tr('dataset')" min-width="320"><template #default="{ row }"><div class="dataset-name-cell"><strong>{{ row.name }}</strong></div></template></el-table-column><el-table-column
           prop="count"
           :label="tr('cases')"
-          width="100"
+          width="92"
         />
-        <el-table-column :label="tr('version')" width="120"
+        <el-table-column :label="tr('version')" width="145"
           ><template #default="{ row }"
-            ><el-tooltip :content="row.version"
-              ><span>{{ row.version.slice(0, 8) }}</span></el-tooltip
+            ><el-tooltip :content="row.version"><el-tag size="small" effect="plain">{{ row.version.slice(0, 8) }}</el-tag></el-tooltip
             ></template
           ></el-table-column
         >
-        <el-table-column :label="tr('date')"
+        <el-table-column :label="tr('date')" width="180"
           ><template #default="{ row }">{{ date(row.created_at) }}</template></el-table-column
         >
-        <el-table-column width="130"
+        <el-table-column :label="tr('actions')" width="300"
           ><template #default="{ row }"
+            ><el-button native-type="button" link @click.prevent.stop="showDataset(row)">{{ tr('datasetView') }}</el-button>
+            <el-button native-type="button" link @click.prevent.stop="editDataset(row)">{{ tr('edit') }}</el-button>
+            <el-button native-type="button" link type="danger" @click.prevent.stop="removeDataset(row)">{{ tr('delete') }}</el-button>
             ><el-button link type="primary" :disabled="busy" @click="openRun(row.id)">{{
               tr('use')
             }}</el-button></template
@@ -76,55 +78,18 @@
         >
       </el-table>
     </el-card>
-    <el-card class="content-card">
-      <template #header
-        ><div class="flex justify-between align-center">
-          <strong>{{ tr('history') }}</strong
-          ><el-button :loading="loading" @click="load()">{{ tr('refresh') }}</el-button>
-        </div></template
-      >
-      <el-table :data="runs" :empty-text="tr('noRuns')" v-loading="loading">
-        <el-table-column :label="tr('date')"
-          ><template #default="{ row }">{{ date(row.created_at) }}</template></el-table-column
-        >
-        <el-table-column prop="dataset_name" :label="tr('dataset')" />
-        <el-table-column :label="tr('status')" width="130"
-          ><template #default="{ row }"
-            ><el-tag :type="statusType(row.status)">{{ status(row.status) }}</el-tag></template
-          ></el-table-column
-        >
-        <el-table-column :label="tr('progress')" min-width="150"
-          ><template #default="{ row }"
-            ><el-progress :percentage="percentage(row)" :show-text="false" />{{ row.completed }} /
-            {{ row.total }} {{ tr('questions') }}</template
-          ></el-table-column
-        >
-        <el-table-column :label="tr('score')" width="120"
-          ><template #default="{ row }">{{
-            score(row.summary?.total_score?.mean)
-          }}</template></el-table-column
-        >
-        <el-table-column :label="tr('actions')" width="160"
-          ><template #default="{ row }"
-            ><el-button link type="primary" @click="showRun(row)">{{ tr('view') }}</el-button
-            ><el-button link :disabled="!row.summary?.total_score" @click="download(row)">{{
-              tr('export')
-            }}</el-button></template
-          ></el-table-column
-        >
-      </el-table>
-    </el-card>
-    <el-dialog v-model="datasetDialog" :title="tr('add')" width="640px">
-      <el-form label-position="top">
+    <el-dialog v-model="datasetDialog" :title="tr('add')" width="720px" class="dataset-dialog" @closed="resetDatasetForm">
+      <div class="dialog-intro"><div class="eyebrow">{{ tr('datasetSection') }}</div><p>{{ tr('datasetDialogHint') }}</p></div>
+      <el-form label-position="top" class="dataset-form">
         <el-form-item :label="tr('name')"
           ><el-input v-model="datasetName" maxlength="128" :placeholder="tr('nameHint')"
         /></el-form-item>
-        <el-radio-group v-model="entryMode" class="mb-16"
+        <el-radio-group v-model="entryMode" class="entry-mode mb-16"
           ><el-radio-button value="manual">{{ tr('manual') }}</el-radio-button
           ><el-radio-button value="file">{{ tr('import') }}</el-radio-button></el-radio-group
         >
         <template v-if="entryMode === 'manual'">
-          <el-text type="info">{{ tr('manualHint') }}</el-text>
+          <div class="manual-hint"><el-icon><InfoFilled /></el-icon><span>{{ tr('manualHint') }}</span><strong>{{ questions.length }} / 1000</strong></div>
           <div v-for="(item, index) in questions" :key="index" class="question-editor">
             <div class="flex justify-between">
               <strong>{{ tr('question') }} {{ index + 1 }}</strong
@@ -150,14 +115,14 @@
               :placeholder="tr('reference')"
             />
           </div>
-          <el-button
+          <el-button class="add-question-button"
             :disabled="questions.length >= 1000"
             @click="questions.push({ question: '', ground_truth: '' })"
             >{{ tr('addQuestion') }}</el-button
           >
         </template>
         <template v-else>
-          <el-alert :title="tr('fileHint')" type="info" :closable="false" class="mb-16" />
+          <el-alert :title="tr('fileHint')" type="info" :closable="false" class="mb-16 file-hint" />
           <el-button link type="primary" @click="templateFile">{{ tr('template') }}</el-button>
           <el-upload
             v-model:file-list="files"
@@ -176,7 +141,7 @@
         }}</el-button></template
       >
     </el-dialog>
-    <el-dialog v-model="runDialog" :title="tr('configure')" width="560px">
+    <el-dialog v-model="runDialog" :title="tr('configureDataset')" width="560px">
       <el-alert :title="tr('published')" type="warning" :closable="false" class="mb-16" />
       <el-form label-position="top"
         ><el-form-item :label="tr('dataset')"
@@ -208,11 +173,32 @@
         ></template
       >
     </el-dialog>
-    <el-drawer v-model="detailVisible" size="85%" :title="tr('detail')">
+    <el-drawer v-model="datasetDetailVisible" size="72%" :title="tr('datasetDetail')" class="dataset-drawer">
+      <div v-loading="datasetDetailLoading" class="dataset-detail">
+        <div class="detail-heading">
+          <div><div class="eyebrow">{{ tr('datasetPreview') }}</div><h3>{{ datasetDetail.name || '—' }}</h3><p>{{ tr('datasetDetailHint') }}</p></div>
+          <div class="detail-actions"><el-button plain @click="editDataset(datasetDetail)">{{ tr('edit') }}</el-button><el-button type="primary" plain :disabled="busy" @click="openRun(datasetDetail.id)">{{ tr('use') }}</el-button></div>
+        </div>
+        <div class="dataset-meta">
+          <div><span>{{ tr('cases') }}</span><strong>{{ datasetDetail.cases?.length || 0 }}</strong></div>
+          <div><span>{{ tr('version') }}</span><strong>{{ datasetDetail.version?.slice(0, 8) || '—' }}</strong></div>
+          <div><span>{{ tr('date') }}</span><strong>{{ date(datasetDetail.created_at) }}</strong></div>
+        </div>
+        <div class="table-toolbar"><div><strong>{{ tr('caseList') }}</strong><el-text type="info">{{ filteredDatasetCases.length }} / {{ datasetDetail.cases?.length || 0 }}</el-text></div><el-input v-model="datasetSearch" clearable :placeholder="tr('searchDataset')" class="toolbar-search" /></div>
+        <el-table :data="filteredDatasetCases" row-key="id" class="detail-table">
+          <el-table-column type="index" width="60" />
+          <el-table-column prop="category" :label="tr('category')" width="130"><template #default="{ row }"><el-tag v-if="row.category" size="small" effect="plain">{{ row.category }}</el-tag><span v-else>—</span></template></el-table-column>
+          <el-table-column prop="question" :label="tr('question')" min-width="260" show-overflow-tooltip />
+          <el-table-column :label="tr('reference')" min-width="280"><template #default="{ row }"><div class="clamp-text">{{ row.ground_truth || '—' }}</div></template></el-table-column>
+          <el-table-column :label="tr('relatedDocs')" width="120"><template #default="{ row }">{{ row.relevant_doc_ids?.length || 0 }}</template></el-table-column>
+        </el-table>
+      </div>
+    </el-drawer>
+    <el-drawer v-model="detailVisible" size="85%" :title="tr('detail')" class="run-drawer">
       <div v-loading="detailLoading">
-        <div class="flex justify-between align-center mb-16">
-          <strong>{{ detail.dataset_name }}</strong
-          ><el-tag :type="statusType(detail.status)">{{ status(detail.status) }}</el-tag>
+        <div class="detail-heading run-heading">
+          <div><div class="eyebrow">{{ tr('results') }}</div><h3>{{ detail.dataset_name || '—' }}</h3><p>{{ date(detail.created_at) }} · {{ detail.dataset_version?.slice(0, 8) || '—' }}</p></div>
+          <el-tag :type="statusType(detail.status)" size="large">{{ status(detail.status) }}</el-tag>
         </div>
         <el-alert
           v-if="detail.error"
@@ -221,36 +207,11 @@
           :closable="false"
           class="mb-16"
         />
-        <p>
-          {{ tr('progress') }}: {{ detail.completed || 0 }} / {{ detail.total || 0 }} ·
-          {{ tr('score') }}: {{ score(detail.summary?.total_score?.mean) }}
-        </p>
+        <div class="run-progress"><div><span>{{ tr('progress') }}</span><strong>{{ detail.completed || 0 }} / {{ detail.total || 0 }} {{ tr('questions') }}</strong></div><el-progress :percentage="percentage(detail)" :stroke-width="8" /></div>
+        <div class="result-stat-grid"><div class="result-stat"><span>{{ tr('score') }}</span><strong>{{ score(detail.summary?.total_score?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('avgResponseTime') }}</span><strong>{{ formatSeconds(detail.summary?.response_time?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('scoredCases') }}</span><strong>{{ detail.summary?.total_score?.count || 0 }} / {{ detail.completed || 0 }}</strong></div><div class="result-stat"><span>{{ tr('failedCases') }}</span><strong>{{ failedCases }}</strong></div></div>
         <el-alert :title="tr('scoreHint')" type="info" :closable="false" class="mb-16" />
-        <el-table :data="metrics" class="mb-16"
-          ><el-table-column prop="label" :label="tr('metric')" /><el-table-column
-            :label="tr('mean')"
-            ><template #default="{ row }">{{
-              row.name === 'response_time'
-                ? row.mean == null
-                  ? '—'
-                  : `${Number(row.mean).toFixed(2)} s`
-                : score(row.mean)
-            }}</template></el-table-column
-          ><el-table-column :label="tr('coverage')"
-            ><template #default="{ row }"
-              >{{ row.count }} / {{ row.total }}</template
-            ></el-table-column
-          ></el-table
-        >
-        <div class="flex justify-between align-center mb-16">
-          <strong>{{ tr('answers') }}</strong
-          ><el-input
-            v-model="search"
-            clearable
-            :placeholder="tr('search')"
-            style="max-width: 300px"
-          />
-        </div>
+        <div class="metric-strip"><div v-for="row in metrics" :key="row.name" class="metric-chip"><span>{{ row.label }}</span><strong>{{ row.name === 'response_time' ? formatSeconds(row.mean) : score(row.mean) }}</strong><small>{{ row.count || 0 }} / {{ row.total || detail.completed || 0 }}</small></div></div>
+        <div class="table-toolbar results-toolbar"><div><strong>{{ tr('answers') }}</strong><el-text type="info">{{ filteredResults.length }} / {{ detail.results?.length || 0 }}</el-text></div><div class="toolbar-controls"><el-radio-group v-model="resultFilter" size="small"><el-radio-button value="all">{{ tr('all') }}</el-radio-button><el-radio-button value="low">{{ tr('lowScore') }}</el-radio-button><el-radio-button value="unscored">{{ tr('unscored') }}</el-radio-button><el-radio-button value="error">{{ tr('hasError') }}</el-radio-button></el-radio-group><el-input v-model="search" clearable :placeholder="tr('search')" class="toolbar-search" /></div></div>
         <el-table :data="filteredResults" :empty-text="tr('waiting')" row-key="id">
           <el-table-column type="expand"
             ><template #default="{ row }"
@@ -281,7 +242,7 @@
             prop="question"
             :label="tr('question')"
             min-width="250"
-          /><el-table-column :label="tr('score')" width="120"
+          /><el-table-column :label="tr('status')" width="120"><template #default="{ row }"><el-tag size="small" :type="row.error || Object.keys(row.metric_errors || {}).length ? 'danger' : row.total_score == null ? 'info' : 'success'">{{ row.error || Object.keys(row.metric_errors || {}).length ? tr('hasError') : row.total_score == null ? tr('unscored') : tr('scored') }}</el-tag></template></el-table-column><el-table-column :label="tr('score')" width="120"
             ><template #default="{ row }">{{ score(row.total_score) }}</template></el-table-column
           ><el-table-column :label="tr('responseTime')" width="130"
             ><template #default="{ row }">{{
@@ -289,7 +250,7 @@
             }}</template></el-table-column
           >
         </el-table>
-        <p>{{ tr('expandHint') }}</p>
+        <p class="table-hint">{{ tr('expandHint') }}</p>
         <el-collapse
           ><el-collapse-item :title="tr('technical')" name="technical">
             <pre class="report">{{ JSON.stringify(detail, null, 2) }}</pre>
@@ -298,22 +259,26 @@
       </div>
     </el-drawer>
     </div>
-    <QualityPanel :application-id="id" />
+    <QualityPanel :application-id="id" :runs="runs" :history-loading="loading" :on-refresh="load" :on-view="showRun" :on-export="download" />
   </div>
 </template>
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
-import { ElMessage, type UploadUserFile } from 'element-plus'
+import { ElMessage, ElMessageBox, type UploadUserFile } from 'element-plus'
+import { InfoFilled } from '@element-plus/icons-vue'
 import QualityPanel from './QualityPanel.vue'
 import modelApi from '@/api/model/model'
 import {
   getEvaluationDatasets,
+  getEvaluationDataset,
   getEvaluationRuns,
   getEvaluationRun,
   startEvaluation,
   uploadEvaluationDataset,
+  updateEvaluationDataset,
+  deleteEvaluationDataset,
   downloadEvaluationReport,
 } from '@/api/application/evaluation'
 
@@ -328,8 +293,14 @@ const detailLoading = ref(false)
 const datasetDialog = ref(false)
 const runDialog = ref(false)
 const detailVisible = ref(false)
+const datasetDetailVisible = ref(false)
+const datasetDetailLoading = ref(false)
+const datasetDetail = ref<any>({})
+const datasetSearch = ref('')
+const resultFilter = ref('all')
 const detail = ref<any>({})
 const datasetName = ref('')
+const editingDatasetId = ref('')
 const datasetId = ref('')
 const entryMode = ref('manual')
 const questions = ref([{ question: '', ground_truth: '' }])
@@ -369,13 +340,24 @@ const metrics = computed(() =>
     ...(value as any),
   })),
 )
+const formatSeconds = (value: any) => value == null ? '—' : `${Number(value).toFixed(2)} s`
+const failedCases = computed(() => (detail.value.results || []).filter((row: any) => row.error || Object.keys(row.metric_errors || {}).length).length)
+const filteredDatasetCases = computed(() => (datasetDetail.value.cases || []).filter((row: any) => `${row.category || ''} ${row.question || ''} ${row.ground_truth || ''}`.toLowerCase().includes(datasetSearch.value.toLowerCase())))
 const filteredResults = computed(() =>
-  (detail.value.results || []).filter((row: any) =>
-    `${row.question} ${row.answer} ${row.ground_truth}`
-      .toLowerCase()
-      .includes(search.value.toLowerCase()),
-  ),
+  (detail.value.results || []).filter((row: any) => {
+    const textMatch = `${row.question} ${row.answer} ${row.ground_truth}`.toLowerCase().includes(search.value.toLowerCase())
+    const hasError = row.error || Object.keys(row.metric_errors || {}).length
+    const filterMatch = resultFilter.value === 'all' || (resultFilter.value === 'error' && hasError) || (resultFilter.value === 'unscored' && row.total_score == null) || (resultFilter.value === 'low' && row.total_score != null && Number(row.total_score) < 0.6)
+    return textMatch && filterMatch
+  }),
 )
+const showDataset = async (row: any) => {
+  datasetSearch.value = ''
+  datasetDetail.value = row
+  datasetDetailVisible.value = true
+  datasetDetailLoading.value = true
+  try { datasetDetail.value = (await getEvaluationDataset(id, row.id)).data } finally { datasetDetailLoading.value = false }
+}
 const openRun = (selected?: string) => {
   datasetId.value = selected || datasets.value[0]?.id || ''
   judgeModelId.value = ''
@@ -384,6 +366,38 @@ const openRun = (selected?: string) => {
   regression.value = false
   runDialog.value = true
   modelApi.getModelList().then(result => { models.value = result.data.filter(model => model.status === 'SUCCESS') }).catch(() => {})
+}
+const resetDatasetForm = () => {
+  datasetName.value = ''
+  editingDatasetId.value = ''
+  entryMode.value = 'manual'
+  questions.value = [{ question: '', ground_truth: '' }]
+  files.value = []
+}
+const openDatasetDialog = () => {
+  resetDatasetForm()
+  datasetDialog.value = true
+}
+const editDataset = async (row: any) => {
+  const detailResult = row.cases ? { data: row } : await getEvaluationDataset(id, row.id)
+  const item = detailResult.data
+  datasetName.value = item.name
+  editingDatasetId.value = item.id
+  entryMode.value = 'manual'
+  questions.value = (item.cases || []).map((question: any) => ({ question: question.question || '', ground_truth: question.ground_truth || '' }))
+  files.value = []
+  datasetDetailVisible.value = false
+  datasetDialog.value = true
+}
+const removeDataset = async (row: any) => {
+  try {
+    await ElMessageBox.confirm(tr('deleteConfirm'), tr('deleteDataset'), { type: 'warning', confirmButtonText: tr('delete'), cancelButtonText: tr('cancel') })
+    await deleteEvaluationDataset(id, row.id)
+    await load()
+    ElMessage.success(tr('deleted'))
+  } catch {
+    // Cancelled by the user or rejected by the API.
+  }
 }
 const fileExceeded = () => ElMessage.warning(tr('oneFile'))
 const saveBlob = (blob: Blob, name: string) => {
@@ -448,14 +462,17 @@ const importDataset = async () => {
     return ElMessage.warning(tr('fileHint'))
   submitting.value = true
   try {
-    const result = await uploadEvaluationDataset(id, datasetName.value.trim(), file)
+    const isEditing = Boolean(editingDatasetId.value)
+    const result = isEditing
+      ? await updateEvaluationDataset(id, editingDatasetId.value, datasetName.value.trim(), file)
+      : await uploadEvaluationDataset(id, datasetName.value.trim(), file)
     datasetDialog.value = false
     datasetName.value = ''
     questions.value = [{ question: '', ground_truth: '' }]
     files.value = []
     await load()
-    ElMessage.success(tr('saved'))
-    openRun(result.data.id)
+    ElMessage.success(tr(isEditing ? 'updated' : 'saved'))
+    if (!isEditing) openRun(result.data.id)
   } finally {
     submitting.value = false
   }
@@ -483,6 +500,7 @@ const start = async () => {
 }
 const showRun = async (row: any) => {
   search.value = ''
+  resultFilter.value = 'all'
   detail.value = row
   detailVisible.value = true
   detailLoading.value = true
@@ -537,7 +555,28 @@ onUnmounted(() => {
   justify-content: space-between;
   padding: 8px 4px 20px;
 }
-.page-hero h2 { margin: 4px 0 6px; font-size: 24px; }
+.page-hero h2 { margin: 4px 0 6px; font-size: 26px; letter-spacing: -.02em; }
+.detail-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.detail-heading h3 { margin: 4px 0 6px; font-size: 22px; }
+.detail-heading p { margin: 0; color: var(--el-text-color-secondary); font-size: 13px; }
+.dataset-meta, .result-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+.dataset-meta > div, .result-stat { display: flex; flex-direction: column; gap: 5px; padding: 14px 16px; background: var(--el-fill-color-lighter); border: 1px solid var(--el-border-color-lighter); border-radius: 8px; }
+.dataset-meta span, .result-stat span, .metric-chip span, .metric-chip small { color: var(--el-text-color-secondary); font-size: 12px; }
+.dataset-meta strong, .result-stat strong { color: var(--el-text-color-primary); font-size: 18px; }
+.table-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0 12px; }
+.table-toolbar > div:first-child { display: flex; align-items: center; gap: 10px; }
+.toolbar-search { width: 240px; }
+.clamp-text { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.5; }
+.run-progress { padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--el-border-color-lighter); border-radius: 8px; }
+.run-progress > div { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.run-progress span { color: var(--el-text-color-secondary); }
+.metric-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.metric-chip { display: flex; flex-direction: column; gap: 5px; padding: 13px 14px; background: var(--el-fill-color-lighter); border-radius: 8px; }
+.metric-chip strong { font-size: 19px; }
+.metric-chip small { font-size: 11px; }
+.results-toolbar { margin-top: 12px; }
+.toolbar-controls { display: flex; align-items: center; gap: 10px; }
+.table-hint { color: var(--el-text-color-secondary); font-size: 12px; }
 .eyebrow { color: var(--el-color-primary); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
 .summary-item { display: flex; flex-direction: column; gap: 4px; min-height: 92px; padding: 16px 18px; background: var(--el-bg-color); border: 1px solid var(--el-border-color-lighter); border-radius: 10px; box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
@@ -545,11 +584,28 @@ onUnmounted(() => {
 .summary-item span { color: var(--el-text-color-secondary); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .summary-item.active { border-color: var(--el-color-primary-light-5); background: var(--el-color-primary-light-9); }
 .capability-alert { margin-bottom: 16px; border: 0; }
-.workspace-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.45fr); gap: 16px; align-items: start; }
+.workspace-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
 .content-card { min-width: 0; border: 1px solid var(--el-border-color-lighter); border-radius: 10px; box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
 .content-card :deep(.el-card__header) { padding: 14px 18px; }
 .content-card :deep(.el-card__body) { padding: 0; }
 .content-card :deep(.el-table) { border-radius: 0 0 10px 10px; }
+.content-card :deep(.el-table__header-wrapper th) { height: 46px; background: var(--el-fill-color-lighter); color: var(--el-text-color-secondary); font-size: 12px; font-weight: 600; }
+.content-card :deep(.el-table__body-wrapper td) { padding: 14px 0; vertical-align: middle; }
+.dataset-name-cell { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.dataset-name-cell strong { overflow: hidden; color: var(--el-text-color-primary); font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.dataset-name-cell span { color: var(--el-text-color-secondary); font-size: 12px; }
+.progress-cell { display: flex; flex-direction: column; gap: 7px; min-width: 130px; }
+.progress-cell span { color: var(--el-text-color-secondary); font-size: 12px; }
+.section-actions { display: flex; align-items: center; gap: 8px; }
+.dialog-intro { padding: 12px 14px; margin-bottom: 18px; background: var(--el-color-primary-light-9); border: 1px solid var(--el-color-primary-light-8); border-radius: 8px; }
+.dialog-intro p { margin: 5px 0 0; color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.6; }
+.dataset-form :deep(.el-form-item) { margin-bottom: 18px; }
+.entry-mode { display: flex; width: 100%; }
+.entry-mode :deep(.el-radio-button) { flex: 1; }
+.entry-mode :deep(.el-radio-button__inner) { width: 100%; }
+.manual-hint { display: flex; align-items: center; gap: 7px; padding: 10px 12px; margin-bottom: 12px; color: var(--el-text-color-secondary); background: var(--el-fill-color-lighter); border-radius: 6px; font-size: 12px; line-height: 1.5; }
+.manual-hint .el-icon { color: var(--el-color-primary); }
+.manual-hint strong { margin-left: auto; color: var(--el-text-color-primary); font-weight: 500; white-space: nowrap; }
 .w-full {
   width: 100%;
 }
@@ -559,9 +615,13 @@ onUnmounted(() => {
 .question-editor {
   padding: 16px;
   margin: 12px 0;
-  border: 1px solid var(--el-border-color);
-  border-radius: 6px;
+  background: var(--el-bg-color-page);
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: 8px;
 }
+.question-editor :deep(.el-textarea__inner) { min-height: 72px !important; resize: vertical; }
+.add-question-button { width: 100%; border-style: dashed; }
+.file-hint { line-height: 1.55; }
 .answer-comparison {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -578,7 +638,11 @@ onUnmounted(() => {
 }
 @media (max-width: 768px) {
   .page-hero { align-items: flex-start; flex-direction: column; gap: 14px; }
-  .summary-grid, .workspace-grid { grid-template-columns: 1fr; }
+  .summary-grid, .workspace-grid, .dataset-meta, .result-stat-grid { grid-template-columns: 1fr; }
+  .table-toolbar, .toolbar-controls { align-items: stretch; flex-direction: column; }
+  .toolbar-search { width: 100%; }
+  .section-actions { width: 100%; }
+  .section-actions .el-button { flex: 1; }
   .answer-comparison {
     grid-template-columns: 1fr;
   }

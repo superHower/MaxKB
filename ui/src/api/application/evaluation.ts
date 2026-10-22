@@ -1,4 +1,4 @@
-import { get, post, postUpload, put } from '@/request/index'
+import { del, get, post, postUpload, put } from '@/request/index'
 import type { Ref } from 'vue'
 import type { Result } from '@/request/Result'
 import useStore from '@/stores'
@@ -11,6 +11,14 @@ export const getEvaluationDatasets = (id: string, loading?: Ref<boolean>): Promi
   get(`${prefix(id)}/datasets`, {}, loading)
 export const getEvaluationDataset = (id: string, datasetId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
   get(`${prefix(id)}/datasets/${datasetId}`, {}, loading)
+export const updateEvaluationDataset = (id: string, datasetId: string, name: string, file?: File, loading?: Ref<boolean>): Promise<Result<any>> => {
+  const form = new FormData()
+  form.append('name', name)
+  if (file) form.append('file', file)
+  return put(`${prefix(id)}/datasets/${datasetId}`, form, undefined, loading)
+}
+export const deleteEvaluationDataset = (id: string, datasetId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
+  del(`${prefix(id)}/datasets/${datasetId}`, {}, undefined, loading)
 export const uploadEvaluationDataset = (
   id: string,
   name: string,

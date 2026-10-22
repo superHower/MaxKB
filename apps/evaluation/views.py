@@ -97,6 +97,47 @@ class DatasetDetail(APIView):
                                  application_id=application_id)
         return result.success(dataset_detail(item))
 
+    @access
+    def put(self, request, workspace_id, application_id, dataset_id):
+        scope(workspace_id, application_id)
+        item = get_object_or_404(Dataset, id=dataset_id, workspace_id=workspace_id,
+                                 application_id=application_id)
+        name = str(request.data.get("name", item.name)).strip()
+        upload = request.FILES.get("file")
+        if not name or len(name) > 128:
+            raise ValidationError("请输入不超过 128 个字符的测试集名称")
+        if upload is None:
+            cases = item.cases
+        else:
+            suffix = Path(upload.name).suffix.lower()
+            if suffix not in (".json", ".csv") or upload.size > 5 * 1024 * 1024:
+                raise ValidationError("请上传不超过 5MB 的 JSON/CSV 文件")
+            try:
+                with tempfile.TemporaryDirectory() as directory:
+                    path = Path(directory) / ("dataset" + suffix)
+                    path.write_bytes(upload.read())
+                    cases = load_cases(path)
+                if len(cases) > 1000:
+                    raise ValueError("每个测试集最多 1000 条")
+            except (ValueError, TypeError, UnicodeError) as error:
+                raise ValidationError(str(error)) from error
+        item.name, item.version, item.cases = name, version(cases), cases
+        try:
+            item.save()
+        except Exception as error:
+            raise ValidationError("已存在同名同版本测试集") from error
+        return result.success(dataset_data(item))
+
+    @access
+    def delete(self, request, workspace_id, application_id, dataset_id):
+        scope(workspace_id, application_id)
+        item = get_object_or_404(Dataset, id=dataset_id, workspace_id=workspace_id,
+                                 application_id=application_id)
+        if Run.objects.filter(dataset=item).exists():
+            raise ValidationError("该测试集已有测评记录，暂不能删除")
+        item.delete()
+        return result.success({"id": str(dataset_id)})
+
 
 class Runs(APIView):
     authentication_classes = [TokenAuth]

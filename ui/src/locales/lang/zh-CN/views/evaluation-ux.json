@@ -11,11 +11,14 @@
   "intro": "准备业务问题，批量查看智能体回答，定位需要改进的地方。",
   "start": "开始测评",
   "prepare": "1. 准备题目",
+  "datasetSection": "测评集",
   "configure": "2. 确认测评设置",
+  "configureDataset": "配置测评集",
   "results": "3. 查看结果",
   "capability": "支持批量问答、检索评分，以及可选 Judge 答案质量评分。未选择 Judge 时请人工对照参考答案。",
   "template": "下载 JSON 模板",
   "add": "添加测试集",
+  "datasetDialogHint": "先给测试集命名，再录入真实业务问题和参考答案，保存后即可直接开始测评。",
   "empty": "还没有测试集。先填写几道真实业务问题，或下载模板后导入。",
   "dataset": "测试集",
   "cases": "题目数",
@@ -23,6 +26,7 @@
   "date": "创建时间",
   "use": "用此测试集测评",
   "history": "测评记录",
+  "historyHint": "按时间查看每次测评的进度、检索得分和逐题结果。",
   "refresh": "刷新",
   "noRuns": "还没有测评记录，准备好题目后即可开始。",
   "status": "运行状态",
@@ -196,13 +200,37 @@
     "faithfulness_signal": "词项忠实度信号",
     "no_answer_response": "检测到拒答",
     "input_tokens": "输入 Token",
-    "output_tokens": "输出 Token"
-    ,"task_success_rate": "任务成功率"
-    ,"task_success_count": "任务成功标注数"
-    ,"tool_call_accuracy": "工具调用准确率"
-    ,"tool_call_accuracy_count": "工具调用准确标注数"
-    ,"confirmation_compliance_rate": "确认合规率"
-    ,"confirmation_sample_count": "确认样本数"
-    ,"tool_call_count": "工具调用次数"
-  }
+    "output_tokens": "输出 Token",
+    "task_success_rate": "任务成功率",
+    "task_success_count": "任务成功标注数",
+    "tool_call_accuracy": "工具调用准确率",
+    "tool_call_accuracy_count": "工具调用准确标注数",
+    "confirmation_compliance_rate": "确认合规率",
+    "confirmation_sample_count": "确认样本数",
+    "tool_call_count": "工具调用次数"
+  },
+  "datasetView": "查看详情",
+  "edit": "编辑",
+  "delete": "删除",
+  "deleteDataset": "删除测评集",
+  "deleteConfirm": "确定删除这个测评集吗？已有测评记录的测评集不能删除。",
+  "deleted": "测评集已删除。",
+  "updated": "测评集已更新。",
+  "datasetDetail": "测试集详情",
+  "datasetPreview": "测试集预览",
+  "datasetDetailHint": "逐题查看问题、参考答案和关联文档标注。",
+  "caseList": "题目列表",
+  "searchDataset": "搜索问题、分类或参考答案",
+  "relatedDocs": "关联文档",
+  "avgResponseTime": "平均响应耗时",
+  "scoredCases": "有效评分",
+  "failedCases": "异常题数",
+  "all": "全部",
+  "lowScore": "低分",
+  "hasError": "有错误",
+  "scored": "已评分",
+  "onlineQualityHint": "关注真实会话中的稳定性、效率和解决率。",
+  "experimentsHint": "管理不同提示词或模型版本的流量分组。",
+  "samplesHint": "抽样复核真实对话，沉淀可行动的质量信号。",
+  "badcasesHint": "集中处理低质量回答，并跟踪改进闭环。"
 }

@@ -1,8 +1,21 @@
 <template>
-  <el-tabs v-model="activeTab" class="quality-tabs">
+  <el-tabs v-model="activeTab" class="quality-tabs" stretch>
+  <el-tab-pane :label="tr('history')" name="history">
+  <el-card class="quality-card history-card">
+    <template #header><div class="panel-heading"><div><strong>{{ tr('history') }}</strong><el-text type="info">{{ tr('historyHint') }}</el-text></div><el-button :loading="props.historyLoading" @click="props.onRefresh?.()">{{ tr('refresh') }}</el-button></div></template>
+    <el-table :data="props.runs" :empty-text="tr('noRuns')" v-loading="props.historyLoading" class="run-table">
+      <el-table-column :label="tr('date')" width="180"><template #default="{ row }">{{ date(row.created_at) }}</template></el-table-column>
+      <el-table-column :label="tr('dataset')" min-width="260"><template #default="{ row }"><div class="dataset-name-cell"><strong>{{ row.dataset_name }}</strong><span>{{ row.dataset_version?.slice(0, 8) || '—' }}</span></div></template></el-table-column>
+      <el-table-column :label="tr('status')" width="130"><template #default="{ row }"><el-tag :type="statusType(row.status)">{{ status(row.status) }}</el-tag></template></el-table-column>
+      <el-table-column :label="tr('progress')" min-width="180"><template #default="{ row }"><div class="progress-cell"><el-progress :percentage="percentage(row)" :show-text="false" /><span>{{ row.completed }} / {{ row.total }} {{ tr('questions') }}</span></div></template></el-table-column>
+      <el-table-column :label="tr('score')" width="120"><template #default="{ row }">{{ score(row.summary?.total_score?.mean) }}</template></el-table-column>
+      <el-table-column :label="tr('actions')" width="180"><template #default="{ row }"><el-button link type="primary" @click="props.onView(row)">{{ tr('view') }}</el-button><el-button link :disabled="!row.summary?.total_score" @click="props.onExport(row)">{{ tr('export') }}</el-button></template></el-table-column>
+    </el-table>
+  </el-card>
+  </el-tab-pane>
   <el-tab-pane :label="tr('onlineQuality')" name="quality">
-  <el-card>
-    <template #header><div class="flex justify-between align-center"><strong>{{ tr('onlineQuality') }}</strong><el-button :loading="loading" @click="load">{{ tr('refresh') }}</el-button></div></template>
+  <el-card class="quality-card">
+    <template #header><div class="panel-heading"><div><strong>{{ tr('onlineQuality') }}</strong><el-text type="info">{{ tr('onlineQualityHint') }}</el-text></div><el-button :loading="loading" @click="load">{{ tr('refresh') }}</el-button></div></template>
     <div v-loading="loading" class="metric-grid">
       <el-empty v-if="!metricRows.length && !loading" :description="tr('noMetrics')" />
       <el-card v-for="row in metricRows" :key="row.key" class="metric-card" shadow="never">
@@ -12,8 +25,8 @@
   </el-card>
   </el-tab-pane>
   <el-tab-pane :label="tr('experiments')" name="experiments">
-  <el-card>
-    <template #header><div class="flex justify-between align-center"><strong>{{ tr('experiments') }}</strong><el-button @click="openExperiment">{{ tr('newExperiment') }}</el-button></div></template>
+  <el-card class="quality-card">
+    <template #header><div class="panel-heading"><div><strong>{{ tr('experiments') }}</strong><el-text type="info">{{ tr('experimentsHint') }}</el-text></div><el-button @click="openExperiment">{{ tr('newExperiment') }}</el-button></div></template>
     <el-alert :title="tr('experimentHint')" type="info" :closable="false" class="mb-16" />
     <el-table :data="experiments" v-loading="loading">
       <el-table-column prop="name" :label="tr('experimentName')" />
@@ -25,8 +38,8 @@
   </el-card>
   </el-tab-pane>
   <el-tab-pane :label="tr('samples')" name="samples">
-  <el-card>
-    <template #header><div class="flex justify-between align-center"><strong>{{ tr('samples') }}</strong><el-button :loading="saving" @click="sampleEvents">{{ tr('sample') }}</el-button></div></template>
+  <el-card class="quality-card">
+    <template #header><div class="panel-heading"><div><strong>{{ tr('samples') }}</strong><el-text type="info">{{ tr('samplesHint') }}</el-text></div><el-button :loading="saving" @click="sampleEvents">{{ tr('sample') }}</el-button></div></template>
     <el-text type="info">{{ tr('sampleHint') }}</el-text>
     <el-table :data="samples" v-loading="loading">
       <el-table-column type="expand"><template #default="{ row }"><div class="sample-detail">
@@ -44,8 +57,8 @@
   </el-card>
   </el-tab-pane>
   <el-tab-pane :label="tr('badcases')" name="badcases">
-  <el-card>
-    <template #header><div class="flex justify-between align-center"><strong>{{ tr('badcases') }}</strong><el-button :loading="saving" @click="generateBadcases">{{ tr('generate') }}</el-button></div></template>
+  <el-card class="quality-card">
+    <template #header><div class="panel-heading"><div><strong>{{ tr('badcases') }}</strong><el-text type="info">{{ tr('badcasesHint') }}</el-text></div><el-button :loading="saving" @click="generateBadcases">{{ tr('generate') }}</el-button></div></template>
     <el-table :data="badcases" v-loading="loading">
       <el-table-column prop="event.question" :label="tr('question')" min-width="200" />
       <el-table-column :label="tr('category')"><template #default="{ row }">{{ label(row.badcase.category) }}</template></el-table-column>
@@ -96,10 +109,22 @@ import {
   getEvaluationBadcases, generateEvaluationBadcases, updateEvaluationBadcase,
 } from '@/api/application/evaluation'
 
-const props = defineProps<{ applicationId: string }>()
+const props = defineProps<{
+  applicationId: string
+  runs: any[]
+  historyLoading: boolean
+  onRefresh: () => Promise<void>
+  onView: (row: any) => void
+  onExport: (row: any) => void
+}>()
 const { t, te } = useI18n()
-const activeTab = ref('quality')
+const activeTab = ref('history')
 const tr = (key: string) => t(`views.applicationEvaluation.ux.${key}`)
+const date = (value: string) => (value ? new Date(value).toLocaleString() : '—')
+const status = (value: string) => (value ? tr(value) : '—')
+const statusType = (value: string): 'primary' | 'success' | 'warning' | 'danger' | 'info' => value === 'completed' ? 'success' : value === 'failed' ? 'danger' : value === 'partial' ? 'warning' : value === 'running' ? 'primary' : 'info'
+const percentage = (row: any) => row.total ? Math.min(100, Math.round((row.completed / row.total) * 100)) : 0
+const score = (value: any) => value == null ? tr('unscored') : `${(Number(value) * 100).toFixed(1)}%`
 const label = (key: string) => te(`views.applicationEvaluation.ux.labels.${key}`) ? tr(`labels.${key}`) : key
 const loading = ref(false)
 const saving = ref(false)
@@ -191,17 +216,30 @@ onMounted(load)
 </script>
 
 <style scoped>
-.quality-tabs { margin-top: 16px; }
+.quality-tabs { margin-top: 24px; }
+.quality-tabs :deep(.el-tabs__item) { height: 44px; color: var(--el-text-color-secondary); font-weight: 500; }
+.quality-tabs :deep(.el-tabs__item.is-active) { color: var(--el-color-primary); font-weight: 650; }
+.panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.panel-heading > div { display: flex; flex-direction: column; gap: 4px; }
+.panel-heading .el-text { font-size: 12px; }
 .quality-tabs :deep(.el-tabs__header) { margin-bottom: 16px; }
 .quality-tabs :deep(.el-tabs__nav-wrap::after) { background-color: var(--el-border-color-lighter); }
 .quality-tabs :deep(.el-card) { border-radius: 10px; border-color: var(--el-border-color-lighter); box-shadow: 0 4px 14px rgba(var(--el-text-color-primary-rgb), .04); }
 .quality-tabs :deep(.el-card__header) { padding: 14px 18px; }
 .metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; min-height: 120px; }
-.metric-card { min-width: 0; background: var(--el-fill-color-lighter); }
+.metric-card { min-width: 0; background: var(--el-fill-color-lighter); border: 1px solid var(--el-border-color-lighter); transition: border-color .2s ease, transform .2s ease; }
+.metric-card:hover { border-color: var(--el-color-primary-light-5); transform: translateY(-1px); }
 .metric-card :deep(.el-card__body) { padding: 16px; }
 .metric-card :deep(.el-statistic__head) { min-height: 34px; color: var(--el-text-color-secondary); font-size: 13px; line-height: 17px; }
 .metric-card :deep(.el-statistic__content) { color: var(--el-text-color-primary); font-size: 24px; font-weight: 600; }
 .sample-detail { padding: 16px; }
 .answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.quality-tabs :deep(.el-table__row:hover > td) { background: var(--el-fill-color-light); }
 .variant-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .metric-card { transition: none; }
+}
+@media (max-width: 768px) {
+  .panel-heading { align-items: flex-start; flex-direction: column; }
+}
 </style>
