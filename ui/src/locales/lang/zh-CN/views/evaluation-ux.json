@@ -233,4 +233,14 @@
   "experimentsHint": "管理不同提示词或模型版本的流量分组。",
   "samplesHint": "抽样复核真实对话，沉淀可行动的质量信号。",
   "badcasesHint": "集中处理低质量回答，并跟踪改进闭环。"
+  ,"capabilitySnapshot": "本次评测能力快照"
+  ,"memoryEnabled": "长期记忆已启用"
+  ,"memoryDisabled": "长期记忆未启用"
+  ,"memoryUsed": "本轮使用了长期记忆"
+  ,"skillsBound": "已绑定 Skill："
+  ,"noSkills": "未绑定 Skill"
+  ,"businessBranchesConfigured": "包含业务分支"
+  ,"businessBranchHint": "订单、库存、售后等分支仍需真实业务工具返回结果，不能把提示话术当成已执行。"
+  ,"businessToolCalled": "本次有工具调用记录"
+  ,"businessPromptOnly": "当前仅为提示话术"
 }

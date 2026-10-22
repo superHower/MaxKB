@@ -208,6 +208,13 @@
           class="mb-16"
         />
         <div class="run-progress"><div><span>{{ tr('progress') }}</span><strong>{{ detail.completed || 0 }} / {{ detail.total || 0 }} {{ tr('questions') }}</strong></div><el-progress :percentage="percentage(detail)" :stroke-width="8" /></div>
+        <div v-if="detail.config?.capabilities" class="capability-strip">
+          <span class="capability-label">{{ tr('capabilitySnapshot') }}</span>
+          <el-tag size="small" :type="detail.config.capabilities.memory_enabled ? 'success' : 'info'">{{ detail.config.capabilities.memory_enabled ? tr('memoryEnabled') : tr('memoryDisabled') }}</el-tag>
+          <el-tag size="small" :type="detail.config.capabilities.skill_bound ? 'success' : 'info'">{{ detail.config.capabilities.skill_bound ? `${tr('skillsBound')} ${detail.config.capabilities.skill_ids.length}` : tr('noSkills') }}</el-tag>
+          <el-tag v-if="detail.config.capabilities.business_branches?.length" size="small" type="warning">{{ tr('businessBranchesConfigured') }}</el-tag>
+          <el-text type="info">{{ tr('businessBranchHint') }}</el-text>
+        </div>
         <div class="result-stat-grid"><div class="result-stat"><span>{{ tr('score') }}</span><strong>{{ score(detail.summary?.total_score?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('avgResponseTime') }}</span><strong>{{ formatSeconds(detail.summary?.response_time?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('scoredCases') }}</span><strong>{{ detail.summary?.total_score?.count || 0 }} / {{ detail.completed || 0 }}</strong></div><div class="result-stat"><span>{{ tr('failedCases') }}</span><strong>{{ failedCases }}</strong></div></div>
         <el-alert :title="tr('scoreHint')" type="info" :closable="false" class="mb-16" />
         <div class="metric-strip"><div v-for="row in metrics" :key="row.name" class="metric-chip"><span>{{ row.label }}</span><strong>{{ row.name === 'response_time' ? formatSeconds(row.mean) : score(row.mean) }}</strong><small>{{ row.count || 0 }} / {{ row.total || detail.completed || 0 }}</small></div></div>

@@ -45,6 +45,11 @@
       <el-table-column type="expand"><template #default="{ row }"><div class="sample-detail">
         <p><strong>{{ tr('answer') }}</strong></p><p class="answer-text">{{ row.event.answer || '—' }}</p>
         <p><strong>{{ tr('reference') }}</strong></p><p class="answer-text">{{ row.annotation?.gold_answer || '—' }}</p>
+        <div v-if="row.event.capabilities" class="sample-capabilities">
+          <el-tag size="small" :type="row.event.capabilities.memory_enabled ? 'success' : 'info'">{{ row.event.capabilities.memory_used ? tr('memoryUsed') : row.event.capabilities.memory_enabled ? tr('memoryEnabled') : tr('memoryDisabled') }}</el-tag>
+          <el-tag size="small" :type="row.event.capabilities.skill_bound ? 'success' : 'info'">{{ row.event.capabilities.skill_bound ? `${tr('skillsBound')} ${row.event.capabilities.skill_ids.length}` : tr('noSkills') }}</el-tag>
+          <el-tag v-if="row.event.capabilities.business_branch_configured" size="small" type="warning">{{ row.event.capabilities.business_tool_call_present ? tr('businessToolCalled') : tr('businessPromptOnly') }}</el-tag>
+        </div>
         <p>{{ tr('reviewNote') }}: {{ row.annotation?.review_note || '—' }}</p>
         <el-table v-if="row.result" :data="ruleRows(row.result.scores)"><el-table-column prop="label" :label="tr('metric')" /><el-table-column prop="value" :label="tr('value')" /></el-table>
         <p v-for="(reason, key) in row.result?.reasons" :key="key">{{ reason }}</p>
@@ -233,6 +238,7 @@ onMounted(load)
 .metric-card :deep(.el-statistic__head) { min-height: 34px; color: var(--el-text-color-secondary); font-size: 13px; line-height: 17px; }
 .metric-card :deep(.el-statistic__content) { color: var(--el-text-color-primary); font-size: 24px; font-weight: 600; }
 .sample-detail { padding: 16px; }
+.sample-capabilities { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .quality-tabs :deep(.el-table__row:hover > td) { background: var(--el-fill-color-light); }
 .variant-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }

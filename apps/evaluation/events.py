@@ -4,6 +4,28 @@ from application.models import ApplicationVersion
 from .models import EvaluationEvent
 
 
+def _workflow_capabilities(application):
+    """Return the configured memory/skill/business branch facts for trace display.
+
+    These are configuration facts, not proof that a business operation succeeded.
+    """
+    workflow = application.work_flow if isinstance(getattr(application, "work_flow", None), dict) else {}
+    memory_enabled = bool(getattr(application, "long_term_enable", False))
+    skill_ids = set(str(item) for item in (getattr(application, "skill_tool_ids", None) or []))
+    business_branches = set()
+    for node in workflow.get("nodes", []) or []:
+        node_data = (node.get("properties") or {}).get("node_data") or {}
+        if node.get("type") == "base-node":
+            memory_enabled = bool(node_data.get("long_term_enable", memory_enabled))
+        skill_ids.update(str(item) for item in (node_data.get("skill_tool_ids") or []))
+        for branch in node_data.get("branch") or []:
+            branch_id = str(branch.get("id") or "")
+            if branch_id in {"order", "after_sales", "inventory", "human"}:
+                business_branches.add(branch_id)
+    return {"memory_enabled": memory_enabled, "skill_ids": sorted(skill_ids),
+            "skill_bound": bool(skill_ids), "business_branches": sorted(business_branches)}
+
+
 def capture_chat_record(record, application):
     details = record.details if isinstance(record.details, dict) else {}
     candidates, contexts = [], []
@@ -40,6 +62,14 @@ def capture_chat_record(record, application):
         if isinstance(content, str) and content and content in prompt_text:
             contexts.append(paragraph)
     version = ApplicationVersion.objects.filter(application_id=application.id).order_by("-create_time").first()
+    capabilities = _workflow_capabilities(application)
+    memory_used = any(
+        isinstance(field, dict) and field.get("key") == "memory" and bool(field.get("value"))
+        for detail in details.values() if isinstance(detail, dict)
+        for field in detail.get("global_fields", []) or []
+    )
+    intent_category = intent_categories[-1] if intent_categories else None
+    configured_business_branch = intent_category in set(capabilities["business_branches"])
     data = {
         "chat_id": str(record.chat_id),
         "question": record.problem_text, "answer": record.answer_text,
@@ -57,7 +87,10 @@ def capture_chat_record(record, application):
         "estimated_cost": record.const,
         "feedback": {"vote": record.vote_status, "reason": record.vote_reason},
         "human_handoff": None,
-        "intent_category": intent_categories[-1] if intent_categories else None,
+        "intent_category": intent_category,
+        "capabilities": {**capabilities, "memory_used": memory_used,
+                          "business_branch_configured": configured_business_branch,
+                          "business_tool_call_present": bool(tool_call_count) if configured_business_branch else None},
         "tool_call_count": tool_call_count,
         "confirmation_required": confirmation_requested if confirmation_requested else None,
         "confirmation_confirmed": confirmation_confirmed if confirmation_requested else None,

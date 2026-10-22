@@ -19,6 +19,24 @@ from rag_eval.report import aggregate, compare, groups
 from .models import Run
 
 
+def _workflow_capabilities(version):
+    workflow = version.work_flow if isinstance(version.work_flow, dict) else {}
+    memory_enabled = bool(version.long_term_enable)
+    skill_ids = set(str(item) for item in (version.skill_tool_ids or []))
+    branches = set()
+    for node in workflow.get("nodes", []) or []:
+        data = (node.get("properties") or {}).get("node_data") or {}
+        if node.get("type") == "base-node":
+            memory_enabled = bool(data.get("long_term_enable", memory_enabled))
+        skill_ids.update(str(item) for item in (data.get("skill_tool_ids") or []))
+        for branch in data.get("branch") or []:
+            branch_id = str(branch.get("id") or "")
+            if branch_id in {"order", "after_sales", "inventory", "human"}:
+                branches.add(branch_id)
+    return {"memory_enabled": memory_enabled, "skill_ids": sorted(skill_ids),
+            "skill_bound": bool(skill_ids), "business_branches": sorted(branches)}
+
+
 def snapshot(version, judge_id=None, embedding_id=None, dimensions=None):
     return {
         "application_version": str(version.id), "llm_model": str(version.model_id) if version.model_id else None,
@@ -29,6 +47,7 @@ def snapshot(version, judge_id=None, embedding_id=None, dimensions=None):
         "rag_config_version": str(version.id), "dimensions": dimensions or {},
         "weights": {"context_precision": 1, "context_recall": 1, "hit_rate": 1, "mrr": 1},
         "evaluator_version": "rule-v1",
+        "capabilities": _workflow_capabilities(version),
     }
 
 
