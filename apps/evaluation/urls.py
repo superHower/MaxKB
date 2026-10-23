@@ -2,11 +2,13 @@
 from django.urls import path
 from .views import Datasets, DatasetDetail, Runs, RunDetail, RunReplay
 from .candidate_views import Candidates, CandidateDetail, CandidateAction, CandidateOptions
+from .release_views import Releases
 from .quality_views import (Events, OnlineMetrics, Experiments, ExperimentAction, ExperimentAssignment,
                             Samples, SampleDetail, Annotation, SampleExport, RuleEvaluate, Badcases, BadcaseDetail)
 
 prefix = "workspace/<str:workspace_id>/application/<str:application_id>/evaluation/"
 urlpatterns = [
+    path(prefix + "releases", Releases.as_view()),
     path(prefix + "candidates", Candidates.as_view()),
     path(prefix + "candidates/options", CandidateOptions.as_view()),
     path(prefix + "candidates/<uuid:candidate_id>", CandidateDetail.as_view()),

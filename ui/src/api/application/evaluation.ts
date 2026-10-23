@@ -86,3 +86,8 @@ export const saveImprovementCandidate = (id: string, data: any, candidateId?: st
   : post(`${prefix(id)}/candidates`, data)
 export const actionImprovementCandidate = (id: string, candidateId: string, data: any) =>
   post(`${prefix(id)}/candidates/${candidateId}/action`, data)
+
+export const getEvaluationReleases = (id: string, loading?: Ref<boolean>) =>
+  get(`${prefix(id)}/releases`, {}, loading)
+export const actionEvaluationRelease = (id: string, data: any, loading?: Ref<boolean>) =>
+  post(`${prefix(id)}/releases`, data, undefined, loading)

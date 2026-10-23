@@ -173,3 +173,41 @@ class CapabilityVersion(models.Model):
     manifest = models.JSONField(default=dict, encoder=SystemEncoder)
     approved_by = models.UUIDField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ProductionPointer(models.Model):
+    application = models.OneToOneField('application.Application', on_delete=models.CASCADE, primary_key=True)
+    current = models.ForeignKey('application.ApplicationVersion', on_delete=models.SET_NULL, related_name='+', null=True)
+    previous = models.ForeignKey('application.ApplicationVersion', on_delete=models.SET_NULL, related_name='+', null=True)
+    rollout = models.ForeignKey('ReleaseDeployment', on_delete=models.SET_NULL, null=True, related_name='+')
+    frozen = models.BooleanField(default=False)
+    revision = models.PositiveIntegerField(default=1)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class ReleaseDeployment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    application = models.ForeignKey('application.Application', on_delete=models.CASCADE)
+    capability = models.ForeignKey(CapabilityVersion, on_delete=models.PROTECT, null=True, related_name='deployments')
+    version = models.OneToOneField('application.ApplicationVersion', on_delete=models.CASCADE)
+    previous = models.ForeignKey('application.ApplicationVersion', on_delete=models.SET_NULL, null=True, related_name='+')
+    status = models.CharField(max_length=24, default='prepared')
+    percentage = models.PositiveIntegerField(default=0)
+    subject_type = models.CharField(max_length=16, default='session')
+    manifest = models.JSONField(default=dict, encoder=SystemEncoder)
+    policy = models.JSONField(default=dict)
+    created_by = models.UUIDField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    started_at = models.DateTimeField(null=True)
+    ended_at = models.DateTimeField(null=True)
+
+
+class ReleaseAudit(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    application = models.ForeignKey('application.Application', on_delete=models.CASCADE)
+    deployment = models.ForeignKey(ReleaseDeployment, on_delete=models.SET_NULL, null=True)
+    action = models.CharField(max_length=32)
+    actor_id = models.UUIDField(null=True)
+    reason = models.TextField(default='')
+    data = models.JSONField(default=dict, encoder=SystemEncoder)
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -496,7 +496,10 @@ class ChatSerializers(serializers.Serializer):
         version_query = QuerySet(ApplicationVersion).filter(application_id=application.id)
         if self.data.get('application_version_id'):
             version_query = version_query.filter(id=self.data.get('application_version_id'))
-        application_version = version_query.order_by('-create_time')[0:1].first()
+            application_version = version_query.first()
+        else:
+            from evaluation.releases import production_version
+            application_version = production_version(application.id)
         if application_version is None:
             raise ChatException(500, _("The application has not been published. Please use it after publishing."))
         if application.type == ApplicationTypeChoices.SIMPLE:
@@ -526,7 +529,9 @@ class ChatSerializers(serializers.Serializer):
                              self.data.get('ip_address'),
                              self.data.get('source'), knowledge_id_list,
                              exclude_document_id_list, application.id,
-                             application_version_id=str(application_version.id) if application_version else None)
+                             application_version_id=str(application_version.id) if application_version else None,
+                             production_routing=not self.data.get('debug') and
+                             (self.data.get('source') or {}).get('type') != 'evaluation')
         chat_record_list = list(QuerySet(ChatRecord).filter(chat_id=chat_id).order_by('-create_time')[0:5])
         chat_record_list.sort(key=lambda r: r.create_time)
         for chat_record in chat_record_list:
@@ -537,7 +542,9 @@ class ChatSerializers(serializers.Serializer):
         chat_info = ChatInfo(chat_id, chat.chat_user_id, str(chat.chat_user_type),
                              self.data.get('ip_address'),
                              self.data.get('source'), [], [],
-                             application.id, application_version_id=self.data.get('application_version_id'))
+                             application.id, application_version_id=self.data.get('application_version_id'),
+                             production_routing=not self.data.get('debug') and
+                             (self.data.get('source') or {}).get('type') != 'evaluation')
         chat_record_list = list(QuerySet(ChatRecord).filter(chat_id=chat_id).order_by('-create_time')[0:5])
         chat_record_list.sort(key=lambda r: r.create_time)
         for chat_record in chat_record_list:
@@ -574,7 +581,11 @@ class OpenChatSerializers(serializers.Serializer):
             version_query = QuerySet(ApplicationVersion).filter(application_id=application_id)
             if self.data.get('application_version_id'):
                 version_query = version_query.filter(id=self.data.get('application_version_id'))
-            application_version = version_query.order_by('-create_time')[0:1].first()
+            if not self.data.get('application_version_id'):
+                from evaluation.releases import production_version
+                application_version = production_version(application.id)
+            else:
+                application_version = version_query.first()
             if application_version is None:
                 raise AppApiException(500,
                                       _("The application has not been published. Please use it after publishing."))
@@ -595,7 +606,8 @@ class OpenChatSerializers(serializers.Serializer):
         chat_id = str(uuid.uuid7())
         ChatInfo(chat_id, chat_user_id, chat_user_type, ip_address, source, [],
                  [],
-                 application_id, debug, application_version_id=application_version_id).set_cache()
+                 application_id, debug, application_version_id=application_version_id,
+                 production_routing=not debug and (source or {}).get('type') != 'evaluation').set_cache()
         return chat_id
 
     def open_simple(self, application, application_version=None):
@@ -624,7 +636,8 @@ class OpenChatSerializers(serializers.Serializer):
                       is_active=False)],
                  application_id,
                  debug=debug,
-                 application_version_id=str(application_version.id) if application_version else None).set_cache()
+                 application_version_id=str(application_version.id) if application_version else None,
+                 production_routing=not debug and (source or {}).get('type') != 'evaluation').set_cache()
         return chat_id
 
 

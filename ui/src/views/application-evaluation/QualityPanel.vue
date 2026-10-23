@@ -80,6 +80,9 @@
   <el-tab-pane :label="tr('candidateCenter')" name="candidates" lazy>
     <CandidatePanel :application-id="props.applicationId" :runs="props.runs" />
   </el-tab-pane>
+  <el-tab-pane :label="tr('releaseTitle')" name="releases" lazy>
+    <ReleasePanel :application-id="props.applicationId" />
+  </el-tab-pane>
   </el-tabs>
   <TraceDrawer v-model="traceVisible" :application-id="props.applicationId" :sample-id="traceSampleId" />
   <el-dialog v-model="experimentVisible" :title="tr('newExperiment')" width="560px">
@@ -118,6 +121,7 @@ import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import TraceDrawer from './TraceDrawer.vue'
 import CandidatePanel from './CandidatePanel.vue'
+import ReleasePanel from './ReleasePanel.vue'
 import {
   getEvaluationMetrics, getEvaluationExperiments, createEvaluationExperiment, actionEvaluationExperiment,
   getEvaluationSamples, sampleEvaluationEvents, annotateEvaluationSample, evaluateEvaluationSample,

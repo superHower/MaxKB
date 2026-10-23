@@ -72,7 +72,8 @@ def capture_chat_record(record, application):
         if matched_version is not None:
             version, version_inferred = matched_version, False
     if version is None:
-        version = ApplicationVersion.objects.filter(application_id=application_id).order_by("-create_time").first()
+        from .releases import production_version
+        version = production_version(application_id)
     capabilities = _workflow_capabilities(version or application)
     memory_used = any(
         isinstance(field, dict) and field.get("key") == "memory" and bool(field.get("value"))
@@ -111,6 +112,10 @@ def capture_chat_record(record, application):
         "tool_call_accuracy": (record.source or {}).get("tool_call_accuracy") if isinstance(record.source, dict) else None,
         "experiment_id": (record.source or {}).get("experiment_id") if isinstance(record.source, dict) else None,
         "experiment_variant": (record.source or {}).get("experiment_variant") if isinstance(record.source, dict) else None,
+        "release_id": (record.source or {}).get("release_id") if isinstance(record.source, dict) else None,
+        "execution_error": (record.source or {}).get("execution_error") if isinstance(record.source, dict) else None,
+        "quality_score": (record.source or {}).get("quality_score") if isinstance(record.source, dict) else None,
+        "safety_incident": (record.source or {}).get("safety_incident") if isinstance(record.source, dict) else None,
         "evaluable": bool(contexts),
     }
     EvaluationEvent.objects.update_or_create(
@@ -118,3 +123,11 @@ def capture_chat_record(record, application):
         defaults={"workspace_id": application.workspace_id, "application_id": application_id,
                   "chat_id": record.chat_id, "data": data},
     )
+    release_id = data.get("release_id")
+    if release_id:
+        try:
+            from .releases import monitor
+            monitor(release_id)
+        except Exception:  # monitoring must never break chat persistence
+            import logging
+            logging.getLogger(__name__).exception("release monitoring failed")

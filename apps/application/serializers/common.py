@@ -118,6 +118,7 @@ class ChatInfo:
         application_id: str,
         debug=False,
         application_version_id=None,
+        production_routing=False,
     ):
         """
         :param chat_id:                     对话id
@@ -143,6 +144,8 @@ class ChatInfo:
         self.source = source
         self.debug = debug
         self.application_version_id = application_version_id
+        self.production_routing = production_routing
+        self._route_selected = False
 
     @staticmethod
     def get_no_references_setting(knowledge_setting, model_setting):
@@ -155,15 +158,23 @@ class ChatInfo:
         return no_references_setting
 
     def get_application(self):
+        if self._route_selected and self.application is not None:
+            return self.application
         if self.debug:
             application = QuerySet(Application).filter(id=self.application_id).first()
             if not application:
                 raise ChatException(500, _("The application does not exist"))
         else:
-            version_query = QuerySet(ApplicationVersion).filter(application_id=self.application_id)
-            if self.application_version_id:
-                version_query = version_query.filter(id=self.application_version_id)
-            application = version_query.order_by("-create_time")[0:1].first()
+            from evaluation.releases import production_version, resolve
+            if self.production_routing:
+                application, route = resolve(self.application_id, self.chat_id, self.chat_user_id)
+                self.application_version_id = str(application.id)
+                self.source = {**(self.source if isinstance(self.source, dict) else {}), **route}
+            elif self.application_version_id:
+                application = QuerySet(ApplicationVersion).filter(
+                    application_id=self.application_id, id=self.application_version_id).first()
+            else:
+                application = production_version(self.application_id)
             if not application:
                 raise ChatException(500, _("The application has not been published. Please use it after publishing."))
         if application.type == ApplicationTypeChoices.SIMPLE.value:
@@ -186,6 +197,7 @@ class ChatInfo:
             self.knowledge_id_list = knowledge_id_list
             self.exclude_document_id_list = exclude_document_id_list
         self.application = application
+        self._route_selected = True
         return application
 
     def get_chat_user(self, asker=None):
@@ -439,6 +451,7 @@ class ChatInfo:
             "application_version_id": str(self.application_version_id) if self.application_version_id else None,
             "chat_record_list": [self.chat_record_to_map(c) for c in self.chat_record_list][-20:],
             "debug": self.debug,
+            "production_routing": self.production_routing,
         }
 
     def chat_record_to_map(self, chat_record):
@@ -501,6 +514,7 @@ class ChatInfo:
             chat_info_dict.get("application_id"),
             debug=chat_info_dict.get("debug"),
             application_version_id=chat_info_dict.get("application_version_id"),
+            production_routing=chat_info_dict.get("production_routing", True),
         )
         c.chat_record_list = [ChatInfo.map_to_chat_record(c_r) for c_r in chat_info_dict.get("chat_record_list")]
         return c

@@ -1321,8 +1321,12 @@ class ApplicationOperateSerializer(serializers.Serializer):
         workspace_id = self.data.get("workspace_id")
         user = QuerySet(User).filter(id=user_id).first()
         application = (
-            QuerySet(Application).filter(id=self.data.get("application_id"), workspace_id=workspace_id).first()
+            QuerySet(Application).select_for_update().filter(id=self.data.get("application_id"), workspace_id=workspace_id).first()
         )
+        from evaluation.releases import pointer_for, audit
+        pointer = pointer_for(application.id)
+        if pointer.frozen:
+            raise AppApiException(500, _("Application publishing is frozen."))
         if application.type == ApplicationTypeChoices.WORK_FLOW:
             work_flow = application.work_flow
             if work_flow is None:
@@ -1358,6 +1362,12 @@ class ApplicationOperateSerializer(serializers.Serializer):
                 )
             ]
         work_flow_version.save()
+        from evaluation.models import ProductionPointer
+        pointer = ProductionPointer.objects.select_for_update().get(application_id=application.id)
+        pointer.previous, pointer.current, pointer.rollout = pointer.current, work_flow_version, None
+        pointer.revision += 1
+        pointer.save()
+        audit(pointer, "legacy_publish", user_id, "编辑器发布", data={"version_id": str(work_flow_version.id)})
         access_token = hashlib.md5(str(uuid.uuid7()).encode()).hexdigest()[8:24]
         application_access_token = QuerySet(ApplicationAccessToken).filter(application_id=application.id).first()
         if application_access_token is None:
@@ -1815,9 +1825,8 @@ class ApplicationOperateSerializer(serializers.Serializer):
         if debug:
             application = QuerySet(Application).filter(id=application_id).first()
         else:
-            application = (
-                QuerySet(ApplicationVersion).filter(application_id=application_id).order_by("-create_time").first()
-            )
+            from evaluation.releases import production_version
+            application = production_version(application_id)
         if application.stt_model_enable:
             config = get_base_node_model(application, 'STT')
             model = get_model_instance_by_model_workspace_id(
@@ -1834,9 +1843,8 @@ class ApplicationOperateSerializer(serializers.Serializer):
         if debug:
             application = QuerySet(Application).filter(id=application_id).first()
         else:
-            application = (
-                QuerySet(ApplicationVersion).filter(application_id=application_id).order_by("-create_time").first()
-            )
+            from evaluation.releases import production_version
+            application = production_version(application_id)
         if application.tts_model_enable:
             config = get_base_node_model(application, 'TTS')
             model = get_model_instance_by_model_workspace_id(

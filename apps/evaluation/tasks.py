@@ -205,8 +205,8 @@ def evaluate(run_id):
         cases = run.dataset.cases if snapshot_cases is None else snapshot_cases
         application_version_id = run.config.get("application_version")
         if not application_version_id:
-            application_version_id = str(ApplicationVersion.objects.filter(
-                application_id=application.id).order_by("-create_time").values_list("id", flat=True).first())
+            from .releases import production_version
+            application_version_id = str(production_version(application.id).id)
         for case in cases:
             started = time.perf_counter()
             answer, contexts, node_details, timestamp = _chat(application, case["question"], run.user_id, application_version_id)

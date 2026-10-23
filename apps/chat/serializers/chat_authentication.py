@@ -121,8 +121,8 @@ class ApplicationProfileSerializer(serializers.Serializer):
         if application_access_token is None:
             raise AppUnauthorizedFailed(500, _("Illegal User"))
         application_setting_model = DatabaseModelManage.get_model('application_setting')
-        application_version = QuerySet(ApplicationVersion).filter(application_id=application.id).order_by(
-            '-create_time').first()
+        from evaluation.releases import production_version
+        application_version = production_version(application.id)
         if application_version is not None:
             self.reset_application(application, application_version)
         license_is_valid = cache.get(Cache_Version.SYSTEM.get_key(key='license_is_valid'),
