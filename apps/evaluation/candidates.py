@@ -288,9 +288,10 @@ def candidate_artifact(spec, kind):
 
 def invoke_answer(model, prompt, case, contexts, pricing):
     start = time.perf_counter()
+    options = {"extra_body": {"enable_thinking": False}} if "qwen" in str(getattr(model, "model_name", "")).lower() else {}
     response = model.invoke([SystemMessage(content=prompt), HumanMessage(content=json.dumps({
         "question": case["question"], "retrieved_context": contexts,
-        "instruction": "请直接回答当前问题。未提供的业务结果不得编造。"}, ensure_ascii=False))])
+        "instruction": "请直接回答当前问题。未提供的业务结果不得编造。"}, ensure_ascii=False))], **options)
     from .tasks import _content
     usage = getattr(response, "usage_metadata", None) or {}
     if not usage:

@@ -11,6 +11,7 @@ export default {
   deleteError: '删除失败',
   deleteSuccess: '删除成功',
   setting: '设置',
+  applicationConfig: '应用配置',
   settingSuccess: '设置成功',
   submit: '提交',
   submitSuccess: '提交成功',

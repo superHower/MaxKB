@@ -10,6 +10,7 @@ export default {
   delete: 'Delete',
   deleteSuccess: 'Successful',
   setting: 'Settings',
+  applicationConfig: 'Application Config',
   settingSuccess: 'Successful',
   submit: 'Submit',
   submitSuccess: 'Successful',

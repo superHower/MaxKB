@@ -1,5 +1,8 @@
 {
   "candidateCenter": "候选中心",
+  "metricDetails": "评分指标明细",
+  "runInformation": "本次运行信息与能力快照",
+  "caseNumber": "序号",
   "releaseTitle": "受控发布",
   "releaseHint": "查看生产指针、灰度流量、监控指标和审计记录。回滚只切换配置指针。",
   "releaseFrozen": "发布已冻结",

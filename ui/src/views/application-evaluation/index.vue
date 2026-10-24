@@ -1,5 +1,6 @@
 <template>
   <div class="evaluation-page p-16">
+    <template v-if="mode === 'evaluation'">
     <section class="page-hero">
       <div>
         <div class="eyebrow">{{ tr('evaluationLabel') }}</div>
@@ -173,7 +174,7 @@
         ></template
       >
     </el-dialog>
-    <el-drawer v-model="datasetDetailVisible" size="72%" :title="tr('datasetDetail')" class="dataset-drawer">
+    <el-drawer v-model="datasetDetailVisible" size="72%" :title="tr('datasetDetail')" class="evaluation-drawer dataset-drawer">
       <div v-loading="datasetDetailLoading" class="dataset-detail">
         <div class="detail-heading">
           <div><div class="eyebrow">{{ tr('datasetPreview') }}</div><h3>{{ datasetDetail.name || '—' }}</h3><p>{{ tr('datasetDetailHint') }}</p></div>
@@ -194,11 +195,12 @@
         </el-table>
       </div>
     </el-drawer>
-    <el-drawer v-model="detailVisible" size="85%" :title="tr('detail')" class="run-drawer">
-      <div v-loading="detailLoading">
+    <el-drawer v-model="detailVisible" size="min(1280px, 100vw)" :title="tr('detail')" class="evaluation-drawer run-drawer">
+      <div v-loading="detailLoading" class="run-result">
+        <div class="run-overview">
         <div class="detail-heading run-heading">
-          <div><div class="eyebrow">{{ tr('results') }}</div><h3>{{ detail.dataset_name || '—' }}</h3><p>{{ date(detail.created_at) }} · {{ detail.dataset_version?.slice(0, 8) || '—' }}</p></div>
-          <el-tag :type="statusType(detail.status)" size="large">{{ status(detail.status) }}</el-tag>
+          <div><h3>{{ detail.dataset_name || '—' }}</h3><p>{{ tr('date') }} · {{ date(detail.created_at) }}</p></div>
+          <div class="run-heading-meta"><el-tag :type="statusType(detail.status)" effect="light">{{ status(detail.status) }}</el-tag><el-tag type="info" effect="plain">{{ tr('version') }} · {{ detail.dataset_version?.slice(0, 8) || '—' }}</el-tag></div>
         </div>
         <el-alert
           v-if="detail.error"
@@ -208,6 +210,47 @@
           class="mb-16"
         />
         <div class="run-progress"><div><span>{{ tr('progress') }}</span><strong>{{ detail.completed || 0 }} / {{ detail.total || 0 }} {{ tr('questions') }}</strong></div><el-progress :percentage="percentage(detail)" :stroke-width="8" /></div>
+        <div class="result-stat-grid"><div class="result-stat result-stat-primary"><span>{{ tr('score') }}</span><strong>{{ score(detail.summary?.total_score?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('avgResponseTime') }}</span><strong>{{ formatSeconds(detail.summary?.response_time?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('scoredCases') }}</span><strong>{{ detail.summary?.total_score?.count || 0 }} <small>/ {{ detail.completed || 0 }}</small></strong></div><div class="result-stat" :class="{ 'result-stat-error': failedCases > 0 }"><span>{{ tr('failedCases') }}</span><strong>{{ failedCases }}</strong></div></div>
+        <p class="run-score-hint"><el-icon><InfoFilled /></el-icon>{{ tr('scoreHint') }}</p>
+        <el-collapse v-if="metrics.length" class="run-metrics">
+          <el-collapse-item :title="tr('metricDetails')" name="metrics">
+            <div class="metric-strip"><div v-for="row in metrics" :key="row.name" class="metric-chip"><span>{{ row.label }}</span><strong>{{ row.name === 'response_time' ? formatSeconds(row.mean) : score(row.mean) }}</strong><small>{{ tr('scoredCases') }} · {{ row.count || 0 }} / {{ row.total || detail.completed || 0 }}</small></div></div>
+          </el-collapse-item>
+        </el-collapse>
+        </div>
+        <section class="run-answers">
+        <div class="table-toolbar results-toolbar"><div><strong>{{ tr('answers') }}</strong><el-tag type="info" effect="plain" round>{{ filteredResults.length }} / {{ detail.results?.length || 0 }}</el-tag></div><el-input v-model="search" clearable :placeholder="tr('search')" :prefix-icon="Search" class="toolbar-search" :aria-label="tr('search')" /></div>
+        <div class="results-filter-row"><el-radio-group v-model="resultFilter" size="small" :aria-label="tr('status')"><el-radio-button value="all">{{ tr('all') }}</el-radio-button><el-radio-button value="low">{{ tr('lowScore') }}</el-radio-button><el-radio-button value="unscored">{{ tr('unscored') }}</el-radio-button><el-radio-button value="error">{{ tr('hasError') }}</el-radio-button></el-radio-group><span class="table-hint">{{ tr('expandHint') }}</span></div>
+        <el-table :data="filteredResults" :empty-text="tr('waiting')" row-key="id" class="run-results-table">
+          <el-table-column type="expand" width="44">
+            <template #default="{ row }">
+              <div class="result-expanded">
+                <div class="result-question"><span>{{ tr('question') }}</span><p>{{ row.question }}</p></div>
+                <div class="answer-comparison">
+                  <section class="answer-panel"><h4>{{ tr('answer') }}</h4><p class="answer-text">{{ row.answer || '—' }}</p></section>
+                  <section class="answer-panel reference-panel"><h4>{{ tr('reference') }}</h4><p class="answer-text">{{ row.ground_truth || '—' }}</p></section>
+                </div>
+                <div v-if="Object.keys(row.scores || {}).length" class="result-scores"><el-tag v-for="(value, name) in row.scores" :key="name" type="info" effect="plain">{{ metricName(String(name)) }} <strong>{{ score(value) }}</strong></el-tag></div>
+                <el-alert v-if="row.error || Object.keys(row.metric_errors || {}).length" :title="row.error || JSON.stringify(row.metric_errors)" type="error" :closable="false" />
+                <el-collapse v-if="row.contexts?.length || Object.keys(row.node_details || {}).length" class="result-evidence">
+                  <el-collapse-item v-if="row.contexts?.length" name="retrieval">
+                    <template #title><span>{{ tr('retrievedEvidence') }}</span><el-tag size="small" type="info" effect="plain" round>{{ row.contexts.length }}</el-tag></template>
+                    <article v-for="(context, index) in row.contexts" :key="index" class="evidence-item"><div class="evidence-item-heading"><el-tag size="small" type="info" effect="plain">{{ index + 1 }}</el-tag><strong>{{ context.document_name || context.title || context.id || '—' }}</strong></div><p>{{ context.content || context.title || context.id || '—' }}</p></article>
+                  </el-collapse-item>
+                  <el-collapse-item v-if="Object.keys(row.node_details || {}).length" :title="tr('nodeEvidence')" name="nodes"><pre class="eval-code">{{ JSON.stringify(row.node_details, null, 2) }}</pre></el-collapse-item>
+                </el-collapse>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column type="index" :label="tr('caseNumber')" width="68" />
+          <el-table-column prop="question" :label="tr('question')" min-width="260"><template #default="{ row }"><div class="result-question-cell">{{ row.question }}</div></template></el-table-column>
+          <el-table-column :label="tr('status')" width="112"><template #default="{ row }"><el-tag size="small" :type="row.error || Object.keys(row.metric_errors || {}).length ? 'danger' : row.total_score == null ? 'info' : 'success'">{{ row.error || Object.keys(row.metric_errors || {}).length ? tr('hasError') : row.total_score == null ? tr('unscored') : tr('scored') }}</el-tag></template></el-table-column>
+          <el-table-column :label="tr('score')" width="136" align="right"><template #default="{ row }"><span class="result-score" :class="{ 'is-low': row.total_score != null && Number(row.total_score) < 0.6 }">{{ score(row.total_score) }}</span></template></el-table-column>
+          <el-table-column :label="tr('responseTime')" width="124" align="right"><template #default="{ row }">{{ formatSeconds(row.response_time) }}</template></el-table-column>
+        </el-table>
+        </section>
+        <el-collapse class="run-technical">
+          <el-collapse-item :title="tr('runInformation')" name="snapshot">
         <div v-if="detail.config?.capabilities" class="capability-strip">
           <span class="capability-label">{{ tr('capabilitySnapshot') }}</span>
           <el-tag size="small" :type="detail.config.capabilities.memory_enabled ? 'success' : 'info'">{{ detail.config.capabilities.memory_enabled ? tr('memoryEnabled') : tr('memoryDisabled') }}</el-tag>
@@ -215,7 +258,7 @@
           <el-tag v-if="detail.config.capabilities.business_branches?.length" size="small" type="warning">{{ tr('businessBranchesConfigured') }}</el-tag>
           <el-text type="info">{{ tr('businessBranchHint') }}</el-text>
         </div>
-        <el-descriptions v-if="detail.config?.dataset_snapshot" :column="3" border class="snapshot-descriptions mb-16">
+        <el-descriptions v-if="detail.config?.dataset_snapshot" :column="1" border class="snapshot-descriptions">
           <el-descriptions-item :label="tr('datasetSnapshot')">{{ detail.config.dataset_snapshot.name }} · {{ detail.config.dataset_snapshot.version?.slice(0, 8) }}</el-descriptions-item>
           <el-descriptions-item :label="tr('applicationVersion')">{{ detail.config.application_version?.slice(0, 8) || '—' }}</el-descriptions-item>
           <el-descriptions-item :label="tr('resourceHash')">{{ detail.config.resource_snapshot?.workflow_sha256?.slice(0, 12) || '—' }}</el-descriptions-item>
@@ -228,69 +271,14 @@
           </el-descriptions-item>
           <el-descriptions-item :label="tr('resourceTools')"><span class="resource-ids">{{ detail.config.resource_snapshot?.tool_ids?.join(', ') || '—' }}</span></el-descriptions-item>
         </el-descriptions>
-        <div class="result-stat-grid"><div class="result-stat"><span>{{ tr('score') }}</span><strong>{{ score(detail.summary?.total_score?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('avgResponseTime') }}</span><strong>{{ formatSeconds(detail.summary?.response_time?.mean) }}</strong></div><div class="result-stat"><span>{{ tr('scoredCases') }}</span><strong>{{ detail.summary?.total_score?.count || 0 }} / {{ detail.completed || 0 }}</strong></div><div class="result-stat"><span>{{ tr('failedCases') }}</span><strong>{{ failedCases }}</strong></div></div>
-        <el-alert :title="tr('scoreHint')" type="info" :closable="false" class="mb-16" />
-        <div class="metric-strip"><div v-for="row in metrics" :key="row.name" class="metric-chip"><span>{{ row.label }}</span><strong>{{ row.name === 'response_time' ? formatSeconds(row.mean) : score(row.mean) }}</strong><small>{{ row.count || 0 }} / {{ row.total || detail.completed || 0 }}</small></div></div>
-        <div class="table-toolbar results-toolbar"><div><strong>{{ tr('answers') }}</strong><el-text type="info">{{ filteredResults.length }} / {{ detail.results?.length || 0 }}</el-text></div><div class="toolbar-controls"><el-radio-group v-model="resultFilter" size="small"><el-radio-button value="all">{{ tr('all') }}</el-radio-button><el-radio-button value="low">{{ tr('lowScore') }}</el-radio-button><el-radio-button value="unscored">{{ tr('unscored') }}</el-radio-button><el-radio-button value="error">{{ tr('hasError') }}</el-radio-button></el-radio-group><el-input v-model="search" clearable :placeholder="tr('search')" class="toolbar-search" /></div></div>
-        <el-table :data="filteredResults" :empty-text="tr('waiting')" row-key="id">
-          <el-table-column type="expand"
-            ><template #default="{ row }"
-              ><div class="answer-comparison">
-                <div>
-                  <strong>{{ tr('answer') }}</strong>
-                  <p class="answer-text">{{ row.answer || '—' }}</p>
-                </div>
-                <div>
-                  <strong>{{ tr('reference') }}</strong>
-                  <p class="answer-text">{{ row.ground_truth }}</p>
-                </div>
-              </div>
-              <div v-if="row.contexts?.length" class="evidence-block">
-                <strong>{{ tr('retrievedEvidence') }}</strong>
-                <div v-for="(context, index) in row.contexts" :key="index" class="evidence-item">
-                  <el-tag size="small" effect="plain">{{ index + 1 }}</el-tag>
-                  <span>{{ context.content || context.title || context.id || '—' }}</span>
-                </div>
-              </div>
-              <div v-if="row.node_details && Object.keys(row.node_details).length" class="evidence-block">
-                <strong>{{ tr('nodeEvidence') }}</strong>
-                <pre class="node-evidence">{{ JSON.stringify(row.node_details, null, 2) }}</pre>
-              </div>
-              <el-alert
-                v-if="row.error || Object.keys(row.metric_errors || {}).length"
-                :title="row.error || JSON.stringify(row.metric_errors)"
-                type="error"
-                :closable="false"
-              />
-              <div class="p-16">
-                <el-tag v-for="(value, name) in row.scores" :key="name" class="metric-tag"
-                  >{{ metricName(String(name)) }}: {{ score(value) }}</el-tag
-                >
-              </div></template
-            ></el-table-column
-          >
-          <el-table-column
-            prop="question"
-            :label="tr('question')"
-            min-width="250"
-          /><el-table-column :label="tr('status')" width="120"><template #default="{ row }"><el-tag size="small" :type="row.error || Object.keys(row.metric_errors || {}).length ? 'danger' : row.total_score == null ? 'info' : 'success'">{{ row.error || Object.keys(row.metric_errors || {}).length ? tr('hasError') : row.total_score == null ? tr('unscored') : tr('scored') }}</el-tag></template></el-table-column><el-table-column :label="tr('score')" width="120"
-            ><template #default="{ row }">{{ score(row.total_score) }}</template></el-table-column
-          ><el-table-column :label="tr('responseTime')" width="130"
-            ><template #default="{ row }">{{
-              row.response_time == null ? '—' : `${Number(row.response_time).toFixed(2)} s`
-            }}</template></el-table-column
-          >
-        </el-table>
-        <p class="table-hint">{{ tr('expandHint') }}</p>
-        <el-collapse
-          ><el-collapse-item :title="tr('technical')" name="technical">
-            <pre class="report">{{ JSON.stringify(detail, null, 2) }}</pre>
-          </el-collapse-item></el-collapse
-        >
+          </el-collapse-item>
+          <el-collapse-item :title="tr('technical')" name="technical"><pre class="eval-code">{{ JSON.stringify(detail, null, 2) }}</pre></el-collapse-item>
+        </el-collapse>
       </div>
     </el-drawer>
     </div>
-    <QualityPanel :application-id="id" :runs="runs" :history-loading="loading" :on-refresh="load" :on-view="showRun" :on-export="download" :on-replay="replayRun" :replay-busy="busy || submitting" />
+    </template>
+    <QualityPanel :application-id="id" :runs="runs" :history-loading="loading" :on-refresh="load" :on-view="showRun" :on-export="download" :on-replay="replayRun" :replay-busy="busy || submitting" :visible-tabs="visibleTabs" />
   </div>
 </template>
 <script setup lang="ts">
@@ -298,7 +286,9 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { ElMessage, ElMessageBox, type UploadUserFile } from 'element-plus'
-import { InfoFilled } from '@element-plus/icons-vue'
+import { InfoFilled, Search } from '@element-plus/icons-vue'
+import './evaluation-detail.scss'
+import './run-result.scss'
 import QualityPanel from './QualityPanel.vue'
 import modelApi from '@/api/model/model'
 import {
@@ -316,7 +306,10 @@ import {
 
 const { t, te } = useI18n()
 const tr = (key: string) => t(`views.applicationEvaluation.ux.${key}`)
-const id = String(useRoute().params.id)
+const route = useRoute()
+const id = String(route.params.id)
+const mode = computed(() => String(route.meta.evaluationMode || 'evaluation'))
+const visibleTabs = computed(() => mode.value === 'evaluation' ? ['history'] : mode.value === 'quality' ? ['quality', 'experiments', 'samples', 'badcases'] : mode.value === 'candidates' ? ['candidates'] : ['releases'])
 const datasets = ref<any[]>([])
 const runs = ref<any[]>([])
 const loading = ref(false)

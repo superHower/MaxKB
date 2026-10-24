@@ -1,6 +1,7 @@
 import ux from './evaluation-ux.json'
 export default {
   ux,
+  menus: { evaluation: 'Application Evaluation', quality: 'Quality Center', optimization: 'Optimization', release: 'Release Management' },
   title: 'Application Evaluation',
   subtitle: 'Regression-test the current published version with a QA dataset',
   importDataset: 'Import dataset',

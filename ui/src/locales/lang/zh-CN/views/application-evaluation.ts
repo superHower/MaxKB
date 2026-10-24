@@ -1,6 +1,7 @@
 import ux from './evaluation-ux.json'
 export default {
   ux,
+  menus: { evaluation: '应用测评', quality: '质量中心', optimization: '优化中心', release: '发布管理' },
   title: '应用评测',
   subtitle: '使用测试集回归检查当前发布版本的问答效果',
   importDataset: '导入测试集',

@@ -43,8 +43,8 @@
     <template #footer><el-button @click="editorVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="save">{{ tr('save') }}</el-button></template>
   </el-dialog>
 
-  <el-drawer v-model="detailVisible" :title="detail.title || tr('detail')" size="78%" destroy-on-close>
-    <div v-loading="detailLoading" v-if="detail.id">
+  <el-drawer v-model="detailVisible" :title="detail.title || tr('detail')" size="min(1120px, 100vw)" class="evaluation-drawer candidate-detail-drawer" destroy-on-close>
+    <div v-loading="detailLoading" v-if="detail.id" class="candidate-detail-content">
       <el-button v-if="detail.status === 'validating'" @click="reasonAction('cancel_validation')">{{ tr('cancel_validation') }}</el-button>
       <div class="panel-toolbar"><div><el-tag :type="statusType(detail.status)">{{ tr(detail.status) }}</el-tag><span class="ml-12">v{{ detail.revision }} · {{ tr(detail.kind) }}</span></div>
         <div><el-button v-if="editable" @click="openEditor(detail)">{{ tr('edit') }}</el-button><el-button v-if="editable" type="primary" :loading="saving" @click="act('validate')">{{ tr('validate') }}</el-button><el-button v-if="['pending_review', 'validation_failed'].includes(detail.status)" :disabled="!canApprove" type="success" @click="approvalVisible = true">{{ tr('approve') }}</el-button><el-button v-if="!['validating', 'approved', 'withdrawn'].includes(detail.status)" @click="reasonAction('reject')">{{ tr('reject') }}</el-button><el-button v-if="!['validating', 'withdrawn'].includes(detail.status)" @click="reasonAction('withdraw')">{{ tr('withdraw') }}</el-button></div>
@@ -64,7 +64,7 @@
       <h4>{{ tr('audit') }}</h4><el-timeline><el-timeline-item v-for="a in detail.audits" :key="a.created_at + a.action" :timestamp="new Date(a.created_at).toLocaleString()"><strong>{{ tr(a.action) }}</strong> · v{{ a.revision }} · {{ a.actor_id }}<p v-if="a.data?.reason">{{ a.data.reason }}</p><p v-if="a.data?.waivers">{{ a.data.waivers }}</p></el-timeline-item></el-timeline>
     </div>
   </el-drawer>
-  <el-dialog v-model="approvalVisible" :title="tr('approve')" width="600px" :close-on-click-modal="false">
+  <el-dialog v-model="approvalVisible" :title="tr('approve')" width="min(600px, 94vw)" class="evaluation-dialog" :close-on-click-modal="false">
     <el-form label-position="top"><el-form-item :label="tr('impact')" required><el-input v-model="approval.impact_scope" type="textarea" maxlength="4000" /></el-form-item><el-form-item :label="tr('rollback')" required><el-select v-model="approval.rollback_version_id"><el-option v-for="v in versions" :key="v.id" :value="v.id" :label="v.name" /></el-select></el-form-item><el-form-item v-for="c in waivableChecks" :key="c.key" :label="`${gateLabel(c.key)} · ${tr('waiverReason')}`" required><el-input v-model="approval.waivers[c.key]" type="textarea" maxlength="4000" /></el-form-item></el-form>
     <template #footer><el-button @click="approvalVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="approve">{{ tr('confirmApprove') }}</el-button></template>
   </el-dialog>
@@ -80,6 +80,7 @@ import { getImprovementCandidates, getImprovementCandidate, getCandidateOptions,
 import ModelApi from '@/api/model/model'
 import TraceDrawer from './TraceDrawer.vue'
 import messages from './candidate-messages'
+import './evaluation-detail.scss'
 
 const props = defineProps<{ applicationId: string; runs: any[] }>()
 const { locale } = useI18n()
@@ -132,6 +133,13 @@ onUnmounted(() => { disposed = true; if (timer) window.clearTimeout(timer) })
 
 <style scoped>
 .candidate-panel { margin-top: 20px; border-radius: 8px; }
+.candidate-detail-content { max-width: 1120px; margin: 0 auto; }
+.candidate-detail-content > .panel-toolbar { padding: 16px; margin-bottom: 16px; background: var(--el-bg-color); border: 1px solid var(--el-border-color-lighter); border-radius: 8px; }
+.candidate-detail-content > h4 { padding-top: 18px; margin: 24px 0 12px; border-top: 1px solid var(--el-border-color-lighter); color: var(--el-text-color-primary); font-size: 14px; }
+.candidate-detail-content > h4:first-of-type { border-top: 0; }
+.candidate-detail-content > .el-descriptions { margin-bottom: 18px; }
+.candidate-detail-content > .el-table { margin: 12px 0 20px; }
+.candidate-detail-content > .diff, .candidate-detail-content > .release-info { margin: 12px 0 20px; }
 .panel-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .panel-toolbar p, .secondary { color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.6; }
 .panel-toolbar p { margin: 6px 0 0; }

@@ -1,5 +1,8 @@
 {
   "candidateCenter": "Candidate center",
+  "metricDetails": "Scoring metrics",
+  "runInformation": "Run information and capability snapshot",
+  "caseNumber": "No.",
   "releaseTitle": "Controlled releases",
   "releaseHint": "Review the production pointer, rollout traffic, monitoring and audit trail. Rollback changes configuration only.",
   "releaseFrozen": "Releases are frozen",

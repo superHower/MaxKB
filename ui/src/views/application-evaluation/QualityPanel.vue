@@ -1,6 +1,6 @@
 <template>
-  <el-tabs v-model="activeTab" class="quality-tabs" stretch>
-  <el-tab-pane :label="tr('history')" name="history">
+  <el-tabs v-model="activeTab" class="quality-tabs" :class="{ 'single-tab': props.visibleTabs?.length === 1 }" stretch>
+  <el-tab-pane v-if="showTab('history')" :label="tr('history')" name="history">
   <el-card class="quality-card history-card">
     <template #header><div class="panel-heading"><div><strong>{{ tr('history') }}</strong><el-text type="info">{{ tr('historyHint') }}</el-text></div><el-button :loading="props.historyLoading" @click="props.onRefresh?.()">{{ tr('refresh') }}</el-button></div></template>
     <el-table :data="props.runs" :empty-text="tr('noRuns')" v-loading="props.historyLoading" class="run-table">
@@ -13,7 +13,7 @@
     </el-table>
   </el-card>
   </el-tab-pane>
-  <el-tab-pane :label="tr('onlineQuality')" name="quality">
+  <el-tab-pane v-if="showTab('quality')" :label="tr('onlineQuality')" name="quality">
   <el-card class="quality-card">
     <template #header><div class="panel-heading"><div><strong>{{ tr('onlineQuality') }}</strong><el-text type="info">{{ tr('onlineQualityHint') }}</el-text></div><el-button :loading="loading" @click="load">{{ tr('refresh') }}</el-button></div></template>
     <div v-loading="loading" class="metric-grid">
@@ -24,7 +24,7 @@
     </div>
   </el-card>
   </el-tab-pane>
-  <el-tab-pane :label="tr('experiments')" name="experiments">
+  <el-tab-pane v-if="showTab('experiments')" :label="tr('experiments')" name="experiments">
   <el-card class="quality-card">
     <template #header><div class="panel-heading"><div><strong>{{ tr('experiments') }}</strong><el-text type="info">{{ tr('experimentsHint') }}</el-text></div><el-button @click="openExperiment">{{ tr('newExperiment') }}</el-button></div></template>
     <el-alert :title="tr('experimentHint')" type="info" :closable="false" class="mb-16" />
@@ -37,7 +37,7 @@
     </el-table>
   </el-card>
   </el-tab-pane>
-  <el-tab-pane :label="tr('samples')" name="samples">
+  <el-tab-pane v-if="showTab('samples')" :label="tr('samples')" name="samples">
   <el-card class="quality-card">
     <template #header><div class="panel-heading"><div><strong>{{ tr('samples') }}</strong><el-text type="info">{{ tr('samplesHint') }}</el-text></div><el-button :loading="saving" @click="sampleEvents">{{ tr('sample') }}</el-button></div></template>
     <el-text type="info">{{ tr('sampleHint') }}</el-text>
@@ -63,7 +63,7 @@
     </el-table>
   </el-card>
   </el-tab-pane>
-  <el-tab-pane :label="tr('badcases')" name="badcases">
+  <el-tab-pane v-if="showTab('badcases')" :label="tr('badcases')" name="badcases">
   <el-card class="quality-card">
     <template #header><div class="panel-heading"><div><strong>{{ tr('badcases') }}</strong><el-text type="info">{{ tr('badcasesHint') }}</el-text></div><el-button :loading="saving" @click="generateBadcases">{{ tr('generate') }}</el-button></div></template>
     <el-table :data="badcases" v-loading="loading">
@@ -77,10 +77,10 @@
     </el-table>
   </el-card>
   </el-tab-pane>
-  <el-tab-pane :label="tr('candidateCenter')" name="candidates" lazy>
+  <el-tab-pane v-if="showTab('candidates')" :label="tr('candidateCenter')" name="candidates" lazy>
     <CandidatePanel :application-id="props.applicationId" :runs="props.runs" />
   </el-tab-pane>
-  <el-tab-pane :label="tr('releaseTitle')" name="releases" lazy>
+  <el-tab-pane v-if="showTab('releases')" :label="tr('releaseTitle')" name="releases" lazy>
     <ReleasePanel :application-id="props.applicationId" />
   </el-tab-pane>
   </el-tabs>
@@ -94,7 +94,7 @@
     </el-form>
     <template #footer><el-button @click="experimentVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="createExperiment">{{ tr('submit') }}</el-button></template>
   </el-dialog>
-  <el-dialog v-model="reviewVisible" :title="tr('review')" width="720px">
+  <el-dialog v-model="reviewVisible" :title="tr('review')" width="min(760px, 94vw)" class="evaluation-dialog review-dialog">
     <p><strong>{{ selectedSample?.event.question }}</strong></p><p class="answer-text">{{ selectedSample?.event.answer || '—' }}</p>
     <el-form label-position="top">
       <el-form-item v-for="field in reviewFields" :key="field" :label="tr(field)"><el-select v-model="annotation[field]"><el-option v-for="value in ['yes', 'no', 'unknown']" :key="value" :value="value" :label="label(value)" /></el-select></el-form-item>
@@ -109,19 +109,20 @@
     </el-form>
     <template #footer><el-button @click="reviewVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="saveReview">{{ tr('submit') }}</el-button></template>
   </el-dialog>
-  <el-dialog v-model="resolutionVisible" :title="tr('resolve')" width="560px">
+  <el-dialog v-model="resolutionVisible" :title="tr('resolve')" width="min(560px, 94vw)" class="evaluation-dialog">
     <el-input v-model="resolution" type="textarea" :rows="4" :maxlength="40960" :placeholder="tr('resolution')" />
     <template #footer><el-button @click="resolutionVisible = false">{{ tr('cancel') }}</el-button><el-button type="primary" :loading="saving" @click="resolveBadcase">{{ tr('submit') }}</el-button></template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ElMessage } from 'element-plus'
 import TraceDrawer from './TraceDrawer.vue'
 import CandidatePanel from './CandidatePanel.vue'
 import ReleasePanel from './ReleasePanel.vue'
+import './evaluation-detail.scss'
 import {
   getEvaluationMetrics, getEvaluationExperiments, createEvaluationExperiment, actionEvaluationExperiment,
   getEvaluationSamples, sampleEvaluationEvents, annotateEvaluationSample, evaluateEvaluationSample,
@@ -137,9 +138,11 @@ const props = defineProps<{
   onExport: (row: any) => void
   onReplay: (row: any) => void
   replayBusy: boolean
+  visibleTabs?: string[]
 }>()
 const { t, te } = useI18n()
 const activeTab = ref('history')
+const showTab = (tab: string) => (props.visibleTabs || ['history', 'quality', 'experiments', 'samples', 'badcases', 'candidates', 'releases']).includes(tab)
 const tr = (key: string) => t(`views.applicationEvaluation.ux.${key}`)
 const date = (value: string) => (value ? new Date(value).toLocaleString() : '—')
 const status = (value: string) => (value ? tr(value) : '—')
@@ -239,11 +242,19 @@ const openResolution = (row: any) => {
   resolutionVisible.value = true
 }
 const resolveBadcase = () => mutate(() => updateEvaluationBadcase(props.applicationId, selectedBadcase.value.id, { status: 'resolved', resolution: resolution.value }), () => { resolutionVisible.value = false })
-onMounted(load)
+onMounted(() => {
+  activeTab.value = props.visibleTabs?.[0] || 'history'
+  void load()
+})
+watch(() => props.visibleTabs, tabs => {
+  activeTab.value = tabs?.[0] || 'history'
+})
 </script>
 
 <style scoped>
 .quality-tabs { margin-top: 24px; }
+.quality-tabs.single-tab { margin-top: 0; }
+.quality-tabs.single-tab :deep(.el-tabs__header) { display: none; }
 .quality-tabs :deep(.el-tabs__item) { height: 44px; color: var(--el-text-color-secondary); font-weight: 500; }
 .quality-tabs :deep(.el-tabs__item.is-active) { color: var(--el-color-primary); font-weight: 650; }
 .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -259,7 +270,10 @@ onMounted(load)
 .metric-card :deep(.el-card__body) { padding: 16px; }
 .metric-card :deep(.el-statistic__head) { min-height: 34px; color: var(--el-text-color-secondary); font-size: 13px; line-height: 17px; }
 .metric-card :deep(.el-statistic__content) { color: var(--el-text-color-primary); font-size: 24px; font-weight: 600; }
-.sample-detail { padding: 16px; }
+.sample-detail { padding: 20px; background: var(--el-fill-color-lighter); }
+.sample-detail > p { padding: 14px 16px; margin: 0 0 10px; background: var(--el-bg-color); border: 1px solid var(--el-border-color-lighter); border-radius: 8px; line-height: 1.7; }
+.sample-detail > p strong { display: block; margin-bottom: 6px; color: var(--el-text-color-secondary); font-size: 12px; font-weight: 600; }
+.sample-detail > .el-table { margin: 16px 0; }
 .sample-capabilities { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .answer-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 .quality-tabs :deep(.el-table__row:hover > td) { background: var(--el-fill-color-light); }

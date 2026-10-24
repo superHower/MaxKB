@@ -4,23 +4,36 @@ import copy
 import json
 import uuid
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from django.http import Http404
-from django.test import TestCase
+from django.test import SimpleTestCase, TestCase
 from rest_framework.exceptions import ValidationError
 
 from application.models import Application, ApplicationFolder, ApplicationVersion
 from common.constants.permission_constants import RoleConstants
 from models_provider.models import Model
 from .candidate_views import Candidates, CandidateDetail, CandidateAction, scoped_candidate
-from .candidates import DEFAULT_GATES, digest, gate_report, validate_candidate
+from .candidates import DEFAULT_GATES, digest, gate_report, invoke_answer, validate_candidate
 from .models import CandidateValidation, CapabilityVersion, Dataset, ImprovementCandidate, Run
 
 
 def measured(score=1, safety=1, cost=1, latency=1):
     return {"answer": "verified", "score": score, "safety": safety, "cost": cost,
             "latency": latency, "tool_error": False}
+
+
+class CandidateAnswerTests(SimpleTestCase):
+    def test_qwen_disables_thinking_and_preserves_answer_usage(self):
+        for name, expected in (("Qwen3.7-flash", {"extra_body": {"enable_thinking": False}}), ("other", {})):
+            with self.subTest(model=name):
+                model = Mock(model_name=name)
+                model.invoke.return_value = SimpleNamespace(
+                    content="先断电，再请专业电工处理。", usage_metadata={"input_tokens": 10, "output_tokens": 5})
+                result = invoke_answer(model, "安全回答", {"question": "怎么接线？"}, [], {"input": 1, "output": 1})
+                self.assertEqual(model.invoke.call_args.kwargs, expected)
+                self.assertEqual(result["answer"], "先断电，再请专业电工处理。")
+                self.assertAlmostEqual(result["cost"], .000015)
 
 
 class CandidateLifecycleTests(TestCase):
