@@ -1,0 +1,82 @@
+[
+  {
+    "badcase_id": "80376a04-13d5-4b43-ae08-91c2dfe2c96f",
+    "question": "这款灯是无频闪的吗？",
+    "candidate_id": "a936981e-24ab-4c44-810f-a376b6eab330",
+    "title": "修正商品知识误入库存分支：频闪与瓦数面积",
+    "node": "意图分流",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "369b843a-d174-445a-9fd6-ab6b64081878",
+    "question": "120W灯大约适合多大面积？",
+    "candidate_id": "a936981e-24ab-4c44-810f-a376b6eab330",
+    "title": "修正商品知识误入库存分支：频闪与瓦数面积",
+    "node": "意图分流",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "708583c1-d5bd-4a82-844c-40268e4c0ffb",
+    "question": "这款灯是无频闪的吗？",
+    "candidate_id": "a936981e-24ab-4c44-810f-a376b6eab330",
+    "title": "修正商品知识误入库存分支：频闪与瓦数面积",
+    "node": "意图分流",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "d77b54f7-f1cd-45cb-9c35-a5a57840e802",
+    "question": "120W灯大约适合多大面积？",
+    "candidate_id": "a936981e-24ab-4c44-810f-a376b6eab330",
+    "title": "修正商品知识误入库存分支：频闪与瓦数面积",
+    "node": "意图分流",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "f56c8811-8cc1-412e-934d-a97859e1a369",
+    "question": "卧室面积12平方米，选多少瓦的灯合适？",
+    "candidate_id": "a936981e-24ab-4c44-810f-a376b6eab330",
+    "title": "修正商品知识误入库存分支：频闪与瓦数面积",
+    "node": "意图分流",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "0392c3c8-c913-4890-9bfe-acd8ae6f19f7",
+    "question": "灯罩破了可以补发吗？",
+    "candidate_id": "3020502e-d179-4c11-9074-09cd1b90f0fb",
+    "title": "完善破损灯罩补发的信息收集与处理边界",
+    "node": "售后信息收集",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "3f92f2f5-5b4b-4f0f-b0b2-a26df0292c5b",
+    "question": "灯罩破了可以补发吗？",
+    "candidate_id": "3020502e-d179-4c11-9074-09cd1b90f0fb",
+    "title": "完善破损灯罩补发的信息收集与处理边界",
+    "node": "售后信息收集",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "0d39a955-daa8-4742-aa89-86a6da4a5885",
+    "question": "灯罩破了可以补发吗？",
+    "candidate_id": "3020502e-d179-4c11-9074-09cd1b90f0fb",
+    "title": "完善破损灯罩补发的信息收集与处理边界",
+    "node": "售后信息收集",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "07a36586-077a-4b09-9f2b-d1a61aabac77",
+    "question": "可以把两个订单合并发货吗？",
+    "candidate_id": "e42c94c2-ea05-4912-8d9f-251aef70a689",
+    "title": "完善合并发货的双订单核实回复",
+    "node": "订单物流提示",
+    "status": "in_progress"
+  },
+  {
+    "badcase_id": "5aeeb54b-171c-42b2-a5b6-7aa0a344588a",
+    "question": "可以把两个订单合并发货吗？",
+    "candidate_id": "e42c94c2-ea05-4912-8d9f-251aef70a689",
+    "title": "完善合并发货的双订单核实回复",
+    "node": "订单物流提示",
+    "status": "in_progress"
+  }
+]

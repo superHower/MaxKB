@@ -17,7 +17,8 @@ from common.constants.permission_constants import PermissionConstants, RoleConst
 from common.result import result
 from models_provider.models import Model
 from rag_eval.dataset import load_cases, version
-from .models import Dataset, Run
+from .models import Dataset, Run, EvaluationSettings
+from .settings import DEFAULT_JUDGE_SETTINGS, judge_settings, retrieval_settings
 
 access = has_permissions(
     PermissionConstants.APPLICATION_EDIT.get_workspace_application_permission(),
@@ -112,7 +113,9 @@ class DatasetDetail(APIView):
         scope(workspace_id, application_id)
         item = get_object_or_404(Dataset, id=dataset_id, workspace_id=workspace_id,
                                  application_id=application_id)
-        return result.success(dataset_detail(item))
+        from .labels import label_check
+        published = ApplicationVersion.objects.filter(application_id=application_id).order_by("-create_time").first()
+        return result.success({**dataset_detail(item), "label_check": label_check(item.cases, published)})
 
     @access
     def put(self, request, workspace_id, application_id, dataset_id):
@@ -170,6 +173,8 @@ class Runs(APIView):
         dataset = get_object_or_404(Dataset, id=request.data.get("dataset_id"),
                                    workspace_id=workspace_id, application_id=application_id)
         judge_id = request.data.get("judge_model_id")
+        saved = EvaluationSettings.objects.filter(application_id=application_id, workspace_id=workspace_id).first()
+        judge_options = judge_settings(request.data.get("judge_settings", saved.judge if saved else {}))
         embedding_id = request.data.get("embedding_model_id")
         if judge_id:
             get_object_or_404(Model, id=judge_id, workspace_id=workspace_id, model_type="LLM", status="SUCCESS")
@@ -177,6 +182,15 @@ class Runs(APIView):
                              model_type="EMBEDDING", status="SUCCESS")
         elif embedding_id:
             raise ValidationError("请选择 Judge 模型")
+        from .tasks import DEFAULT_JUDGE_PROMPT, JUDGE_PROMPT_MAX_LENGTH
+        judge_prompt = request.data.get("judge_prompt") or None
+        if judge_prompt is not None:
+            if not isinstance(judge_prompt, str) or not judge_prompt.strip():
+                raise ValidationError("Judge 提示词不能为空")
+            if len(judge_prompt) > JUDGE_PROMPT_MAX_LENGTH:
+                raise ValidationError(f"Judge 提示词不能超过 {JUDGE_PROMPT_MAX_LENGTH} 字")
+            if not judge_id:
+                raise ValidationError("自定义 Judge 提示词需要 Judge 模型")
         rubrics = request.data.get("dimensions", {})
         if not isinstance(rubrics, dict) or len(rubrics) > 10 or any(
                 not isinstance(k, str) or not k or not isinstance(v, str) or not v.strip() or len(v) > 4000
@@ -220,9 +234,44 @@ class Runs(APIView):
                 "cases": copy.deepcopy(dataset.cases),
             }
             config.update({"regression": regression, "regression_threshold": regression_threshold})
+            if judge_id:
+                # Freeze the exact criteria used so every report shows how its Judge scores were produced.
+                config["judge_prompt"] = judge_prompt.strip() if judge_prompt else DEFAULT_JUDGE_PROMPT
+                config["judge_settings"] = judge_options
+            config["retrieval_settings"] = retrieval_settings(published)
             item = Run.objects.create(application_id=application.id, workspace_id=workspace_id,
                                       user_id=request.user.id, dataset=dataset, baseline=baseline, config=config)
         return submit_run(item)
+
+
+class Settings(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        saved = EvaluationSettings.objects.filter(application_id=application_id, workspace_id=workspace_id).first()
+        published = ApplicationVersion.objects.filter(application_id=application_id).order_by("-create_time").first()
+        return result.success({"judge": judge_settings(saved.judge if saved else {}),
+                               "defaults": DEFAULT_JUDGE_SETTINGS, "retrieval": retrieval_settings(published)})
+
+    @access
+    def put(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        settings = judge_settings(request.data.get("judge", {}))
+        EvaluationSettings.objects.update_or_create(application_id=application_id,
+                                                    defaults={"workspace_id": workspace_id, "judge": settings})
+        return result.success({"judge": settings})
+
+
+class JudgePrompt(APIView):
+    authentication_classes = [TokenAuth]
+
+    @access
+    def get(self, request, workspace_id, application_id):
+        scope(workspace_id, application_id)
+        from .tasks import DEFAULT_JUDGE_PROMPT, JUDGE_PROMPT_MAX_LENGTH
+        return result.success({"default": DEFAULT_JUDGE_PROMPT, "max_length": JUDGE_PROMPT_MAX_LENGTH})
 
 
 class RunReplay(APIView):

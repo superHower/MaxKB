@@ -3,6 +3,7 @@
 from application.models import ApplicationVersion
 from .models import EvaluationEvent
 from .evidence import node_evidence
+from .trace import build_trace
 
 
 def _workflow_capabilities(application):
@@ -87,6 +88,8 @@ def capture_chat_record(record, application):
         "question": record.problem_text, "answer": record.answer_text,
         "retrieval_candidates": candidates, "final_contexts": contexts,
         "node_details": node_evidence(details),
+        "trace": build_trace(node_evidence(details), getattr(version or application, "work_flow", None),
+                             {"chat_id": str(record.chat_id), "index": getattr(record, "index", None)}),
         "citation_ids": [], "citation_ids_available": False,
         "application_version": str(version.id) if version else None,
         "version_inferred": version_inferred,

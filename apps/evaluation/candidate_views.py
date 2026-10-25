@@ -15,7 +15,8 @@ from .badcases import CATEGORIES
 from .candidates import (audit, build_spec, candidate_artifact, candidate_data, digest, identifier,
                          model_fingerprint, text, validate_candidate)
 from .models import Badcase, CapabilityVersion, CandidateValidation, ImprovementCandidate, Run
-from .views import access, scope
+from .closure import apply_draft, start_verification
+from .views import access, scope, submit_run
 
 
 def scoped_candidate(workspace_id, application_id, candidate_id, lock=False):
@@ -29,7 +30,7 @@ def check_revision(item, data):
 
 
 def save_candidate(item, data, workspace_id, application_id, actor):
-    if item.status in {"validating", "approved", "withdrawn"}:
+    if item.status in {"validating", "verifying", "approved", "withdrawn"}:
         raise ValidationError("当前状态不能修改；请等待验证或创建新候选")
     baseline = get_object_or_404(Run, id=identifier(data.get("baseline_id"), "基线"), workspace_id=workspace_id,
                                  application_id=application_id)
@@ -105,13 +106,20 @@ class CandidateAction(APIView):
 
     @access
     def post(self, request, workspace_id, application_id, candidate_id):
-        validation_id = None
+        validation_id, verification_run = None, None
         with transaction.atomic():
-            get_object_or_404(Application.objects.select_for_update(), id=application_id, workspace_id=workspace_id)
+            application = get_object_or_404(Application.objects.select_for_update(), id=application_id,
+                                            workspace_id=workspace_id)
             item = scoped_candidate(workspace_id, application_id, candidate_id, True)
             check_revision(item, request.data)
             action = request.data.get("action")
-            if action == "validate":
+            if action == "apply":
+                apply_draft(item, application, request.user.id)
+            elif action == "verify":
+                verification_run = start_verification(item, request.user.id)
+            elif action == "validate":
+                if item.spec.get("draft_only"):
+                    raise ValidationError("当前候选为修改草稿，请到应用编排应用修改并发布后重新测评")
                 if item.status not in {"draft", "rejected", "validation_failed", "pending_review"}:
                     raise ValidationError("当前状态不能开始验证")
                 if CandidateValidation.objects.filter(candidate__application_id=application_id,
@@ -132,7 +140,7 @@ class CandidateAction(APIView):
                 item.status = "validation_failed"
                 audit(item, request.user.id, action, {"reason": reason})
             elif action in {"reject", "withdraw"}:
-                if item.status in {"validating", "withdrawn"} or (action == "reject" and item.status == "approved"):
+                if item.status in {"validating", "verifying", "withdrawn"} or (action == "reject" and item.status == "approved"):
                     raise ValidationError("当前状态不能执行该操作")
                 reason = text(request.data.get("reason"), "原因", 4000)
                 item.status = "rejected" if action == "reject" else "withdrawn"
@@ -183,7 +191,17 @@ class CandidateAction(APIView):
                                                           "validation_id": str(validation.id)})
             else:
                 raise ValidationError("未知候选操作")
-            item.save(update_fields=["status", "updated_at"])
+            item.save(update_fields=["status", "spec", "updated_at"] if action in {"apply", "verify"}
+                      else ["status", "updated_at"])
+        if verification_run is not None:
+            try:
+                submit_run(verification_run)
+            except ValidationError:
+                with transaction.atomic():
+                    ImprovementCandidate.objects.filter(id=item.id, status="verifying").update(status="applied")
+                    audit(item, request.user.id, "verification_submission_failed",
+                          {"run_id": str(verification_run.id)})
+                raise
         if validation_id:
             try:
                 validate_candidate.delay(validation_id)
@@ -205,8 +223,9 @@ class CandidateOptions(APIView):
         scope(workspace_id, application_id)
         versions = ApplicationVersion.objects.filter(application_id=application_id, workspace_id=workspace_id)
         return result.success({"versions": [{"id": str(v.id), "name": v.name or str(v.create_time),
-                                             "type": v.type, "targets": ([{"id": "", "name": "应用回答"}]
+                                             "type": v.type, "targets": ([{"id": "", "name": "应用回答", "type": "ai-chat-node", "data": {k: (v.model_setting or {}).get(k, "") for k in ("system", "prompt")}}]
                                              if v.type == "SIMPLE" else [
-                                                 {"id": n["id"], "name": (n.get("properties") or {}).get("node_name", n["id"])}
+                                                 {"id": n["id"], "name": (n.get("properties") or {}).get("stepName", n["id"]),
+                                                  "type": n.get("type"), "data": (n.get("properties") or {}).get("node_data") or {}}
                                                  for n in (v.work_flow or {}).get("nodes", [])
-                                                 if n.get("type") == "ai-chat-node"])} for v in versions.order_by("-create_time")[:100]]})
+                                                 if n.get("type") not in {"start-node", "base-node"}])} for v in versions.order_by("-create_time")[:100]]})

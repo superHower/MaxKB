@@ -14,7 +14,7 @@ from application.models import Application, ApplicationFolder, ApplicationVersio
 from common.constants.permission_constants import RoleConstants
 from models_provider.models import Model
 from .candidate_views import Candidates, CandidateDetail, CandidateAction, scoped_candidate
-from .candidates import DEFAULT_GATES, digest, gate_report, invoke_answer, validate_candidate
+from .candidates import DEFAULT_GATES, digest, gate_report, invoke_answer, validate_candidate, build_spec
 from .models import CandidateValidation, CapabilityVersion, Dataset, ImprovementCandidate, Run
 
 
@@ -66,6 +66,27 @@ class CandidateLifecycleTests(TestCase):
     def create(self):
         response = Candidates().post(self.request(self.payload), **self.kw)
         return ImprovementCandidate.objects.get(id=json.loads(response.content)["data"]["id"])
+
+    def test_edit_draft_needs_no_judge_pricing_or_gates_and_preserves_original(self):
+        payload = {k: v for k, v in self.payload.items() if k not in {"judge_model_id", "pricing", "gates"}}
+        payload["draft_only"] = True
+        spec = build_spec(payload, self.run, [])
+        self.assertTrue(spec["draft_only"])
+        self.assertEqual(spec["patch"]["before"], "old")
+        self.assertEqual(spec["patch"]["content"], "new")
+        self.assertNotIn("pricing", spec)
+        self.assertNotIn("gates", spec)
+
+    def test_workflow_draft_preserves_intent_node_configuration(self):
+        self.version.type = "WORK_FLOW"
+        self.version.work_flow = {"nodes": [{"id": "intent", "type": "intent-node", "properties": {
+            "stepName": "Intent", "node_data": {"branch": [{"id": "knowledge", "name": "Knowledge"}]}}}]}
+        self.version.save()
+        payload = {**self.payload, "draft_only": True, "kind": "workflow_patch", "patch": {
+            "node_id": "intent", "field": "node_data", "content": '{"branch": []}'}}
+        spec = build_spec(payload, self.run, [])
+        self.assertEqual(json.loads(spec["patch"]["before"])["branch"][0]["id"], "knowledge")
+        self.assertEqual(json.loads(spec["patch"]["content"]), {"branch": []})
 
     def action(self, item, action, **extra):
         return CandidateAction().post(self.request({"action": action, "revision": item.revision, **extra}),

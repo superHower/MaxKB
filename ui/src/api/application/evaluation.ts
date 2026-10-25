@@ -42,6 +42,11 @@ export const getEvaluationRun = (
   runId: string,
   loading?: Ref<boolean>,
 ): Promise<Result<any>> => get(`${prefix(id)}/runs/${runId}`, {}, loading)
+export const getEvaluationJudgePrompt = (id: string): Promise<Result<{ default: string; max_length: number }>> =>
+  get(`${prefix(id)}/runs/judge-prompt`)
+export const getEvaluationSettings = (id: string): Promise<Result<any>> => get(`${prefix(id)}/settings`)
+export const saveEvaluationSettings = (id: string, judge: any): Promise<Result<any>> =>
+  put(`${prefix(id)}/settings`, { judge })
 export const replayEvaluationRun = (id: string, runId: string, loading?: Ref<boolean>): Promise<Result<any>> =>
   post(`${prefix(id)}/runs/${runId}/replay`, {}, undefined, loading)
 export const downloadEvaluationReport = (id: string, runId: string, format: 'json' | 'md') =>

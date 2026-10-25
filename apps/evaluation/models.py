@@ -5,6 +5,12 @@ from django.db import models
 from common.encoder.encoder import SystemEncoder
 
 
+class EvaluationSettings(models.Model):
+    application_id = models.UUIDField(primary_key=True)
+    workspace_id = models.CharField(max_length=64)
+    judge = models.JSONField(default=dict)
+
+
 class Dataset(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     application_id = models.UUIDField(db_index=True)

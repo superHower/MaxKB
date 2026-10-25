@@ -25,7 +25,7 @@ from models_provider.tools import get_model_instance_by_model_workspace_id
 from ops import celery_app
 from .models import CandidateAudit, CandidateValidation, ImprovementCandidate
 
-KINDS = {"prompt_patch", "skill_version", "knowledge_task"}
+KINDS = {"prompt_patch", "skill_version", "knowledge_task", "workflow_patch"}
 DEFAULT_GATES = {"min_score": .8, "max_score_drop": .02, "max_category_drop": 0,
                  "min_safety": 1, "max_latency_ratio": 1.5, "max_cost_ratio": 1.2,
                  "max_tool_error_rate": 0}
@@ -99,6 +99,10 @@ def build_spec(data, baseline, sources):
     if not isinstance(patch, dict):
         raise ValidationError("变更内容必须为对象")
     field, node_id = patch.get("field", "system"), patch.get("node_id", "")
+    if data.get("draft_only") is True:
+        return build_edit_draft(data, baseline, version, sources)
+    if kind == "workflow_patch":
+        raise ValidationError("编排节点修改请先保存草稿，再到应用编排中应用并发布")
     before, model_id = prompt_target(version, node_id, field)
     after = text(patch.get("content"), "候选内容")
     if kind == "prompt_patch" and before == after:
@@ -188,6 +192,39 @@ def build_spec(data, baseline, sources):
                 "使用冻结检索证据，模型直接生成回答；不执行完整工作流、工具、脚本或长期记忆",
                 "Skill 仅验证指令正文；知识任务仅验证拟维护内容作为检索夹具时的回答",
                 "成本按填写的模型单价和返回 Token 估算；Judge 为辅助评价，不能证明业务执行成功"]}
+
+
+def build_edit_draft(data, baseline, version, sources):
+    """Reviewable node edits without validation gates or model pricing requirements."""
+    from .evidence import node_evidence
+    patch = data.get("patch") or {}
+    node_id, field = patch.get("node_id", ""), patch.get("field", "system")
+    if data["kind"] == "prompt_patch":
+        before, _ = prompt_target(version, node_id, field)
+    elif data["kind"] == "workflow_patch" and version.type != "SIMPLE":
+        node = next((n for n in (version.work_flow or {}).get("nodes", []) if n.get("id") == node_id), None)
+        if node is None or field != "node_data":
+            raise ValidationError("请选择基线中的编排节点")
+        before = json.dumps((node.get("properties") or {}).get("node_data") or {}, ensure_ascii=False, indent=2)
+    else:
+        raise ValidationError("当前草稿支持提示词或编排节点修改")
+    after = text(patch.get("content"), "候选内容")
+    if data["kind"] == "workflow_patch":
+        try:
+            if not isinstance(json.loads(after), dict):
+                raise ValueError()
+        except (ValueError, TypeError) as error:
+            raise ValidationError("节点配置必须为 JSON 对象") from error
+    if before == after:
+        raise ValidationError("候选内容与原配置相同，请修改后保存")
+    return {"draft_only": True, "baseline_id": str(baseline.id), "base_version_id": str(version.id),
+            "base_version": version_snapshot(version), "risk": text(data.get("risk"), "修改说明", 4000),
+            "patch": {"node_id": node_id, "field": field, "before": before, "content": after},
+            "sources": [{"id": str(b.id), "sample_id": str(b.sample_id), "reason": b.reason,
+                         "event": node_evidence(b.sample.source_event.data)} for b in sources],
+            "diff": "\n".join(difflib.unified_diff(before.splitlines(), after.splitlines(),
+                                                   fromfile="baseline", tofile="candidate", lineterm="")),
+            "limitations": ["当前仅保存修改草稿；请到应用编排中应用修改并发布后重新测评"]}
 
 
 def gate_report(rows, gates):

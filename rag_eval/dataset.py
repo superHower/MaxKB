@@ -22,7 +22,7 @@ def load_cases(path):
         with path.open(encoding="utf-8-sig", newline="") as source:
             rows = list(csv.DictReader(source))
         for row in rows:
-            for key in ("relevant_doc_ids", "knowledge_ids", "document_tags"):
+            for key in ("relevant_doc_ids", "knowledge_ids", "document_tags", "expected_tools", "history"):
                 if row.get(key):
                     row[key] = json.loads(row[key])
                 else:
@@ -49,6 +49,18 @@ def load_cases(path):
             if key in case and (not isinstance(case[key], list) or
                                 any(not isinstance(item, str) or not item for item in case[key])):
                 raise ValueError(f"Case {index}: {key} must be an array of nonempty strings")
+        # Trajectory assertions: expected_tools (ordered, [] means no tool call) and expected_branch.
+        if "expected_tools" in case and (not isinstance(case["expected_tools"], list) or any(
+                not isinstance(item, str) or not item.strip() for item in case["expected_tools"])):
+            raise ValueError(f"Case {index}: expected_tools must be an array of tool names or IDs")
+        if not case.get("expected_branch"):
+            case.pop("expected_branch", None)
+        elif not isinstance(case["expected_branch"], str):
+            raise ValueError(f"Case {index}: expected_branch must be text")
+        # Multi-turn: prior user messages sent in the same chat before the scored question.
+        if "history" in case and (not isinstance(case["history"], list) or len(case["history"]) > 20 or any(
+                not isinstance(item, str) or not item.strip() for item in case["history"])):
+            raise ValueError(f"Case {index}: history must be at most 20 nonempty messages")
         if case.get("category") and case["category"] not in CATEGORIES:
             raise ValueError(f"Case {index}: invalid category")
         cases.append(case)

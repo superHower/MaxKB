@@ -226,34 +226,6 @@ const ApplicationDetailRouter = {
       component: () => import('@/views/application-evaluation/index.vue'),
     },
     {
-      path: 'optimization',
-      name: 'ApplicationOptimization',
-      meta: {
-        icon: 'app-setting',
-        title: 'views.applicationEvaluation.menus.optimization',
-        active: 'optimization',
-        evaluationMode: 'candidates',
-        parentPath: '/application/:from/:id/:type',
-        parentName: 'ApplicationDetail',
-        permission: [() => RoleConst.ADMIN, () => RoleConst.WORKSPACE_MANAGE.getWorkspaceRole(), () => PermissionConst.APPLICATION_EDIT.getWorkspacePermissionWorkspaceManageRole()],
-      },
-      component: () => import('@/views/application-evaluation/index.vue'),
-    },
-    {
-      path: 'release-management',
-      name: 'ApplicationReleaseManagement',
-      meta: {
-        icon: 'app-access',
-        title: 'views.applicationEvaluation.menus.release',
-        active: 'release-management',
-        evaluationMode: 'release',
-        parentPath: '/application/:from/:id/:type',
-        parentName: 'ApplicationDetail',
-        permission: [() => RoleConst.ADMIN, () => RoleConst.WORKSPACE_MANAGE.getWorkspaceRole(), () => PermissionConst.APPLICATION_EDIT.getWorkspacePermissionWorkspaceManageRole()],
-      },
-      component: () => import('@/views/application-evaluation/index.vue'),
-    },
-    {
       path: 'chat-log',
       name: 'ChatLog',
       meta: {
